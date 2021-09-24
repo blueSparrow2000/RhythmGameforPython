@@ -35,10 +35,37 @@ This is a game made with pygame.
 
 
 ## Copyrights for musics
-In this project, there are some youtube liscence-free musics. 
+Every music in the project is licensed as CREATIVE COMMONS license. 
 
 
-If you want to copy or distribute them you should ask for permission to the authors.
+Hence I added descriptions at the score viewer and here.
+
+
+The musics's copyrights are as follows:
+
+
+Another way
+Another Way by Psykick (c) copyright 2016 Licensed under a Creative Commons Attribution (3.0) license. 
+
+
+Crystal
+http://dig.ccmixter.org/files/Psykick/52938
+- Elektronomia 
+http://hyperurl.co/Elektronomia_Spotify 
+http://youtube.com/Elektronomia 
+http://soundcloud.com/elektronomia 
+http://facebook.com/Elektronomia
+
+- FMD
+https://www.youtube.com/channel/UC_l59BueBNMqXCNZpte_jlA
+
+
+Drops of H2O 
+Drops of H2O ( The Filtered Water Treatment ) by J.Lang (c) copyright 2012 Licensed under a Creative Commons Attribution (3.0) license. http://dig.ccmixter.org/files/djlang59/37792 Ft: Airtone
+
+
+Waikaki
+https://soundcloud.com/scandinavianz/scandinavianz-waikiki-free-download?in=royaltyfreemusic-nocopyrightmusic/sets/creative-commons-music-1
 
 
 ## License
