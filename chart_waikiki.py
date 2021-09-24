@@ -25,7 +25,7 @@ class Chart_Waikiki():
         cycle = 4
         song_mpb = ((1000 * 60 / song_bpm) / cycle)  # 215  # milli-seconds per beat
         song_difficulty = 1
-        delete_unnessesary_node = 8
+        delete_unnessesary_node = 34
         number_of_nodes = int((song_length / 1000) * (song_bpm / 60)) - 4 -delete_unnessesary_node
         ####################################
 
