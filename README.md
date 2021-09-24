@@ -44,11 +44,15 @@ Hence I added descriptions at the score viewer and here.
 The musics's copyrights are as follows:
 
 
-Another way
+#### Another way
+
+
 Another Way by Psykick (c) copyright 2016 Licensed under a Creative Commons Attribution (3.0) license. 
 
 
-Crystal
+### Crystal
+
+
 http://dig.ccmixter.org/files/Psykick/52938
 - Elektronomia 
 http://hyperurl.co/Elektronomia_Spotify 
@@ -60,11 +64,15 @@ http://facebook.com/Elektronomia
 https://www.youtube.com/channel/UC_l59BueBNMqXCNZpte_jlA
 
 
-Drops of H2O 
+#### Drops of H2O 
+
+
 Drops of H2O ( The Filtered Water Treatment ) by J.Lang (c) copyright 2012 Licensed under a Creative Commons Attribution (3.0) license. http://dig.ccmixter.org/files/djlang59/37792 Ft: Airtone
 
 
-Waikaki
+#### Waikaki
+
+
 https://soundcloud.com/scandinavianz/scandinavianz-waikiki-free-download?in=royaltyfreemusic-nocopyrightmusic/sets/creative-commons-music-1
 
 
