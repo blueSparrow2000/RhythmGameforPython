@@ -38,6 +38,13 @@ This is a game made with pygame.
 
 
 
+## Test video
+Youtube link:
+
+
+https://youtu.be/PANy0exBOq4
+
+
 ## Flow chart
 ![interface](../main/run_images/flow_chart.png)
 
