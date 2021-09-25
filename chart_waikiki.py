@@ -46,5 +46,6 @@ class Chart_Waikiki():
                     f.write(pattern)
                     switch = not switch
                 beats += 1
+
             ##################################
 
