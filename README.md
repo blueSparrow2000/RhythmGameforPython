@@ -34,11 +34,11 @@ This is a game made with pygame.
 
 
 ## Sample run
-<img src="../master/run_images/main.png" width="250" height="604" align="left">
-<img src="../master/run_images/game.png" width="250" height="604" align="left">
-<img src="../master/run_images/score_view.png" width="250" height="604" align="left">
+<img src="../main/run_images/main.png" width="250" height="604" align="left">
+<img src="../main/run_images/game.png" width="250" height="604" align="left">
+<img src="../main/run_images/score_view.png" width="250" height="604" align="left">
 
-<img src="../master/run_images/score_view.png" width="1" height="1" align="right">
+<img src="../main/run_images/score_view.png" width="1" height="1" align="right">
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -54,7 +54,7 @@ https://youtu.be/PANy0exBOq4
 
 
 ## Flow chart
-![interface](../master/run_images/flow_chart_new.png)
+![interface](../main/run_images/flow_chart_new.png)
 
 
 Versions
