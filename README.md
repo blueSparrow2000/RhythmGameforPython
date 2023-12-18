@@ -22,6 +22,9 @@ Future plan: Going to add machine learning for auto-generating song charts (song
 Develope period: 9/20/2021 ~ 9/24/2021 on holidays 
 
 
+12/16/2024 ~ 12/18/2024 on vacation
+
+
 ## How to Run
 
 
