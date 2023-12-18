@@ -29,7 +29,7 @@ This is a game made with pygame.
 
 
 1. Download \* & unzip file(if you used 'tag' for downloading) in your interpreter. (If you use pyCharm, then put the file in PycharmProjects folder)
-2. Go to interpreter setting and install pygame (version 2.0.1) in your interpreter (python version over 3.7)
+2. Go to interpreter setting and install pygame (version over 2.0.1; 2.5.2 works fine) in your interpreter (python version over 3.7)
 3. Go to interpreter -> open the project (RhythmGame) -> run main.py **
 
 
