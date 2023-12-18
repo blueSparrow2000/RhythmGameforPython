@@ -29,7 +29,7 @@ def get_ready(screen,clock,song_name,total_points):
     score = [0]
     pygame.mixer.music.stop()
 
-    seconds_to_count = 1#3
+    seconds_to_count = 3
     count = seconds_to_count
     start_time = pygame.time.get_ticks()
 
