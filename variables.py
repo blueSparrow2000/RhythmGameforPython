@@ -75,6 +75,8 @@ default_text_color = (0,220,220)
 dark_text_color = (default_text_color[0]//2+10, default_text_color[1]//2+50, default_text_color[2]//2+50)
 highlight_text_color = (200,230,255)
 red_highlight_text_color = (240, 180, 180)
+bar_color = (90,90,90)
+
 
 frame_alpha_max = 100
 frame_alpha = 0

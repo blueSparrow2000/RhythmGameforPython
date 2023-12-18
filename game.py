@@ -118,6 +118,7 @@ def calc_song_progress_percent(song_length,song_start_time,current_time):  # ret
 
 
 def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_line_shown):
+    global bar_color
     game_run = True
     score = [0]
     chart_info = get_chart(song_name)
@@ -137,7 +138,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
     verifier = Verifier(screen,score,stage_speed,judgement_shown,song_bpm)
 
 
-    bar_color = (90,90,90)
+
     bar_pos = (width // 2, info_length//4)
     song_progress = 0
 
@@ -235,9 +236,9 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
         # 4. song progress를 표시한다(진행상황)
         current_time = pygame.time.get_ticks()  # in milliseconds
         song_progress = calc_song_progress_percent(song_length, song_start_time, current_time)
-        draw_progress_bar(screen, song_progress, bar_color, bar_pos[0], bar_pos[1])
+        draw_progress_bar(screen, song_progress, bar_pos[0], bar_pos[1])
 
-        write_text(screen, width//2, (info_length//2)//2, 'Song: %s'%(song_name), small_text, background_color[0], highlight_text_color)
+        write_text(screen, width//2, (info_length//2)//2, 'Song: %s'%(song_name), small_text, bar_color, highlight_text_color)
         write_text(screen, width // 2, (info_length // 2) // 2 + (info_length // 2), 'Score: %.2f' % score[0], small_text, background_color[0],
                    highlight_text_color)
 
@@ -256,12 +257,13 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
             break
 
 
-def draw_progress_bar(screen, song_progress, color,x,y):
+def draw_progress_bar(screen, song_progress, x,y):
+    global bar_color
     bar_width = width
     bar_height = info_length//2
 
     #draw_bar_frame(screen, x, y, bar_width, bar_height, color) # don't need frames here
-    draw_bar(screen,x,y,bar_width,bar_height, song_progress, color)
+    draw_bar(screen,x,y,bar_width,bar_height, song_progress, bar_color)
 
 
 def draw_frame(screen):
