@@ -29,16 +29,16 @@ This is a game made with pygame.
 
 
 1. Download \* & unzip file(if you used 'tag' for downloading) in your interpreter. (If you use pyCharm, then put the file in PycharmProjects folder)
-2. Go to interpreter setting and install pygame (version **over** 2.0.1) in your interpreter (python version over 3.7)
+2. Go to interpreter setting and install pygame (version 2.0.1) in your interpreter (python version over 3.7)
 3. Go to interpreter -> open the project (RhythmGame) -> run main.py **
 
 
 ## Sample run
-<img src="../main/run_images/main.png" width="250" height="604" align="left">
-<img src="../main/run_images/game.png" width="250" height="604" align="left">
-<img src="../main/run_images/score_view.png" width="250" height="604" align="left">
+<img src="../master/run_images/main.png" width="250" height="604" align="left">
+<img src="../master/run_images/game.png" width="250" height="604" align="left">
+<img src="../master/run_images/score_view.png" width="250" height="604" align="left">
 
-<img src="../main/run_images/score_view.png" width="1" height="1" align="right">
+<img src="../master/run_images/score_view.png" width="1" height="1" align="right">
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -54,7 +54,20 @@ https://youtu.be/PANy0exBOq4
 
 
 ## Flow chart
-![interface](../main/run_images/flow_chart_new.png)
+![interface](../master/run_images/flow_chart_new.png)
+
+
+Versions
+2021.09.24 Basic program 
+
+
+2023.12.18 Added some music and charts: Bad apple, Another way, Crystal
+
+Future updates:
+
+- score board
+- More musics: Rolling, Destructoid, Waikiki, Drop of H2O
+
 
 
 

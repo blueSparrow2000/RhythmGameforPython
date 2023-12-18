@@ -16,6 +16,7 @@ Tile types
 
 import pygame
 from variables import *
+from utility_functions import *
 from game import *
 from music_ import *
 from text_writer import *
@@ -68,7 +69,7 @@ def update_song_info():
 
 while meta_run:
     # The Music in main
-    music_Q('Drops of H2O',True)
+    music_Q(lobbyMusic,True)
     run = True
     global music_list, music_pointer, song_name
     music_list = get_musics()
@@ -103,6 +104,7 @@ while meta_run:
 
 
     while run:
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # 윈도우를 닫으면 종료
                 run, meta_run = exit()
@@ -114,6 +116,7 @@ while meta_run:
 
             if event.type == pygame.MOUSEBUTTONUP:
                 (xp, yp) = pygame.mouse.get_pos()
+                mouse_particle_list.append((pygame.time.get_ticks(),(xp, yp)))
 
                 if abs(xp - offset_x_level) < big_text*2:
                     for offset_ in offset_mode_keys:
@@ -239,8 +242,23 @@ while meta_run:
         write_text(screen, song_info_x_level, song_info_y_level + 1*small_text , 'Total points: %d'%song_info_list[3], tiny_text, background_color[0],
                    highlight_text_color)
 
-        write_text(screen, width // 2, height-small_text, 'How to play: press F,G,H,J in appropriate timing!', small_text, background_color[0],
+        write_text(screen, width // 2, height-small_text, 'How to play: press %s,%s,%s,%s in appropriate timing!'%(guide_keys[0],guide_keys[1],guide_keys[2],guide_keys[3]), small_text, background_color[0],
                    highlight_text_color)
+
+        if mouse_particle_list:  # if not empty
+            #print(len(mouse_particle_list))
+            current_run_time = pygame.time.get_ticks()
+            for mouse_particle in mouse_particle_list:
+                #draw_particle(screen, mouse_particle)
+                mouse_click_time = mouse_particle[0]
+                position = mouse_particle[1]
+                delta = (current_run_time - (mouse_click_time))/1000
+                if  delta >= water_draw_time_mouse:
+                    mouse_particle_list.remove(mouse_particle)
+                factor = delta / water_draw_time_mouse
+                radi = calc_drop_radius(factor, mouse_particle_radius)
+                pygame.draw.circle(screen,effect_color, position, radi, particle_width_mouse)
+
 
         pygame.display.flip()
         clock.tick(fps)

@@ -21,11 +21,14 @@ def music_Q(music_file,repeat = False): #현재 재생되고 있는 음악을 �
     pygame.mixer.init()
     pygame.mixer.music.load(full_path)
     song_start_time = 0 # adjust start times of the songs if needed...
-    pygame.mixer.music.set_volume(0.06)
+    pygame.mixer.music.set_volume(1) # 0.5
 
     # if music_file == 'Sugar':
     #     pygame.mixer.music.set_volume(0.04)
     #     song_start_time = 0
+    if music_file == 'BadApple':
+        pygame.mixer.music.set_volume(1)
+        song_start_time = 0
     if repeat:
         pygame.mixer.music.play(-1)
     else:
@@ -47,22 +50,24 @@ def get_musics():
 def get_music_info(song_name):
     APP_FOLDER = os.path.dirname(os.path.realpath(sys.argv[0]))+'/CC_musics/'
     full_path = os.path.join(APP_FOLDER, '%s.txt'%song_name)
-
-    with open("%s"%full_path, "r") as f:
-        credit = f.readlines()
-        print(credit)
-        max_len = 60
-        for i in range(len(credit)):
-            line = credit[i].strip()
-            cnt = 0
-            del credit[i]
-            while len(line) > max_len:
-                shortened_front = line[:max_len]
-                credit.insert(i+cnt,shortened_front)
-                line = line[max_len:]
-                cnt+=1
-                #print(i+cnt)
-            credit.insert(i + cnt, line)
+    try:
+        with open("%s"%full_path, "r") as f:
+            credit = f.readlines()
+            print(credit)
+            max_len = 60
+            for i in range(len(credit)):
+                line = credit[i].strip()
+                cnt = 0
+                del credit[i]
+                while len(line) > max_len:
+                    shortened_front = line[:max_len]
+                    credit.insert(i+cnt,shortened_front)
+                    line = line[max_len:]
+                    cnt+=1
+                    #print(i+cnt)
+                credit.insert(i + cnt, line)
+    except FileNotFoundError:
+        credit=['No credit']
     #print(credit)
     return credit
 

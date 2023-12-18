@@ -29,13 +29,16 @@ class Chart_Test():
         song_difficulty = 1
         number_of_nodes = int((song_length / 1000) * (song_bpm / 60)) - 4
         total_points = 7
+
+        song_offset = -500
         ####################################
 
         with open("%s" % full_path, "w") as f:
             f.write('%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, total_points ))
 
             ################################## fill in
-            pattern = basic_hold(0, song_mpb, 1, total_points, 1000*(total_points-1))
+            beat_pos = song_offset
+            pattern = basic_hold(beat_pos , 1, total_points, 1000*(total_points))
             total_points -= total_points
             f.write(pattern)
             ##################################

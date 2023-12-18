@@ -6,12 +6,14 @@ import math
 
 # list of musics
 music_list = []
+lobbyMusic = 'Drops of H2O_FULL'
+scoreboardMusic = 'Another way_FULL'
 
 # player settings
 stage_speed = 80
 offset = 0
-judgement_shown = True
-guide_line_shown = False #False
+judgement_shown = False
+guide_line_shown = False
 music_pointer = 2
 song_name = None # as a default
 song_info_list = []
@@ -20,7 +22,7 @@ song_info_list = []
 # time settings
 fps = 60
 max_speed = 100 # (float) pixels/100 milliseconds
-min_speed = 10
+min_speed = 15
 max_offset = 1000
 min_offset = -1000
 
@@ -46,14 +48,21 @@ node_spawning_y_pos = info_length + node_height//2
 judgement_line_depth = node_height//2 + int(5 * (1000/fps)) # node_height//2 + ((max_speed//2) * (1000/fps))
 judgement_line = height - judgement_line_depth  # max_speed 로 (1000/fps)*10 밀리초간 이동한 거리까지 화면에 보여줌
 
-
+# frame settings
+guide_keys = ['F','G','H','J']
+guide_key_size = len(guide_keys)
+guide_y_loc = (judgement_line) + 50
+guide_x_loc = line_width//2 + line_width
 
 
 # some color settings
 background_color = [(40, 40, 30)]
 line_color = (240,240,235)
 
-score_colors = {'Pure Perfect!!! (PP)':(220,240,255),'Perfect!! (P)':(200,230,255),'AA':(255,223,79),'A':(230,200,50),'B':(169,194,169),'C':(200,200,240),'D':(240, 180, 180),'E':(210, 160, 160),'Failed':(160,160,160)}
+score_grades = ['Pure Perfect!!! (PP)','Perfect (P)','AA','A','B','C','D','E','Failed']
+
+
+score_colors = {'Pure Perfect!!! (PP)':(220,240,255),'Perfect (P)':(200,230,255),'AA':(255,223,79),'A':(230,200,50),'B':(169,194,169),'C':(200,200,240),'D':(240, 180, 180),'E':(210, 160, 160),'Failed':(160,160,160)}
 
 
 def make_color_lighter(color):

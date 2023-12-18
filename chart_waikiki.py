@@ -20,11 +20,11 @@ class Chart_Waikiki():
 
     def build_chart(self,full_path):
         ##################################### fill in
-        song_length = 196 * 1000
-        song_bpm = 123
+        song_length = 118600
+        song_bpm = 123*2
         cycle = 4
         song_mpb = ((1000 * 60 / song_bpm) / cycle)  # 215  # milli-seconds per beat
-        song_difficulty = 1
+        song_difficulty = 0
         delete_unnessesary_node = 34
         number_of_nodes = int((song_length / 1000) * (song_bpm / 60)) - 4 -delete_unnessesary_node
         ####################################
@@ -38,10 +38,10 @@ class Chart_Waikiki():
                 if beats % cycle == 1:
                     pattern = ''
                     if switch:
-                        pattern = basic_strike(beats, song_mpb, 1, 1)
+                        pattern = basic_strike(beats*song_mpb, 1, 1)
                         number_of_nodes -= 1
                     else:
-                        pattern = basic_hold(beats, song_mpb, 2, 1, 500)
+                        pattern = basic_hold(beats*song_mpb, 2, 1, 500)
                         number_of_nodes -= 1
                     f.write(pattern)
                     switch = not switch

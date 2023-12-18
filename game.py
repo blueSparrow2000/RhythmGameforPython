@@ -17,6 +17,7 @@ from text_writer import *
 from image_processor import *
 from score_viewer import *
 from chart import *
+from utility_functions import *
 
 # exit할 때 해야 할 행동들을 모아놓은 함수
 def exit_game(screen, clock, song_name, score,song_difficulty,total_points):
@@ -28,7 +29,7 @@ def get_ready(screen,clock,song_name,total_points):
     score = [0]
     pygame.mixer.music.stop()
 
-    seconds_to_count = 3
+    seconds_to_count = 1#3
     count = seconds_to_count
     start_time = pygame.time.get_ticks()
 
@@ -95,6 +96,13 @@ def get_ready(screen,clock,song_name,total_points):
                    background_color[0],
                    red_highlight_text_color)
 
+        write_text(screen, width // 2, 3*(height//4), 'Press ECS to return to the main menu', tiny_text,
+                   background_color[0],
+                   red_highlight_text_color)
+
+        # guide key shown
+        draw_guide_key(screen)
+
         pygame.display.flip()
         clock.tick(fps)
 
@@ -136,7 +144,14 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
     song_start_time = -1
     need_music = True
 
-    distributer = Distributer(stage_speed,offset,screen,chart_info[4],song_name,song_bpm,beat_line_request=guide_line_shown)
+    #print(chart_info[4])
+    if chart_info[4]==[]:
+        print("Chart has no nodes. Finishing the game.")
+        exit_game(screen, clock, song_name, score, song_difficulty, total_points)
+        game_run = False
+    else:
+        distributer = Distributer(stage_speed,offset,screen,chart_info[4],song_name,song_bpm,beat_line_request=guide_line_shown)
+
 
     while game_run:
         if need_music and distributer.ready:
@@ -252,6 +267,7 @@ def draw_progress_bar(screen, song_progress, color,x,y):
 def draw_frame(screen):
     global frame_alpha,frame_alpha_max,frame_phase,frame_grad_color
     frame_line_width = 4
+    frame_line_half = frame_line_width//2
 
     judgement_line_width = 4
     # pygame.draw.line(screen, judgement_line_color, [0, judgement_line-judgement_line_width//2], [width, judgement_line-judgement_line_width//2], judgement_line_width)
@@ -260,9 +276,9 @@ def draw_frame(screen):
 
     # fill in unsused lines
     pygame.draw.rect(screen, background_color[0],
-                     [0-frame_line_width//2, info_length+frame_line_width//2, line_width, height-info_length])
+                     [0-frame_line_half, info_length+frame_line_half, line_width, height-info_length])
     pygame.draw.rect(screen, background_color[0],
-                     [width-line_width, info_length+frame_line_width//2, line_width, height-info_length])
+                     [width-line_width, info_length+frame_line_half, line_width, height-info_length])
 
     fill_color = (frame_grad_color,frame_grad_color,frame_grad_color)
 
@@ -275,17 +291,21 @@ def draw_frame(screen):
         frame_grad_color = min(40+int(frame_alpha),255)
 
     pygame.draw.rect(screen, fill_color,
-                     [0-frame_line_width//2, info_length+frame_line_width//2, line_width, height-info_length])
+                     [0-frame_line_half, info_length+frame_line_half, line_width, height-info_length])
     pygame.draw.rect(screen, fill_color,
-                     [width-line_width, info_length+frame_line_width//2, line_width, height-info_length])
+                     [width-line_width, info_length+frame_line_half, line_width, height-info_length])
 
     pygame.draw.line(screen, line_color, [0,info_length//2], [width,info_length//2], frame_line_width)
     pygame.draw.line(screen, line_color, [0, info_length], [width, info_length], frame_line_width)
 
     for i in range((line_number-1)):
-        pygame.draw.line(screen, line_color, [line_width*(i+1)-frame_line_width//2, info_length], [line_width*(i+1)-frame_line_width//2, height], frame_line_width)
+        pygame.draw.line(screen, line_color, [line_width*(i+1)-frame_line_half, info_length], [line_width*(i+1)-frame_line_half, height], frame_line_width)
 
 
-
+def draw_guide_key(screen):
+    global frame_grad_color
+    for i in range((guide_key_size)):
+        write_text(screen,guide_x_loc+line_width*i, guide_y_loc , guide_keys[i], small_text, background_color[0],
+                   (color_safe(200-frame_grad_color),color_safe(200-frame_grad_color),color_safe(200-frame_grad_color)))
 
 

@@ -2,6 +2,10 @@
 Distributer
 
 분배기 - 차트에서 읽어들인 노트를 게임에 분배함
+
+* Note: distributer's accuracy depends on song_mbps!
+So be sure to write in the correct value for song_bps (in each chart builder)!
+(or if you want precision, you may increase song_bps i.e, double the bps)
 '''
 
 
@@ -54,6 +58,7 @@ class Distributer():
         # variables related to music starting timing issue
         self.ready = False
         first_node = self.request[0]
+
         self.very_first_node_deploy_time = - self.delta_t #first_node[1] - self.delta_t
         self.first_node_time_respect_to_music_start = first_node[1]
 

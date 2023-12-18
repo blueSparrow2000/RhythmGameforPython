@@ -89,18 +89,19 @@ class Verifier():
     def verify_judgement_node(self,node):
         result = ''
         detail = ''
+        human_error = node.y - judgement_line
         if self.judgement_shown:
-            detail = 'Early' if ((node.y - judgement_line) <= 0) else 'Late'
+            detail = 'Early' if ((human_error) <= 0) else 'Late'
         point = 0
-        if abs(node.y-judgement_line) <= self.perfect_tolerance:
+        if abs(human_error) <= self.perfect_tolerance:
             result = "Perfect"
 
-            if abs(node.y-judgement_line) <= self.pure_perfect_tolerance:
+            if abs(human_error) <= self.pure_perfect_tolerance:
                 detail = ''  # no detail for pure perfect!
                 point = node.point
             else:
                 point = node.point*0.95
-        elif abs(node.y-judgement_line) <= self.hit_tolerance:
+        elif abs(human_error) <= self.hit_tolerance:
 
             result = "Hit"
             point = node.point*0.8
@@ -112,6 +113,8 @@ class Verifier():
         #print(result)
         self.tiles_to_verify.append([node,(result,detail),self.judgement_frames])
         self.score[0] += point
+        if self.judgement_shown:
+            print(round(human_error))
 
     def check_pressed(self,node,events):  # 노드 동시에 눌러도 다 알 수 있게 함 (event만 쓰면 한번에 하나의 event만이 전달됨! 동시 클릭 불가)
         if (events[pygame.K_f] and node.line == 1) or (events[pygame.K_g] and node.line == 2) or (
