@@ -53,6 +53,9 @@ Youtube link:
 https://youtu.be/PANy0exBOq4
 
 
+- latest version
+https://www.youtube.com/watch?v=xx5x7D2bRa4
+
 ## Flow chart
 ![interface](../main/run_images/flow_chart_new.png)
 
