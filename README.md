@@ -22,7 +22,7 @@ Future plan: Going to add machine learning for auto-generating song charts (song
 Develope period: 9/20/2021 ~ 9/24/2021 on holidays 
 
 
-12/16/2024 ~ 12/18/2024 on vacation
+12/16/2024 ~ 12/19/2024 on vacation
 
 
 ## How to Run
@@ -57,7 +57,7 @@ https://youtu.be/PANy0exBOq4
 
 
 - latest version
-https://www.youtube.com/watch?v=xx5x7D2bRa4
+https://www.youtube.com/watch?v=IPAZ1w8-2PY
 
 ## Flow chart
 ![interface](../main/run_images/flow_chart_new.png)
@@ -68,6 +68,9 @@ https://www.youtube.com/watch?v=xx5x7D2bRa4
 
 
 2023.12.18 Added some music and charts: Bad apple, Another way, Crystal
+2023.12.19 Added special effect nodes: Bad apple / added fast graphics for low spec. computer
+
+
 
 Future updates:
 
