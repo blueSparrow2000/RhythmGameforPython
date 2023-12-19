@@ -10,6 +10,10 @@ import math
 
 class Node():
     def __init__(self,line,point,special = None):
+        global judgement_line, height
+        self.judgement_line = judgement_line
+        self.height = height
+
         self.name = 'node'
         self.y = node_spawning_y_pos
         self.line = line # 몇 번 line에 넣을지 결정
@@ -37,13 +41,18 @@ class Node():
     def move(self,speed):
         self.y += (speed*10/fps)
 
+    def fix_loc(self, loc = None):
+        if loc:
+            self.y = loc
+        else:
+            self.y = self.judgement_line
+
     def check_border(self):
-        global judgement_line, height
-        if self.special == 'BadApple' and self.y > judgement_line:  # 'Late' for special node
+        if self.special == 'BadApple' and self.y > self.judgement_line:  # 'Late' for special node
             #print('border cross for Bad apple!')
             return True # border crossed for special node
 
-        if self.y >= height: # then node arrived at the border!
+        if self.y >= self.height: # then node arrived at the border!
             #print("Border!")
             return True
         else:
@@ -56,6 +65,10 @@ class Node():
 
 class Hold():
     def __init__(self,line,point,length,special=None):
+        global judgement_line, height
+        self.judgement_line = judgement_line
+        self.height = height
+
         self.name = 'hold'
         self.y = node_spawning_y_pos  # hold 노드의 y 값은 제일 아래쪽의 y좌표이다. 즉, 홀드 노드의 시작점 좌표!
         self.length = length
@@ -88,8 +101,14 @@ class Hold():
         self.this_judgement_pos += increment
         self.tail = self.y - self.length
 
+    def fix_loc(self, loc = None):
+        if loc:
+            self.y = loc
+        else:
+            self.y = self.judgement_line
+
     def check_border(self):
-        if self.tail>= height: # then node arrived at the border!
+        if self.tail>= self.height: # then node arrived at the border!
             #print("Border!")
             return True
         else:

@@ -18,6 +18,8 @@ music_pointer = 1
 song_name = None # as a default
 song_info_list = []
 
+high_quality_verifying_graphics = True
+
 
 # time settings
 fps = 60

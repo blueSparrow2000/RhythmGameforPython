@@ -13,7 +13,7 @@ from utility_functions import *
 
 class Verifier():
     def __init__(self,screen, score,speed,judgement_shown,bpm):
-        global fps
+        global fps, high_quality_verifying_graphics
         self.screen = screen
         self.speed = speed
         self.score = score
@@ -21,6 +21,7 @@ class Verifier():
         self.judgement_frames = fps//2 #fps//2
         self.judgement_highest_pos = int((self.judgement_frames) *0.7)
         self.judgement_shown = judgement_shown
+        self.high_quality_verifying_graphics = high_quality_verifying_graphics
 
         self.frame_error = int(((10/fps)*self.speed) + 1)
         self.song_bpm = bpm
@@ -89,6 +90,15 @@ class Verifier():
                                  [line_axes[node.line - 1] - line_width // 2, node.y - judgement_half_size, line_width,
                                   2*judgement_half_size],1)
 
+
+    def append_verification_tile(self,tile_verification):
+        if self.high_quality_verifying_graphics:
+            self.tiles_to_verify.append(tile_verification)
+        else:
+            time_added_verification = tile_verification + [pygame.time.get_ticks()]
+            self.tiles_to_verify.append(time_added_verification)
+
+
     def verify_judgement_node(self,node):
         result = ''
         detail = ''
@@ -115,6 +125,8 @@ class Verifier():
         # print result of Lost/Hit/Perfect on the screen
         #print(result)
         self.tiles_to_verify.append([node,(result,detail),self.judgement_frames])
+
+
         self.score[0] += point
         if self.judgement_shown:
             print(round(human_error))
@@ -209,16 +221,20 @@ class Verifier():
 
 
     def draw_judgement(self):
-        for i in range(len(self.tiles_to_verify)-1,-1,-1):
-            verification = self.tiles_to_verify[i]
-            if verification[2] <= 1:
-                self.tiles_to_verify.remove(verification)
-            else:
-                write_text(self.screen, line_axes[verification[0].line-1], judgement_line -judgement_text*3 + self.calc_pos(verification[2]), "%s"%(verification[1][0]), judgement_text, background_color[0], highlight_text_color)
-                write_text(self.screen, line_axes[verification[0].line - 1],
-                           judgement_line - judgement_text * 3 + self.calc_pos(verification[2])+judgement_text,
-                           "%s" % (verification[1][1]), detail_text, background_color[0], highlight_text_color)
-                verification[2] -= 1
+        if self.high_quality_verifying_graphics:
+            for i in range(len(self.tiles_to_verify)-1,-1,-1):
+                verification = self.tiles_to_verify[i]
+                if verification[2] <= 1:
+                    self.tiles_to_verify.remove(verification)
+                else:
+
+                    write_text(self.screen, line_axes[verification[0].line-1], judgement_line -judgement_text*3 + self.calc_pos(verification[2]), "%s"%(verification[1][0]), judgement_text, background_color[0], highlight_text_color)
+                    write_text(self.screen, line_axes[verification[0].line - 1],
+                               judgement_line - judgement_text * 3 + self.calc_pos(verification[2])+judgement_text,
+                               "%s" % (verification[1][1]), detail_text, background_color[0], highlight_text_color)
+                    verification[2] -= 1
+        else:
+            pass
 
     def calc_pos(self,note_stage):
         return (max(self.judgement_highest_pos, note_stage) - self.judgement_highest_pos)

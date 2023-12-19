@@ -260,6 +260,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
                         ####### change background color! ########
                         change_background_color = 1
                         screen.fill(background_color[change_background_color])
+                        tile.fix_loc()
                         for T in tiles_off_screen + nodes_on_screen + holds_on_screen:
                             T.draw(screen,screen_freeze)
                         draw_frame(screen)
