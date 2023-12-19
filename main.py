@@ -134,12 +134,17 @@ while meta_run:
                             stage_speed = boundary_checker(min_speed,max_speed,stage_speed)
 
                 if abs(xp - width//2) < big_text*3:  # toggle judgement
-                    if abs(yp - (mode_y_level + mode_location_offset['huge'] + big_text))< big_text//2:
+                    if abs(yp - (mode_y_level + mode_location_offset['huge'] + big_text + big_text//2))< big_text//2:
                         judgement_shown = not judgement_shown #not judgement_shown
 
-                if abs(xp - width//2) < big_text*3:  # toggle judgement
-                    if abs(yp - (mode_y_level + mode_location_offset['huge'] + big_text*3))< big_text//2:
+                if abs(xp - width//2) < big_text*3:  # toggle guide line
+                    if abs(yp - (mode_y_level + mode_location_offset['huge'] + big_text*2 + big_text//2))< big_text//2:
                         guide_line_shown = not guide_line_shown
+
+                if abs(xp - width // 2) < big_text * 3:  # toggle graphics
+                    if abs(yp - (mode_y_level + mode_location_offset['huge'] + big_text * 3 + big_text//2)) < big_text // 2:
+                        high_quality_verifying_graphics = not high_quality_verifying_graphics
+
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 4:
@@ -163,7 +168,7 @@ while meta_run:
                     run, meta_run = exit()
                     break
                 elif event.key == pygame.K_RETURN:
-                    run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_line_shown)
+                    run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_line_shown,high_quality_verifying_graphics)
                     run = False
                     break
 
@@ -208,18 +213,28 @@ while meta_run:
                    highlight_text_color)
 
         if judgement_shown:
-            write_text(screen, width // 2,  mode_y_level + mode_location_offset['Giant'] + big_text, 'Hide judgement detail', small_text, background_color[0],
+            write_text(screen, width // 2,  mode_y_level + mode_location_offset['Giant'] + big_text, 'Judgement detail: On', small_text, background_color[0],
                        highlight_text_color)
         else:
-            write_text(screen, width // 2,  mode_y_level + mode_location_offset['Giant'] + big_text, 'Show judgement detail', small_text, background_color[0],
+            write_text(screen, width // 2,  mode_y_level + mode_location_offset['Giant'] + big_text, 'Judgement detail: Off', small_text, background_color[0],
                        highlight_text_color)
 
         if guide_line_shown:
-            write_text(screen, width // 2,  mode_y_level + mode_location_offset['Giant'] + big_text*3, 'Hide guide lines', small_text, background_color[0],
+            write_text(screen, width // 2,  mode_y_level + mode_location_offset['Giant'] + big_text*2, 'Guide line: On', small_text, background_color[0],
                        highlight_text_color)
         else:
-            write_text(screen, width // 2,  mode_y_level + mode_location_offset['Giant'] + big_text*3, 'Show guide lines', small_text, background_color[0],
+            write_text(screen, width // 2,  mode_y_level + mode_location_offset['Giant'] + big_text*2, 'Guide line: Off', small_text, background_color[0],
                        highlight_text_color)
+
+
+        if high_quality_verifying_graphics:
+            write_text(screen, width // 2,  mode_y_level + mode_location_offset['Giant'] + big_text*3, 'Graphics: Fancy', small_text, background_color[0],
+                       highlight_text_color)
+        else:
+            write_text(screen, width // 2,  mode_y_level + mode_location_offset['Giant'] + big_text*3, 'Graphics: Fast', small_text, background_color[0],
+                       highlight_text_color)
+
+
 
         for index in range(min_index,max_index+1):
             music = music_list[index]

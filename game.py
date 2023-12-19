@@ -118,7 +118,7 @@ def calc_song_progress_percent(song_length,song_start_time,current_time):  # ret
     return progress
 
 
-def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_line_shown):
+def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_line_shown,high_quality_verifying_graphics):
     global bar_color, wait_delay, change_background_color
     game_run = True
     score = [0]
@@ -142,7 +142,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
         game_run = False
         view_score_menu(screen, clock, song_name, score, song_difficulty, total_points)
         return
-    verifier = Verifier(screen,score,stage_speed,judgement_shown,song_bpm)
+    verifier = Verifier(screen,score,stage_speed,judgement_shown,song_bpm,high_quality_verifying_graphics)
 
 
 
@@ -261,6 +261,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
                         change_background_color = 1
                         screen.fill(background_color[change_background_color])
                         tile.fix_loc()
+                        verifier.draw_judgement()
                         for T in tiles_off_screen + nodes_on_screen + holds_on_screen:
                             T.draw(screen,screen_freeze)
                         draw_frame(screen)

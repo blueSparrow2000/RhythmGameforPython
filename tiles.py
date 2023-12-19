@@ -48,7 +48,7 @@ class Node():
             self.y = self.judgement_line
 
     def check_border(self):
-        if self.special == 'BadApple' and self.y > self.judgement_line:  # 'Late' for special node
+        if self.special == 'BadApple' and self.y > self.judgement_line + 5:  # 'Late' for special node
             #print('border cross for Bad apple!')
             return True # border crossed for special node
 

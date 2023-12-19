@@ -12,8 +12,8 @@ import math
 from utility_functions import *
 
 class Verifier():
-    def __init__(self,screen, score,speed,judgement_shown,bpm):
-        global fps, high_quality_verifying_graphics
+    def __init__(self,screen, score,speed,judgement_shown,bpm,high_quality_verifying_graphics):
+        global fps
         self.screen = screen
         self.speed = speed
         self.score = score
@@ -22,6 +22,7 @@ class Verifier():
         self.judgement_highest_pos = int((self.judgement_frames) *0.7)
         self.judgement_shown = judgement_shown
         self.high_quality_verifying_graphics = high_quality_verifying_graphics
+        self.verification_show_time = 300 # ms
 
         self.frame_error = int(((10/fps)*self.speed) + 1)
         self.song_bpm = bpm
@@ -78,8 +79,19 @@ class Verifier():
             if node.check_border() or self.check_pressed(node,events):
                 if node.special == 'BadApple':
                     tiles_off_screen.append(node)
+                    nodes_on_screen.remove(node)
+                    if self.check_pressed(node,events):
+                        self.verify_judgement_node(node)
+                    else: # lost
+                        self.verify_judgement_node(node,enforce_Lost=True)
+                    continue
                 nodes_on_screen.remove(node)
                 self.verify_judgement_node(node)
+
+
+
+
+
 
 
     def draw_guide_lines_node(self,nodes_on_screen,screen):
@@ -95,11 +107,18 @@ class Verifier():
         if self.high_quality_verifying_graphics:
             self.tiles_to_verify.append(tile_verification)
         else:
-            time_added_verification = tile_verification + [pygame.time.get_ticks()]
-            self.tiles_to_verify.append(time_added_verification)
+            tile_verification.append(pygame.time.get_ticks())
+            #print(tile_verification)
+            self.tiles_to_verify.append(tile_verification)
 
 
-    def verify_judgement_node(self,node):
+    def verify_judgement_node(self,node,enforce_Lost = False):
+        if enforce_Lost:
+            self.append_verification_tile([node, ("Lost", ''), self.judgement_frames])
+            if self.judgement_shown:
+                print("Enforced Lost")
+            return
+
         result = ''
         detail = ''
         human_error = node.y - judgement_line
@@ -124,7 +143,7 @@ class Verifier():
 
         # print result of Lost/Hit/Perfect on the screen
         #print(result)
-        self.tiles_to_verify.append([node,(result,detail),self.judgement_frames])
+        self.append_verification_tile([node,(result,detail),self.judgement_frames])
 
 
         self.score[0] += point
@@ -175,7 +194,7 @@ class Verifier():
                 return
         #print(result)
         #print("sending %s to"%hold.this_judgement_pos)
-        self.tiles_to_verify.append([hold,(result,detail),self.judgement_frames])
+        self.append_verification_tile([hold,(result,detail),self.judgement_frames])
         self.score[0] += point
         self.update_hold_judgement_pos(hold)
         if result=="Lost":
@@ -227,14 +246,32 @@ class Verifier():
                 if verification[2] <= 1:
                     self.tiles_to_verify.remove(verification)
                 else:
-
                     write_text(self.screen, line_axes[verification[0].line-1], judgement_line -judgement_text*3 + self.calc_pos(verification[2]), "%s"%(verification[1][0]), judgement_text, background_color[0], highlight_text_color)
                     write_text(self.screen, line_axes[verification[0].line - 1],
                                judgement_line - judgement_text * 3 + self.calc_pos(verification[2])+judgement_text,
                                "%s" % (verification[1][1]), detail_text, background_color[0], highlight_text_color)
                     verification[2] -= 1
         else:
-            pass
+            cur_time = pygame.time.get_ticks()
+            for i in range(len(self.tiles_to_verify) - 1, -1, -1):
+                verification = self.tiles_to_verify[i]
+                if cur_time - verification[3] > self.verification_show_time:
+                    self.tiles_to_verify.remove(verification)
+                else:
+                    write_text(self.screen, line_axes[verification[0].line - 1],
+                               judgement_line - judgement_text * 3,
+                               "%s" % (verification[1][0]), judgement_text, background_color[0], highlight_text_color)
+
+
 
     def calc_pos(self,note_stage):
         return (max(self.judgement_highest_pos, note_stage) - self.judgement_highest_pos)
+
+
+
+
+
+
+
+
+
