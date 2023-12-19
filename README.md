@@ -86,7 +86,18 @@ Future updates:
 
 
 ## Copyrights for musics
-Every music in the project is licensed as CREATIVE COMMONS license. 
+Following music should **not** be used commercially.
+- bad apple
+
+
+
+Following music in the project is licensed as CREATIVE COMMONS license. 
+- Another Way
+- Crystal
+- Rollin
+- Drops of H2O
+- Waikiki
+- Destructoid
 
 
 Hence I added descriptions at the score viewer and here.
