@@ -24,6 +24,7 @@ def exit_game(screen, clock, song_name, score,song_difficulty,total_points):
     view_score_menu(screen, clock, song_name, score,song_difficulty,total_points)
 
 def get_ready(screen,clock,song_name,total_points):
+    global change_background_color
     game_run = True
     exit_outer_game = False
     score = [0]
@@ -41,7 +42,7 @@ def get_ready(screen,clock,song_name,total_points):
             exit_outer_game = False
             break
 
-        screen.fill(background_color[0])
+        screen.fill(background_color[change_background_color])
 
         # Event handling
         keys = pygame.key.get_pressed()  # 꾹 누르고 있으면 계속 실행되는 것들
@@ -86,18 +87,18 @@ def get_ready(screen,clock,song_name,total_points):
                     highlight_line(screen, 4)
 
 
-        write_text(screen, width//2, (info_length//2)//2, 'Song: %s'%(song_name), small_text, background_color[0], highlight_text_color)
-        write_text(screen, width // 2, (info_length // 2) // 2 + (info_length // 2), 'Score: %.2f' % score[0], small_text, background_color[0],
+        write_text(screen, width//2, (info_length//2)//2, 'Song: %s'%(song_name), small_text, background_color[change_background_color], highlight_text_color)
+        write_text(screen, width // 2, (info_length // 2) // 2 + (info_length // 2), 'Score: %.2f' % score[0], small_text, background_color[change_background_color],
                    highlight_text_color)
         # draw basic frame with lines
         draw_frame(screen)
 
         write_text(screen, width // 2, height//2, '%d' % (count), giant_text,
-                   background_color[0],
+                   background_color[change_background_color],
                    red_highlight_text_color)
 
         write_text(screen, width // 2, 3*(height//4), 'Press ECS to return to the main menu', tiny_text,
-                   background_color[0],
+                   background_color[change_background_color],
                    red_highlight_text_color)
 
         # guide key shown
@@ -118,7 +119,7 @@ def calc_song_progress_percent(song_length,song_start_time,current_time):  # ret
 
 
 def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_line_shown):
-    global bar_color
+    global bar_color, wait_delay, change_background_color
     game_run = True
     score = [0]
     chart_info = get_chart(song_name)
@@ -127,9 +128,15 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
     song_length = chart_info[2]  # in milliseconds!
     song_bpm = chart_info[3]
 
+    # screen pause effect
+    screen_update = True
+    first_pause_time = song_length + 100 # no pause == pause after the end of the song
+
+
     nodes_on_screen = []
     holds_on_screen = []
     beat_lines = []
+    tiles_off_screen = []
 
     if get_ready(screen,clock,song_name,total_points): # if exit outer game is true
         game_run = False
@@ -160,7 +167,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
             need_music = False
             song_start_time = pygame.time.get_ticks()
 
-        screen.fill(background_color[0])
+        screen.fill(background_color[change_background_color])
 
         # Event handling
         keys = pygame.key.get_pressed()  # 꾹 누르고 있으면 계속 실행되는 것들
@@ -216,6 +223,11 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
             tile.move(stage_speed)
             tile.draw(screen)
 
+        # 1-1. off screen tile을 움직인다
+        for tile in tiles_off_screen:
+            tile.move(stage_speed)
+
+
         # 2. guide line을 그린다
         if guide_line_shown:
             verifier.draw_guide_lines(nodes_on_screen,holds_on_screen,screen)
@@ -227,9 +239,35 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
 
         # 3. 판정을 표시한다
         # verifier.node_check(nodes_on_screen, events)
-        verifier.node_check(nodes_on_screen,keys)
-        verifier.hold_check(holds_on_screen, keys)
+        verifier.node_check(nodes_on_screen, tiles_off_screen, keys)
+        verifier.hold_check(holds_on_screen, tiles_off_screen, keys)
         verifier.draw_judgement()
+
+        # 3.1 special check after verifying (wait/change color etc.)
+        #print(len(tiles_off_screen),end='')
+        for tile in tiles_off_screen:
+            #Note 의 special effect가 있을 경우 적용
+            if tile.special:
+                if (tile.y >= judgement_line): # after passing judgement line
+                    #print('special found after judgement line')
+                    special_effect = tile.special_effect()
+
+                    # 3.2 do the special effect
+                    if special_effect == 'wait':
+                        first_pause_time = pygame.time.get_ticks()
+                        screen_update = False
+
+                        ####### change background color! ########
+                        change_background_color = 1
+                        screen.fill(background_color[change_background_color])
+                        for T in tiles_off_screen + nodes_on_screen + holds_on_screen:
+                            T.draw(screen,screen_update)
+                        draw_frame(screen)
+                        pygame.display.flip()
+                        ####### change background color! ########
+                        #pygame.time.delay(wait_delay)
+                        tiles_off_screen.remove(tile)
+                        break
 
 
 
@@ -239,15 +277,21 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
         draw_progress_bar(screen, song_progress, bar_pos[0], bar_pos[1])
 
         write_text(screen, width//2, (info_length//2)//2, 'Song: %s'%(song_name), small_text, bar_color, highlight_text_color)
-        write_text(screen, width // 2, (info_length // 2) // 2 + (info_length // 2), 'Score: %.2f' % score[0], small_text, background_color[0],
+        write_text(screen, width // 2, (info_length // 2) // 2 + (info_length // 2), 'Score: %.2f' % score[0], small_text, background_color[change_background_color],
                    highlight_text_color)
 
         # 5. 게임 틀을 그린다
         # draw basic frame with lines
         draw_frame(screen)
 
+        if screen_update:
+            pygame.display.flip()
+        else: # check when the screen update should be true
+            screen_cur_time = pygame.time.get_ticks()
+            if (screen_cur_time - first_pause_time) >= wait_delay:
+                screen_update = True
+                change_background_color = 0  # set back to normal
 
-        pygame.display.flip()
         clock.tick_busy_loop(fps)
         #clock.tick(fps)
 
@@ -267,7 +311,7 @@ def draw_progress_bar(screen, song_progress, x,y):
 
 
 def draw_frame(screen):
-    global frame_alpha,frame_alpha_max,frame_phase,frame_grad_color
+    global frame_alpha,frame_alpha_max,frame_phase,frame_grad_color,change_background_color
     frame_line_width = 4
     frame_line_half = frame_line_width//2
 
@@ -277,9 +321,9 @@ def draw_frame(screen):
                      [width, judgement_line], judgement_line_width)
 
     # fill in unsused lines
-    pygame.draw.rect(screen, background_color[0],
+    pygame.draw.rect(screen, background_color[change_background_color],
                      [0-frame_line_half, info_length+frame_line_half, line_width, height-info_length])
-    pygame.draw.rect(screen, background_color[0],
+    pygame.draw.rect(screen, background_color[change_background_color],
                      [width-line_width, info_length+frame_line_half, line_width, height-info_length])
 
     fill_color = (frame_grad_color,frame_grad_color,frame_grad_color)
@@ -305,9 +349,9 @@ def draw_frame(screen):
 
 
 def draw_guide_key(screen):
-    global frame_grad_color
+    global frame_grad_color,change_background_color
     for i in range((guide_key_size)):
-        write_text(screen,guide_x_loc+line_width*i, guide_y_loc , guide_keys[i], small_text, background_color[0],
+        write_text(screen,guide_x_loc+line_width*i, guide_y_loc , guide_keys[i], small_text, background_color[change_background_color],
                    (color_safe(200-frame_grad_color),color_safe(200-frame_grad_color),color_safe(200-frame_grad_color)))
 
 

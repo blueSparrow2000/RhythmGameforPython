@@ -12,7 +12,7 @@ It must include: (every thing should be safely converted to integer)
 - total_points or # of nodes (as you wish ^^)
 
 '''
-
+from variables import *
 from chart_patterns import *
 
 class Chart_BadApple():
@@ -20,6 +20,7 @@ class Chart_BadApple():
         self.song_name = 'BadApple'
 
     def build_chart(self,full_path):
+        global wait_delay
         ##################################### fill in
         song_length = 46500
         song_bpm = 138
@@ -80,8 +81,8 @@ class Chart_BadApple():
                     f.write(pattern)
 
                 if j==3:
-                    pattern = basic_strike(beat_pos-30, 1, 1)
-                    beat_pos += s3
+                    pattern = special_strike(beat_pos-30, 1, 1, 'BadApple') # special node!
+                    beat_pos += s3 #- wait_delay # delay
                     f.write(pattern)
                     break
                 pattern = basic_strike(beat_pos, 1, 1)

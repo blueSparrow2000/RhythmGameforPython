@@ -10,11 +10,11 @@ lobbyMusic = 'Drops of H2O_FULL'
 scoreboardMusic = 'Another way_FULL'
 
 # player settings
-stage_speed = 80
+stage_speed = 60
 offset = 0
 judgement_shown = False
 guide_line_shown = False
-music_pointer = 2
+music_pointer = 1
 song_name = None # as a default
 song_info_list = []
 
@@ -56,7 +56,7 @@ guide_x_loc = line_width//2 + line_width
 
 
 # some color settings
-background_color = [(40, 40, 30)]
+background_color = [(40, 40, 30),(215, 215, 225)]
 line_color = (240,240,235)
 
 score_grades = ['Pure Perfect!!! (PP)','Perfect (P)','AA','A','B','C','D','E','Failed']
@@ -100,3 +100,8 @@ song_color_gradient = [(200,230,255),(180,220,235),(140,180,215)]
 # song offsets
 song_offsets = {'test': 0}
 
+
+
+# special effects
+wait_delay = 300
+change_background_color = 0

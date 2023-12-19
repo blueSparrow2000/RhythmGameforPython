@@ -4,6 +4,9 @@ Main loop
 Rythm game version 1.0 released!
 - Currently one song available but you can add songs and choose them
 - Currently one chart available
+
+
+
 - offset/speed adjustments
 
 

@@ -72,11 +72,14 @@ class Verifier():
 
 
     ########## node
-    def node_check(self,nodes_on_screen,events):
+    def node_check(self,nodes_on_screen,tiles_off_screen,events):
         for node in nodes_on_screen:
             if node.check_border() or self.check_pressed(node,events):
+                if node.special == 'BadApple':
+                    tiles_off_screen.append(node)
                 nodes_on_screen.remove(node)
                 self.verify_judgement_node(node)
+
 
     def draw_guide_lines_node(self,nodes_on_screen,screen):
         for node in nodes_on_screen:
@@ -123,7 +126,7 @@ class Verifier():
                         return True
 
     ############# hold
-    def hold_check(self,holds_on_screen,events):
+    def hold_check(self,holds_on_screen,tiles_off_screen,events):
         for hold in holds_on_screen:
             if self.hold_finished(hold) or hold.check_border(): # check border
                 holds_on_screen.remove(hold)

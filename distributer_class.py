@@ -58,6 +58,7 @@ class Distributer():
         # variables related to music starting timing issue
         self.ready = False
         first_node = self.request[0]
+        #print(self,request)
 
         self.very_first_node_deploy_time = - self.delta_t #first_node[1] - self.delta_t
         self.first_node_time_respect_to_music_start = first_node[1]
@@ -148,7 +149,11 @@ class Distributer():
             while self.deploy_time(first_node_deploy_time,cur_time): #<= self.fps_error//2: # 해당 노드가 소환되어야 할 시점을 지나면
                 #print('Correct loop')
                 if first_node[0] == 'node':
-                    n = Node(first_node[2],first_node[3])
+                    n = Node(first_node[2], first_node[3])
+                    #print(len(first_node))
+                    if len(first_node) == 5: # special
+                        #print("Found special node!")
+                        n = Node(first_node[2],first_node[3],first_node[4].strip())
                     # print("cur time: ",cur_time)
                     # print("deploy error: ",first_node_deploy_time-cur_time)
                     # print("removed node at time: ", first_node_deploy_time)
@@ -158,7 +163,10 @@ class Distributer():
                     #print(loop_cnt)
                 elif first_node[0] == 'hold':
                     length = first_node[4]*self.speed//100
-                    n = Hold(first_node[2],first_node[3],length)
+                    n = Hold(first_node[2], first_node[3], length)
+                    if len(first_node) == 6: # special
+                        n = Hold(first_node[2], first_node[3], length, first_node[5].strip())
+
                     self.request.remove(first_node)
                     holds_on_screen.append(n)
                 #self.time_anomaly += first_node_deploy_time-cur_time
