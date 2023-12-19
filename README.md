@@ -19,7 +19,10 @@ But you can go modify the files ('chart_[songname].py') to make them more playab
 Future plan: Going to add machine learning for auto-generating song charts (song patterns) given a song.
 
 
-Develope period: 9/20/2021 ~ 9/24/2021 on holidays 
+Develope period: 
+
+
+9/20/2021 ~ 9/24/2021 on holidays 
 
 
 12/16/2024 ~ 12/19/2024 on vacation
@@ -68,6 +71,8 @@ https://www.youtube.com/watch?v=IPAZ1w8-2PY
 
 
 2023.12.18 Added some music and charts: Bad apple, Another way, Crystal
+
+
 2023.12.19 Added special effect nodes: Bad apple / added fast graphics for low spec. computer
 
 
