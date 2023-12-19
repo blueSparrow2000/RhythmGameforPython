@@ -10,7 +10,7 @@ lobbyMusic = 'Drops of H2O_FULL'
 scoreboardMusic = 'Another way_FULL'
 
 # player settings
-stage_speed = 60
+stage_speed = 80
 offset = 0
 judgement_shown = False
 guide_line_shown = False

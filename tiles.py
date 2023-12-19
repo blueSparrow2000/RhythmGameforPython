@@ -18,14 +18,14 @@ class Node():
 
         self.special = special # special node
 
-    def draw(self,screen,screen_update = True):
+    def draw(self, screen, screen_freeze = False):
         if self.special == 'BadApple':
-            if screen_update:
-                pygame.draw.rect(screen, (240, 180, 180),
+            if screen_freeze: # at screen freeze
+                pygame.draw.rect(screen, (0,0,0),
                                  [line_axes[self.line - 1] - line_width // 2, self.y - node_height // 2, line_width,
                                   node_height])
-            else:
-                pygame.draw.rect(screen, (0,0,0),
+            else:  # no screen freeze
+                pygame.draw.rect(screen, (240, 180, 180),
                                  [line_axes[self.line - 1] - line_width // 2, self.y - node_height // 2, line_width,
                                   node_height])
 

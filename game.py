@@ -129,7 +129,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
     song_bpm = chart_info[3]
 
     # screen pause effect
-    screen_update = True
+    screen_freeze = False
     first_pause_time = song_length + 100 # no pause == pause after the end of the song
 
 
@@ -255,17 +255,18 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
                     # 3.2 do the special effect
                     if special_effect == 'wait':
                         first_pause_time = pygame.time.get_ticks()
-                        screen_update = False
+                        screen_freeze = True
 
                         ####### change background color! ########
                         change_background_color = 1
                         screen.fill(background_color[change_background_color])
                         for T in tiles_off_screen + nodes_on_screen + holds_on_screen:
-                            T.draw(screen,screen_update)
+                            T.draw(screen,screen_freeze)
                         draw_frame(screen)
                         pygame.display.flip()
                         ####### change background color! ########
                         #pygame.time.delay(wait_delay)
+
                         tiles_off_screen.remove(tile)
                         break
 
@@ -284,12 +285,12 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
         # draw basic frame with lines
         draw_frame(screen)
 
-        if screen_update:
+        if not screen_freeze:
             pygame.display.flip()
         else: # check when the screen update should be true
             screen_cur_time = pygame.time.get_ticks()
             if (screen_cur_time - first_pause_time) >= wait_delay:
-                screen_update = True
+                screen_freeze = False
                 change_background_color = 0  # set back to normal
 
         clock.tick_busy_loop(fps)
