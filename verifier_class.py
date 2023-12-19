@@ -22,7 +22,7 @@ class Verifier():
         self.judgement_highest_pos = int((self.judgement_frames) *0.7)
         self.judgement_shown = judgement_shown
         self.high_quality_verifying_graphics = high_quality_verifying_graphics
-        self.verification_show_time = 300 # ms
+        self.verification_show_time = 100 # ms
 
         self.frame_error = int(((10/fps)*self.speed) + 1)
         self.song_bpm = bpm

@@ -30,7 +30,7 @@ def get_ready(screen,clock,song_name,total_points):
     score = [0]
     pygame.mixer.music.stop()
 
-    seconds_to_count = 3
+    seconds_to_count = 1 #3
     count = seconds_to_count
     start_time = pygame.time.get_ticks()
 
@@ -144,6 +144,17 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
         return
     verifier = Verifier(screen,score,stage_speed,judgement_shown,song_bpm,high_quality_verifying_graphics)
 
+    hhm_list = []
+    if song_name == 'HHM' or song_name == 'HHM_climax':
+        print("Now playing HHM!")
+        hmm = load_image('hmm')
+        hu = load_image('hu')
+        ming = load_image('ming')
+        zoa = load_image('zoa')
+        hhm_list.append(hmm)
+        hhm_list.append(hu)
+        hhm_list.append(ming)
+        hhm_list.append(zoa)
 
 
     bar_pos = (width // 2, info_length//4)
@@ -173,13 +184,20 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
         keys = pygame.key.get_pressed()  # 꾹 누르고 있으면 계속 실행되는 것들
         if keys[pygame.K_f]:
             highlight_line(screen, 1)
+            if hhm_list:
+                draw_hhm_key(screen, hhm_list, 0)
         if keys[pygame.K_g]:
             highlight_line(screen, 2)
+            if hhm_list:
+                draw_hhm_key(screen, hhm_list, 1)
         if keys[pygame.K_h]:
             highlight_line(screen, 3)
+            if hhm_list:
+                draw_hhm_key(screen, hhm_list, 2)
         if keys[pygame.K_j]:
             highlight_line(screen, 4)
-            #print(judgement_line)
+            if hhm_list:
+                draw_hhm_key(screen, hhm_list, 3)
 
         events = pygame.event.get()
         for event in events:
@@ -204,12 +222,20 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
 
                 if event.key == pygame.K_f:
                     highlight_line(screen, 1)
+                    if hhm_list:
+                        draw_hhm_key(screen, hhm_list, 0)
                 if event.key == pygame.K_g:
                     highlight_line(screen, 2)
+                    if hhm_list:
+                        draw_hhm_key(screen, hhm_list, 1)
                 if event.key == pygame.K_h:
                     highlight_line(screen, 3)
+                    if hhm_list:
+                        draw_hhm_key(screen, hhm_list, 2)
                 if event.key == pygame.K_j:
                     highlight_line(screen, 4)
+                    if hhm_list:
+                        draw_hhm_key(screen, hhm_list, 3)
 
         if not game_run:
             break
@@ -356,5 +382,11 @@ def draw_guide_key(screen):
     for i in range((guide_key_size)):
         write_text(screen,guide_x_loc+line_width*i, guide_y_loc , guide_keys[i], small_text, background_color[change_background_color],
                    (color_safe(200-frame_grad_color),color_safe(200-frame_grad_color),color_safe(200-frame_grad_color)))
+
+
+def draw_hhm_key(screen, hhm_list,idx):
+    global hmm_x_loc, hmm_y_loc
+
+    screen.blit(hhm_list[idx], [hmm_x_loc+line_width*idx, hmm_y_loc])
 
 

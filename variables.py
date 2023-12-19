@@ -10,15 +10,17 @@ lobbyMusic = 'Drops of H2O_FULL'
 scoreboardMusic = 'Another way_FULL'
 
 # player settings
-stage_speed = 80
+stage_speed = 100
 offset = 0
-judgement_shown = False
+judgement_shown = True
 guide_line_shown = False
-music_pointer = 1
+music_pointer = 4
 song_name = None # as a default
 song_info_list = []
 
 high_quality_verifying_graphics = False
+
+creater_mode = False # false
 
 
 # time settings
@@ -107,3 +109,4 @@ song_offsets = {'test': 0}
 # special effects
 wait_delay = 300
 change_background_color = 0
+hmm_x_loc, hmm_y_loc = line_width , judgement_line + 10

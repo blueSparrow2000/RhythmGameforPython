@@ -113,7 +113,8 @@ while meta_run:
                 run, meta_run = exit()
                 break
 
-            if event.type == pygame.MOUSEMOTION:  # player가 마우스를 따라가도록
+            if event.type == pygame.MOUSEMOTION:
+                # player가 마우스를 따라가도록
                 # point.pos = pygame.mouse.get_pos()
                 pass
 
@@ -205,6 +206,7 @@ while meta_run:
         for speed_ in speed_mode_keys:
             draw_arrow(speed_, screen, speed_x_level, (mode_y_level + speed_mode[speed_][0]))
 
+
         #show_grades(screen)
 
         write_text(screen,  offset_x_level, mode_y_level, 'Offset: %d (ms)'%(offset), small_text, background_color[0],
@@ -276,6 +278,7 @@ while meta_run:
                 factor = delta / water_draw_time_mouse
                 radi = calc_drop_radius(factor, mouse_particle_radius)
                 pygame.draw.circle(screen,effect_color, position, radi, particle_width_mouse)
+
 
 
         pygame.display.flip()

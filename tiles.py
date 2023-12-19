@@ -51,12 +51,19 @@ class Node():
         if self.special == 'BadApple' and self.y > self.judgement_line + 5:  # 'Late' for special node
             #print('border cross for Bad apple!')
             return True # border crossed for special node
-
-        if self.y >= self.height: # then node arrived at the border!
-            #print("Border!")
-            return True
+        if creater_mode:
+            if self.y >= self.judgement_line: #self.height: # then node arrived at the border!
+                #print("Border!")
+                return True
+            else:
+                return False
         else:
-            return False
+            if self.y >= self.height: # then node arrived at the border!
+                #print("Border!")
+                return True
+            else:
+                return False
+
 
     def special_effect(self):
         if self.special=='BadApple':

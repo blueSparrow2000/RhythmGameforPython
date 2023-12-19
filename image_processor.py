@@ -11,10 +11,15 @@ import os, sys
 When player clickes appropriate keys, 
 computer highlights pressed 'line'
 '''
+
+IMAGE_FOLDER = os.path.dirname(os.path.realpath(sys.argv[0]))+'/images/'
+
+
 def load_image(filename):
     APP_FOLDER = os.path.dirname(os.path.realpath(sys.argv[0]))+'/images/'
     full_path = os.path.join(APP_FOLDER, '%s.PNG'%filename)
     return pygame.image.load(full_path)
+
 
 def highlight_line(screen, line_no):
     image = load_image('highlight')
