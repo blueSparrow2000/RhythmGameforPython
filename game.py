@@ -88,7 +88,7 @@ def get_ready(screen,clock,song_name,total_points):
 
 
         write_text(screen, width//2, (info_length//2)//2, 'Song: %s'%(song_name), small_text, background_color[change_background_color], highlight_text_color)
-        write_text(screen, width // 2, (info_length // 2) // 2 + (info_length // 2), 'Score: %.2f' % score[0], small_text, background_color[change_background_color],
+        write_text(screen, width // 2, (info_length // 2) // 2 + (info_length // 2), f"Score: {'0':<6} / {total_points:>4}", small_text, background_color[change_background_color],
                    highlight_text_color)
         # draw basic frame with lines
         draw_frame(screen)
@@ -127,6 +127,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
     song_difficulty = chart_info[1]
     song_length = chart_info[2]  # in milliseconds!
     song_bpm = chart_info[3]
+    game_fps = chart_info[4]
 
     # screen pause effect
     screen_freeze = False
@@ -143,11 +144,10 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
         view_score_menu(screen, clock, song_name, score, song_difficulty, total_points)
         return
 
-    game_fps = 60
+
+    # custom press setting for HHM fan music!
     hhm_list = []
     if song_name == 'Hmm Heu Ming':
-        ##################### Important: Change FPS #####################
-        game_fps = 120 # 임시. song should have these values
         print("Now playing Hmm Heu Ming!")
         hmm = load_image('hmm')
         hu = load_image('hu')
@@ -168,13 +168,12 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
     song_start_time = -1
     need_music = True
 
-    #print(chart_info[4])
-    if chart_info[4]==[]:
+    if chart_info[5]==[]:
         print("Chart has no nodes. Finishing the game.")
         exit_game(screen, clock, song_name, score, song_difficulty, total_points)
         game_run = False
     else:
-        distributer = Distributer(stage_speed,offset,screen,chart_info[4],song_name,song_bpm,game_fps, beat_line_request=guide_line_shown)
+        distributer = Distributer(stage_speed,offset,screen,chart_info[5],song_name,song_bpm,game_fps, beat_line_request=guide_line_shown)
 
 
     while game_run:
@@ -311,7 +310,8 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
         draw_progress_bar(screen, song_progress, bar_pos[0], bar_pos[1])
 
         write_text(screen, width//2, (info_length//2)//2, 'Song: %s'%(song_name), small_text, bar_color, highlight_text_color)
-        write_text(screen, width // 2, (info_length // 2) // 2 + (info_length // 2), 'Score: %.2f' % score[0], small_text, background_color[change_background_color],
+        current_score = round(score[0],2)
+        write_text(screen, width // 2, (info_length // 2) // 2 + (info_length // 2), f"Score: {current_score:<6} / {total_points:>4}", small_text, background_color[change_background_color],
                    highlight_text_color)
 
         # 5. 게임 틀을 그린다

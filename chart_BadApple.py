@@ -28,6 +28,7 @@ class Chart_BadApple():
         song_mpb = ((1000 * 60 / song_bpm) / cycle)  # milli-seconds per beat
         song_difficulty = 2
         number_of_nodes = 91 # 95
+        recommended_fps = 60
 
         song_offset = -230
         s1 = 438
@@ -38,7 +39,7 @@ class Chart_BadApple():
         ####################################
 
         with open("%s" % full_path, "w") as f:
-            f.write('%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, number_of_nodes))
+            f.write('%d,%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, number_of_nodes,recommended_fps))
             ############## phase 1 ###########
             beat_pos = song_offset
 

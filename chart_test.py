@@ -24,17 +24,16 @@ class Chart_Test():
         song_length = 8 * 1000
         song_bpm = 100
         song_mpb = ((1000 * 60 / song_bpm))
-        cycle = 4
-        song_mpbq = ((1000 * 60 / song_bpm) / cycle)  # 215  # milli-seconds per beat
         song_difficulty = 1
-        number_of_nodes = int((song_length / 1000) * (song_bpm / 60)) - 4
+        number_of_nodes = 7
         total_points = 7
+        recommended_fps = 60
 
         song_offset = -500
         ####################################
 
         with open("%s" % full_path, "w") as f:
-            f.write('%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, total_points ))
+            f.write('%d,%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, number_of_nodes,recommended_fps))
 
             ################################## fill in
             beat_pos = song_offset

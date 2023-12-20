@@ -30,8 +30,9 @@ def get_chart_info(song_name):
         song_bpm = int(first_line[1])  # milli-seconds per beat
         song_difficulty = int(first_line[2])
         total_points = int(first_line[3])
+        recommended_fps = int(first_line[4])
 
-    return song_bpm, song_length, song_difficulty, total_points
+    return song_bpm, song_length, song_difficulty, total_points, recommended_fps
 
 def get_chart(song_name):
     APP_FOLDER = os.path.dirname(os.path.realpath(sys.argv[0]))+'/charts/'
@@ -48,6 +49,7 @@ def get_chart(song_name):
         song_bpm = int(first_line[1])  # milli-seconds per beat
         song_difficulty = int(first_line[2])
         total_points = int(first_line[3])
+        recommended_fps = int(first_line[4])
 
         lines = lines[1:]
 
@@ -69,8 +71,9 @@ def get_chart(song_name):
                 break
 
     print("Current song: %s"%song_name)
-    print("BPM: %d" %  song_bpm)
+    print("BPM: %d" %song_bpm)
     print("Total Points: %d"%total_points)
-    print("Difficulty: %d" %  song_difficulty)
+    print("Difficulty: %d"%song_difficulty)
+    print("Recommended_fps: %d"%recommended_fps)
 
-    return total_points,song_difficulty,song_length, song_bpm,request
+    return total_points, song_difficulty, song_length, song_bpm, recommended_fps, request

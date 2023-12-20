@@ -27,6 +27,7 @@ class Chart_AnotherWay():
         song_mpb = ((1000 * 60 / song_bpm) / cycle)  # 215  # milli-seconds per beat
         song_difficulty = 3
         number_of_nodes = 95 # 84 + 3 + 8
+        recommended_fps = 60
 
         song_offset = 3700
         s1 = 146 #146
@@ -38,7 +39,7 @@ class Chart_AnotherWay():
         ####################################
 
         with open("%s" % full_path, "w") as f:
-            f.write('%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, number_of_nodes))
+            f.write('%d,%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, number_of_nodes,recommended_fps))
             ################################## fill in
             beat_pos = song_offset
 

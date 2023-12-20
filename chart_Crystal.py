@@ -29,6 +29,7 @@ class Chart_Crystal():
         song_mpb = ((1000 * 60 / song_bpm))  # 85.7
         song_difficulty = 4
         number_of_nodes = 211
+        recommended_fps = 60
 
 
         song_offset = -400
@@ -54,7 +55,7 @@ class Chart_Crystal():
 
 
         with open("%s" % full_path, "w") as f:
-            f.write('%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, number_of_nodes))
+            f.write('%d,%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, number_of_nodes,recommended_fps))
             ################################## phase 1
             beat_pos = song_offset
 

@@ -27,6 +27,8 @@ class Chart_HHM():
         song_mpb = ((1000 * 60 / song_bpm)) # 53.5 about 54 # milli-seconds per beat
         song_difficulty = 4
         number_of_nodes = 199
+        recommended_fps = 120
+
 
         # original (type A)
         song_offset = 10600
@@ -73,7 +75,7 @@ class Chart_HHM():
         ####################################
 
         with open("%s" % full_path, "w") as f:
-            f.write('%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, number_of_nodes))
+            f.write('%d,%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, number_of_nodes,recommended_fps))
             ############## phase 1 ###########
             beat_pos = song_offset
             ######### Type A : waiting

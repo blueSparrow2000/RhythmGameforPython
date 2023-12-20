@@ -27,10 +27,12 @@ class Chart_Waikiki():
         song_difficulty = 0
         delete_unnessesary_node = 34
         number_of_nodes = int((song_length / 1000) * (song_bpm / 60)) - 4 -delete_unnessesary_node
+        recommended_fps = 60
+
         ####################################
 
         with open("%s" % full_path, "w") as f:
-            f.write('%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, number_of_nodes))
+            f.write('%d,%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, number_of_nodes,recommended_fps))
             ################################## fill in
             beats = 0
             switch = True

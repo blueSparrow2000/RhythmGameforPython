@@ -266,6 +266,8 @@ while meta_run:
                    highlight_text_color)
         write_text(screen, song_info_x_level, song_info_y_level + 1*small_text , 'Total points: %d'%song_info_list[3], tiny_text, background_color[0],
                    highlight_text_color)
+        write_text(screen, song_info_x_level, song_info_y_level + 2*small_text , 'Recommended fps: %d'%song_info_list[4], tiny_text, background_color[0],
+                   highlight_text_color)
 
         write_text(screen, width // 2, height-small_text, 'How to play: press %s,%s,%s,%s in appropriate timing!'%(guide_keys[0],guide_keys[1],guide_keys[2],guide_keys[3]), small_text, background_color[0],
                    highlight_text_color)

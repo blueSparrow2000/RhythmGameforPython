@@ -27,6 +27,8 @@ class Chart_DropsOfH2O():
         song_mpb = ((1000 * 60 / song_bpm)/cycle)  # 215  # milli-seconds per beat
         song_difficulty = 0
         number_of_nodes = int((song_length / 1000) * (song_bpm / 60)) - 4
+        recommended_fps = 60
+
 
         song_offset = -230
         s1 = 108
@@ -36,7 +38,7 @@ class Chart_DropsOfH2O():
         ####################################
 
         with open("%s" % full_path, "w") as f:
-            f.write('%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, number_of_nodes))
+            f.write('%d,%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, number_of_nodes,recommended_fps))
             ################################## fill in
             beat_pos = song_offset
 
