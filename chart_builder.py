@@ -3,8 +3,11 @@ Chart builder function call here!
  - If you added song and want to play them, you have to add chart to them!
  - Fill in the form between ############## lines!
 
+ - On variables.py, change update_chart_flag to True
 '''
 import os, sys
+
+from variables import update_chart_flag
 ########################################## Import your chart builder python file here as follows
 from chart_test import Chart_Test
 from chart_AnotherWay import *
@@ -46,7 +49,7 @@ def write_chart(song_name,instance):
 
     print("Chart updated: %s"%song_name)
 
-
-for cb in chart_builder_list:
-    write_chart(cb.song_name,cb)
+if update_chart_flag:
+    for cb in chart_builder_list:
+        write_chart(cb.song_name,cb)
 
