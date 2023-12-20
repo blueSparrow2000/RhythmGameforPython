@@ -19,7 +19,7 @@ But you can go modify the files ('chart_[songname].py') to make them more playab
 Future plan: Going to add machine learning for auto-generating song charts (song patterns) given a song.
 
 
-Develope period: 
+Developement period: 
 
 
 9/20/2021 ~ 9/24/2021 on holidays 
@@ -91,7 +91,7 @@ Future updates:
 Following music should **not** be used commercially.
 - bad apple
 - Rollin
-- HHM (흠흐밍)
+- 흠흐밍 Remix (Rcol)
 
 Following music in the project is licensed as CREATIVE COMMONS license. 
 - Another Way
@@ -139,7 +139,7 @@ Drops of H2O ( The Filtered Water Treatment ) by J.Lang (c) copyright 2012 Licen
 https://soundcloud.com/scandinavianz/scandinavianz-waikiki-free-download?in=royaltyfreemusic-nocopyrightmusic/sets/creative-commons-music-1
 
 
-#### HHM Remix (흠흐밍 리믹스)
+#### HHM Remix (흠흐밍 Remix - Rcol)
 
 
 https://www.youtube.com/watch?v=c0fVyNu4fbA
@@ -150,6 +150,13 @@ https://www.youtube.com/watch?v=c0fVyNu4fbA
 
 
 https://www.youtube.com/watch?v=iO5-RpQAIt4&t=0s
+
+
+
+#### Rollin
+
+
+https://www.youtube.com/watch?v=RuxqHDKvAlU
 
 
 
