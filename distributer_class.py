@@ -33,8 +33,8 @@ def offset_corresponding_to_speed(input):
 
 
 class Distributer():
-    def __init__(self,stage_speed,offset,screen,request,song_name,song_bpm,beat_line_request = False):
-        global fps, song_offsets
+    def __init__(self,stage_speed,offset,screen,request,song_name,song_bpm, given_fps, beat_line_request = False):
+        global song_offsets
         self.screen = screen
         self.speed = stage_speed # pixel per 100 millisecond (node speed x == x*10 pixel/second)
         #self.speed_offsets = {10:180,20:600,50:790,80:850}
@@ -45,7 +45,9 @@ class Distributer():
         self.offset = offset + int(offset_corresponding_to_speed(self.speed)) + song_offset#self.speed_offsets[self.speed]  #180+(self.speed-10)*(720/70) #self.speed_offsets[self.speed] #770#+ (80 - self.speed)*11
         print("Offset: ",self.offset)
         self.delta_t = ((line_length - node_spawning_y_pos)/self.speed)*100 # (millisecond)
-        self.fps_error = (1000//fps) # in milliseconds
+
+        self.given_fps = given_fps
+        self.fps_error = (1000//self.given_fps) # in milliseconds
 
         self.request =  request
         self.beat_line_request = beat_line_request
@@ -149,11 +151,11 @@ class Distributer():
             while self.deploy_time(first_node_deploy_time,cur_time): #<= self.fps_error//2: # 해당 노드가 소환되어야 할 시점을 지나면
                 #print('Correct loop')
                 if first_node[0] == 'node':
-                    n = Node(first_node[2], first_node[3])
+                    n = Node(first_node[2], first_node[3],self.given_fps)
                     #print(len(first_node))
                     if len(first_node) == 5: # special
                         #print("Found special node!")
-                        n = Node(first_node[2],first_node[3],first_node[4].strip())
+                        n = Node(first_node[2],first_node[3],self.given_fps,first_node[4].strip())
                     # print("cur time: ",cur_time)
                     # print("deploy error: ",first_node_deploy_time-cur_time)
                     # print("removed node at time: ", first_node_deploy_time)
@@ -163,9 +165,9 @@ class Distributer():
                     #print(loop_cnt)
                 elif first_node[0] == 'hold':
                     length = first_node[4]*self.speed//100
-                    n = Hold(first_node[2], first_node[3], length)
+                    n = Hold(first_node[2], first_node[3], length,self.given_fps)
                     if len(first_node) == 6: # special
-                        n = Hold(first_node[2], first_node[3], length, first_node[5].strip())
+                        n = Hold(first_node[2], first_node[3], length,self.given_fps, first_node[5].strip())
 
                     self.request.remove(first_node)
                     holds_on_screen.append(n)
@@ -189,6 +191,6 @@ class Distributer():
 
     def deploy_beat_line(self,cur_time,beat_lines):
         # print(cur_beat_time," 비트타임\n보정 시간: ",cur_time+(self.offset + self.time_anomaly))
-        beat_lines.append(BeatLine(cur_time//self.song_mpb,show_beat = False))
+        beat_lines.append(BeatLine(cur_time//self.song_mpb,self.given_fps ,show_beat = False))
         #print("Deployed!")
 

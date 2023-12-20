@@ -142,10 +142,12 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
         game_run = False
         view_score_menu(screen, clock, song_name, score, song_difficulty, total_points)
         return
-    verifier = Verifier(screen,score,stage_speed,judgement_shown,song_bpm,high_quality_verifying_graphics)
 
+    game_fps = 60
     hhm_list = []
     if song_name == 'Hmm Heu Ming':
+        ##################### Important: Change FPS #####################
+        game_fps = 120 # 임시. song should have these values
         print("Now playing Hmm Heu Ming!")
         hmm = load_image('hmm')
         hu = load_image('hu')
@@ -155,6 +157,9 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
         hhm_list.append(hu)
         hhm_list.append(ming)
         hhm_list.append(zoa)
+
+
+    verifier = Verifier(screen,score,stage_speed,judgement_shown,song_bpm,high_quality_verifying_graphics, game_fps)
 
 
     bar_pos = (width // 2, info_length//4)
@@ -169,7 +174,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
         exit_game(screen, clock, song_name, score, song_difficulty, total_points)
         game_run = False
     else:
-        distributer = Distributer(stage_speed,offset,screen,chart_info[4],song_name,song_bpm,beat_line_request=guide_line_shown)
+        distributer = Distributer(stage_speed,offset,screen,chart_info[4],song_name,song_bpm,game_fps, beat_line_request=guide_line_shown)
 
 
     while game_run:
@@ -321,8 +326,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
                 screen_freeze = False
                 change_background_color = 0  # set back to normal
 
-        clock.tick_busy_loop(fps)
-        #clock.tick(fps)
+        clock.tick_busy_loop(game_fps)
 
         if check_music_ended(song_start_time):
             game_run = False

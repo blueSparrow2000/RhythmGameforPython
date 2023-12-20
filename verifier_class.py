@@ -12,19 +12,18 @@ import math
 from utility_functions import *
 
 class Verifier():
-    def __init__(self,screen, score,speed,judgement_shown,bpm,high_quality_verifying_graphics):
-        global fps
+    def __init__(self,screen, score,speed,judgement_shown,bpm,high_quality_verifying_graphics, given_fps):
         self.screen = screen
         self.speed = speed
         self.score = score
         self.tiles_to_verify = []
-        self.judgement_frames = fps//2 #fps//2
+        self.judgement_frames = given_fps//2 #given_fps//2
         self.judgement_highest_pos = int((self.judgement_frames) *0.7)
         self.judgement_shown = judgement_shown
         self.high_quality_verifying_graphics = high_quality_verifying_graphics
         self.verification_show_time = 100 # ms
 
-        self.frame_error = int(((10/fps)*self.speed) + 1)
+        self.frame_error = int(((10/given_fps)*self.speed) + 1)
         self.song_bpm = bpm
         song_mpb = ((1000 * 60 / self.song_bpm))
         self.half_bit_pixel_size = millisecond_pixel_converter(song_mpb, self.speed)/2
@@ -41,10 +40,10 @@ class Verifier():
 
         # # tolerances for node
         # node_judgement_interval = int(self.speed**(1.3)/50) +self.frame_error
-        # self.pure_perfect_tolerance = node_height // 10 + node_judgement_interval #10  #node_height // 2 + (1000 / fps) * (self.speed / 100)  # player의 반응속도를 고려한 판정 범위 pixel
+        # self.pure_perfect_tolerance = node_height // 10 + node_judgement_interval #10  #node_height // 2 + (1000 / given_fps) * (self.speed / 100)  # player의 반응속도를 고려한 판정 범위 pixel
         # self.perfect_tolerance = node_height // 4 + node_judgement_interval*1.2
         # self.hit_tolerance = node_height // 2 + node_judgement_interval*1.8 #50  #((node_height // 2)*(1 + self.speed/10))
-        # self.judgement_tolerance = self.hit_tolerance + self.frame_error #self.hit_tolerance*(1+(10 / fps)*10)  #100  #((node_height // 2) * (1 + self.speed / 10))*1.3 # hit의 1.3배 범위
+        # self.judgement_tolerance = self.hit_tolerance + self.frame_error #self.hit_tolerance*(1+(10 / given_fps)*10)  #100  #((node_height // 2) * (1 + self.speed / 10))*1.3 # hit의 1.3배 범위
         #
         #
         #

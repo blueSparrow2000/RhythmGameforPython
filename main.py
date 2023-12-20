@@ -193,6 +193,11 @@ while meta_run:
             break
 
         screen.fill(background_color[0])
+
+        if creater_mode:
+            write_text(screen, width // 2, small_text*2, '- This is a creater mode -', small_text, background_color[0],
+                       debug_color)
+
         write_text(screen, width//2, height//8 , 'Press Enter to play!', big_text, background_color[0], highlight_text_color)
 
         for offset_ in offset_mode_keys:

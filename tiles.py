@@ -9,8 +9,9 @@ from text_writer import *
 import math
 
 class Node():
-    def __init__(self,line,point,special = None):
+    def __init__(self,line,point,given_fps, special = None):
         global judgement_line, height, node_color ,bad_apple_toggled_color,bad_apple_color,debug_color
+        self.given_fps = given_fps
 
         self.judgement_line = judgement_line
         self.height = height
@@ -47,7 +48,7 @@ class Node():
                               node_height])
 
     def move(self,speed):
-        self.y += (speed*10/fps)
+        self.y += (speed*10/self.given_fps)
 
     def fix_loc(self, loc = None):
         if loc:
@@ -79,8 +80,10 @@ class Node():
 
 
 class Hold():
-    def __init__(self,line,point,length,special=None):
+    def __init__(self,line,point,length,given_fps,special=None):
         global judgement_line, height, hold_color, holding_middle_color , not_holding_color,not_holding_middle_color, debug_color
+        self.given_fps = given_fps
+
         self.judgement_line = judgement_line
         self.height = height
 
@@ -125,7 +128,7 @@ class Hold():
             self.middle_color = self.not_holding_middle_color
 
     def move(self,speed):
-        increment = (speed*10/fps)
+        increment = (speed*10/self.given_fps)
         self.y += increment
         self.this_judgement_pos += increment
         self.tail = self.y - self.length

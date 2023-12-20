@@ -20,7 +20,7 @@ song_info_list = []
 
 high_quality_verifying_graphics = False
 
-creater_mode = False# false
+creater_mode = True# false
 
 
 # time settings
