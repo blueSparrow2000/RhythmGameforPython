@@ -44,6 +44,16 @@ width = line_number * line_width
 #######
 line_axes = [(line_width//2) + line_width*(i+1) for i in range(line_number)]
 
+
+option_key_x_level = width//2
+option_key_y_level = 350
+
+song_selection_key_x_level = width//2
+song_selection_key_y_level = 550
+
+
+
+
 # node info
 node_height = 20
 # note that node width is equal to line_width
@@ -57,6 +67,7 @@ node_spawning_y_pos = info_length + node_height//2
 
 judgement_line_depth = node_height//2 + int(5 * (1000/60))  #node_height//2 + int(5 * (1000/fps)) # node_height//2 + ((max_speed//2) * (1000/fps))
 judgement_line = height - judgement_line_depth  # max_speed 로 (1000/fps)*10 밀리초간 이동한 거리까지 화면에 보여줌
+
 
 # frame settings
 guide_keys = ['F','G','H','J']
@@ -127,3 +138,9 @@ song_offsets = {'test': 0}
 freeze_delay = 400
 change_background_color = 0
 hmm_x_loc, hmm_y_loc = line_width , judgement_line + 10
+
+
+
+# jacket options
+jacket_size = (300,300)
+jacket_loc = (width//2 - jacket_size[0]//2, 180)

@@ -17,7 +17,7 @@ from chart_patterns import *
 
 class Chart_HHM():
     def __init__(self):
-        self.song_name = 'Hmm Heu Ming' #'HHM' #'HHM_climax'
+        self.song_name = 'Hmm Heu Ming Remix (Rcol)' #'HHM' #'HHM_climax'
 
     def build_chart(self,full_path):
         global wait_delay

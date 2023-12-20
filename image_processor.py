@@ -15,10 +15,24 @@ computer highlights pressed 'line'
 IMAGE_FOLDER = os.path.dirname(os.path.realpath(sys.argv[0]))+'/images/'
 
 
+
+
+
+def move_image(img,coord):
+    rect = img.get_rect()
+    rect = rect.move(coord)
+    return rect
+
+def resize_image(img,size):
+    return pygame.transform.scale(img, size)
+
 def load_image(filename):
-    APP_FOLDER = os.path.dirname(os.path.realpath(sys.argv[0]))+'/images/'
-    full_path = os.path.join(APP_FOLDER, '%s.PNG'%filename)
-    return pygame.image.load(full_path)
+    try:
+        APP_FOLDER = os.path.dirname(os.path.realpath(sys.argv[0]))+'/images/'
+        full_path = os.path.join(APP_FOLDER, '%s.PNG'%filename)
+        return pygame.image.load(full_path)
+    except:
+        return None
 
 
 def highlight_line(screen, line_no):
