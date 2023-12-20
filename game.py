@@ -30,7 +30,7 @@ def get_ready(screen,clock,song_name,total_points):
     score = [0]
     pygame.mixer.music.stop()
 
-    seconds_to_count = 1 #3
+    seconds_to_count = 3 #3
     count = seconds_to_count
     start_time = pygame.time.get_ticks()
 
@@ -145,8 +145,8 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
     verifier = Verifier(screen,score,stage_speed,judgement_shown,song_bpm,high_quality_verifying_graphics)
 
     hhm_list = []
-    if song_name == 'HHM' or song_name == 'HHM_climax':
-        print("Now playing HHM!")
+    if song_name == 'Hmm Heu Ming':
+        print("Now playing Hmm Heu Ming!")
         hmm = load_image('hmm')
         hu = load_image('hu')
         ming = load_image('ming')
@@ -317,7 +317,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
             pygame.display.flip()
         else: # check when the screen update should be true
             screen_cur_time = pygame.time.get_ticks()
-            if (screen_cur_time - first_pause_time) >= wait_delay:
+            if (screen_cur_time - first_pause_time) >= freeze_delay:
                 screen_freeze = False
                 change_background_color = 0  # set back to normal
 
@@ -386,7 +386,8 @@ def draw_guide_key(screen):
 
 def draw_hhm_key(screen, hhm_list,idx):
     global hmm_x_loc, hmm_y_loc
-
+    if not hhm_list:
+        pass
     screen.blit(hhm_list[idx], [hmm_x_loc+line_width*idx, hmm_y_loc])
 
 

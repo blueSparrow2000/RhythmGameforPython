@@ -118,7 +118,8 @@ def view_score_menu(screen,clock,song_name,score_pointer,song_difficulty,total_p
 
 
         pygame.display.flip()
-        clock.tick_busy_loop(fps)
+        clock.tick(fps)
+        #clock.tick_busy_loop(fps)
 
 
 def draw_score_bar(screen, score_percentage, color, alpha,x,y):

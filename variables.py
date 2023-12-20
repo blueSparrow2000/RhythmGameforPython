@@ -10,9 +10,9 @@ lobbyMusic = 'Drops of H2O_FULL'
 scoreboardMusic = 'Another way_FULL'
 
 # player settings
-stage_speed = 100
+stage_speed = 80
 offset = 0
-judgement_shown = True
+judgement_shown = False
 guide_line_shown = False
 music_pointer = 4
 song_name = None # as a default
@@ -20,11 +20,11 @@ song_info_list = []
 
 high_quality_verifying_graphics = False
 
-creater_mode = False # false
+creater_mode = False# false
 
 
 # time settings
-fps = 60
+fps = 120 #120 # 60
 max_speed = 100 # (float) pixels/100 milliseconds
 min_speed = 15
 max_offset = 1000
@@ -49,7 +49,7 @@ height = line_length + info_length # this is equal to 'border line' position
 #######
 node_spawning_y_pos = info_length + node_height//2
 
-judgement_line_depth = node_height//2 + int(5 * (1000/fps)) # node_height//2 + ((max_speed//2) * (1000/fps))
+judgement_line_depth = node_height//2 + int(5 * (1000/60))  #node_height//2 + int(5 * (1000/fps)) # node_height//2 + ((max_speed//2) * (1000/fps))
 judgement_line = height - judgement_line_depth  # max_speed 로 (1000/fps)*10 밀리초간 이동한 거리까지 화면에 보여줌
 
 # frame settings
@@ -62,6 +62,17 @@ guide_x_loc = line_width//2 + line_width
 # some color settings
 background_color = [(40, 40, 30),(215, 215, 225)]
 line_color = (240,240,235)
+
+node_color = (180,180,180)
+hold_color =(210,210,210)
+not_holding_color = (140,140,140)
+
+holding_middle_color = (170,170,170)
+not_holding_middle_color = (120,120,120)
+
+bad_apple_color = (240, 180, 180)
+bad_apple_toggled_color = (0,0,0)
+debug_color = (241, 196, 15)
 
 score_grades = ['Pure Perfect!!! (PP)','Perfect (P)','AA','A','B','C','D','E','Failed']
 
@@ -107,6 +118,6 @@ song_offsets = {'test': 0}
 
 
 # special effects
-wait_delay = 300
+freeze_delay = 400
 change_background_color = 0
 hmm_x_loc, hmm_y_loc = line_width , judgement_line + 10

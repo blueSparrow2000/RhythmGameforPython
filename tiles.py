@@ -10,14 +10,19 @@ import math
 
 class Node():
     def __init__(self,line,point,special = None):
-        global judgement_line, height
+        global judgement_line, height, node_color ,bad_apple_toggled_color,bad_apple_color,debug_color
+
         self.judgement_line = judgement_line
         self.height = height
 
         self.name = 'node'
         self.y = node_spawning_y_pos
         self.line = line # 몇 번 line에 넣을지 결정
-        self.color = (180,180,180)
+        self.color = node_color
+        self.bad_apple_toggled_color = bad_apple_toggled_color
+        self.bad_apple_color = bad_apple_color
+        self.debug_color = debug_color
+
         self.point = point
 
         self.special = special # special node
@@ -25,14 +30,17 @@ class Node():
     def draw(self, screen, screen_freeze = False):
         if self.special == 'BadApple':
             if screen_freeze: # at screen freeze
-                pygame.draw.rect(screen, (0,0,0),
+                pygame.draw.rect(screen, self.bad_apple_toggled_color,
                                  [line_axes[self.line - 1] - line_width // 2, self.y - node_height // 2, line_width,
                                   node_height])
             else:  # no screen freeze
-                pygame.draw.rect(screen, (240, 180, 180),
+                pygame.draw.rect(screen, self.bad_apple_color,
                                  [line_axes[self.line - 1] - line_width // 2, self.y - node_height // 2, line_width,
                                   node_height])
-
+        elif self.special == 'Debug':
+            pygame.draw.rect(screen, self.debug_color,
+                             [line_axes[self.line - 1] - line_width // 2, self.y - node_height // 2, line_width,
+                              node_height])
         else:
             pygame.draw.rect(screen, self.color,
                              [line_axes[self.line - 1] - line_width // 2, self.y - node_height // 2, line_width,
@@ -72,7 +80,7 @@ class Node():
 
 class Hold():
     def __init__(self,line,point,length,special=None):
-        global judgement_line, height
+        global judgement_line, height, hold_color, holding_middle_color , not_holding_color,not_holding_middle_color, debug_color
         self.judgement_line = judgement_line
         self.height = height
 
@@ -84,9 +92,16 @@ class Hold():
         self.holding = False  # 자신이 눌러지고 있는지 판단
 
         self.line = line # 몇 번 line에 넣을지 결정
-        self.not_holding_color = (140,140,140)
-        self.holding_color = (210,210,210)
+        self.not_holding_color = not_holding_color
+        self.not_holding_middle_color = not_holding_middle_color
+        self.holding_color = hold_color
+        self.holding_middle_color = holding_middle_color
+
         self.color = self.not_holding_color
+        self.middle_color = not_holding_middle_color
+
+        self.debug_color = debug_color
+
         self.point = point
 
         self.this_judgement_pos = node_spawning_y_pos
@@ -94,13 +109,20 @@ class Hold():
         self.special = special # special node
 
     def draw(self,screen,screen_update = True):
-        pygame.draw.rect(screen,self.color ,[line_axes[self.line-1]-line_width//2,max(self.y-self.length,info_length),line_width,min(self.length,self.y-info_length)])
+        if self.special == 'Debug':
+            pygame.draw.rect(screen,self.debug_color ,[line_axes[self.line-1]-line_width//2,max(self.y-self.length,info_length),line_width,min(self.length,self.y-info_length)])
+        else:
+            pygame.draw.rect(screen,self.color,[line_axes[self.line-1]-line_width//2,max(self.y-self.length,info_length),line_width,min(self.length,self.y-info_length)])
+            pygame.draw.rect(screen,self.middle_color ,[line_axes[self.line-1]-line_width//16,max(self.y-self.length,info_length),line_width//8,min(self.length,self.y-info_length)])
+
 
     def update_color(self):
         if self.holding:
-            self.color = self.holding_color
+            #self.color = self.holding_color
+            self.middle_color = self.holding_middle_color
         else:
-            self.color = self.not_holding_color
+            #self.color = self.not_holding_color
+            self.middle_color = self.not_holding_middle_color
 
     def move(self,speed):
         increment = (speed*10/fps)

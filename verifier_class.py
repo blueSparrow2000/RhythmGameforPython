@@ -113,33 +113,42 @@ class Verifier():
 
 
     def verify_judgement_node(self,node,enforce_Lost = False):
-        if enforce_Lost:
-            self.append_verification_tile([node, ("Lost", ''), self.judgement_frames])
-            if self.judgement_shown:
-                print("Enforced Lost")
-            return
 
+        point = 0
         result = ''
         detail = ''
         human_error = node.y - judgement_line
-        if self.judgement_shown:
-            detail = 'Early' if ((human_error) <= 0) else 'Late'
-        point = 0
-        if abs(human_error) <= self.perfect_tolerance:
-            result = "Perfect"
 
-            if abs(human_error) <= self.pure_perfect_tolerance:
-                detail = ''  # no detail for pure perfect!
-                point = node.point
-            else:
-                point = node.point*0.95
-        elif abs(human_error) <= self.hit_tolerance:
+        if creater_mode:
+            point=1
+            result = "Tap"
 
-            result = "Hit"
-            point = node.point*0.8
         else:
-            result = "Lost"
-            point = 0
+            if enforce_Lost:
+                self.append_verification_tile([node, ("Lost", ''), self.judgement_frames])
+                if self.judgement_shown:
+                    print("Enforced Lost")
+                return
+
+            if self.judgement_shown:
+                detail = 'Early' if ((human_error) <= 0) else 'Late'
+
+            if abs(human_error) <= self.perfect_tolerance:
+                result = "Perfect"
+
+                if abs(human_error) <= self.pure_perfect_tolerance:
+                    detail = ''  # no detail for pure perfect!
+                    point = node.point
+                else:
+                    point = node.point*0.95
+            elif abs(human_error) <= self.hit_tolerance:
+
+                result = "Hit"
+                point = node.point*0.8
+            else:
+                result = "Lost"
+                point = 0
+
 
         # print result of Lost/Hit/Perfect on the screen
         #print(result)
@@ -174,24 +183,35 @@ class Verifier():
 
 
     def verify_judgement_hold(self,hold, events):
+        point = 0
         result = ''
         detail = ''
-        if not self.hold_ready_to_hit(hold):  # holding판정 범위 밖일때
-            if self.passed_last_chance(hold):
-                result = "Lost"
-                point = 0
-            else: # do nothing
-                return
-        else: # holding판정 범위안에 들어왔을 때
-            if self.check_keep_pressing(hold,events): # 한번이라도 누르고 있었다면
-                result = "Holding"
-                # hold 점수를 계산 (hold의 총 점수를 check point 개수로 나눔)
-                hold_point = round(
-                    hold.point / (math.ceil((hold.length/ self.hold_judgement_gap))),5)
-                #print(hold_point)
-                point = hold_point
-            else: # 아직은 누르지 않은 상태 ==> do nothing (이러다가 패스해버리면 위의 if에 걸림)
-                return
+
+        if creater_mode:
+            result = "Hold"
+            # hold 점수를 계산 (hold의 총 점수를 check point 개수로 나눔)
+            hold_point = round(
+                hold.point / (math.ceil((hold.length/ self.hold_judgement_gap))),5)
+            #print(hold_point)
+            point = hold_point
+        else:
+            if not self.hold_ready_to_hit(hold):  # holding판정 범위 밖일때
+                if self.passed_last_chance(hold):
+                    result = "Lost"
+                    point = 0
+                else: # do nothing
+                    return
+            else: # holding판정 범위안에 들어왔을 때
+                if self.check_keep_pressing(hold,events): # 한번이라도 누르고 있었다면
+                    result = "Holding"
+                    # hold 점수를 계산 (hold의 총 점수를 check point 개수로 나눔)
+                    hold_point = round(
+                        hold.point / (math.ceil((hold.length/ self.hold_judgement_gap))),5)
+                    #print(hold_point)
+                    point = hold_point
+                else: # 아직은 누르지 않은 상태 ==> do nothing (이러다가 패스해버리면 위의 if에 걸림)
+                    return
+
         #print(result)
         #print("sending %s to"%hold.this_judgement_pos)
         self.append_verification_tile([hold,(result,detail),self.judgement_frames])
