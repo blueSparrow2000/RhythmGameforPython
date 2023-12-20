@@ -23,7 +23,7 @@ class Chart_HHM():
         global wait_delay
         ##################################### fill in
         song_length = 104200
-        song_bpm = 112*2 #168 #
+        song_bpm = 112#112*2 #168 #
         song_mpb = ((1000 * 60 / song_bpm)) # 53.5 about 54 # milli-seconds per beat
         song_difficulty = 4
         number_of_nodes = 199

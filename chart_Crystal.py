@@ -25,7 +25,7 @@ class Chart_Crystal():
     def build_chart(self,full_path):
         ##################################### fill in
         song_length = 101000
-        song_bpm = 210 #140*2 #70
+        song_bpm = 140 #210 #140*2 #70
         song_mpb = ((1000 * 60 / song_bpm))  # 85.7
         song_difficulty = 4
         number_of_nodes = 211
