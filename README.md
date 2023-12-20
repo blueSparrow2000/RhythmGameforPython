@@ -25,7 +25,7 @@ Develope period:
 9/20/2021 ~ 9/24/2021 on holidays 
 
 
-12/16/2024 ~ 12/19/2024 on vacation
+12/16/2024 ~ 12/20/2024 on vacation
 
 
 ## How to Run
@@ -76,11 +76,13 @@ https://www.youtube.com/watch?v=IPAZ1w8-2PY
 2023.12.19 Added special effect nodes: Bad apple / added fast graphics for low spec. computer
 
 
+2023.12.20 Added new music: 흠흐밍 Remix (Rcol) / option and song choosing screen are now separated!
+
+
 
 Future updates:
 
 - score board
-- More musics: Rolling, Destructoid, Waikiki, Drop of H2O
 
 
 
