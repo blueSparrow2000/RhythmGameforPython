@@ -81,7 +81,7 @@ while meta_run:
                 mouse_particle_list.append((pygame.time.get_ticks(),(xp, yp)))
 
                 if abs(xp - option_key_x_level) < big_text*6:
-                    if abs(yp - (option_key_y_level)) < big_text*2:
+                    if abs(yp - (option_key_y_level)) < big_text:
                         print('option clicked!')
                         run = False
                         stage_speed, offset, judgement_shown, guide_line_shown, high_quality_verifying_graphics = option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_shown, high_quality_verifying_graphics)
@@ -89,7 +89,7 @@ while meta_run:
                         break
 
                 if abs(xp - song_selection_key_x_level) < big_text*6:
-                    if abs(yp - (song_selection_key_y_level)) < big_text*2:
+                    if abs(yp - (song_selection_key_y_level)) < big_text:
                         print('song selection clicked!')
                         run = False
                         music_list, music_pointer, song_name = song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_shown, high_quality_verifying_graphics)
@@ -116,11 +116,11 @@ while meta_run:
 
         write_text(screen, width//2, height//8 , 'A rhythm game in pygame', big_text, background_color[0], highlight_text_color)
 
-        write_text(screen, option_key_x_level, option_key_y_level + big_text,
+        write_text(screen, option_key_x_level, option_key_y_level,
                    '[ Options ]', big_text, background_color[0],
                    highlight_text_color)
 
-        write_text(screen, song_selection_key_x_level, song_selection_key_y_level + big_text,
+        write_text(screen, song_selection_key_x_level, song_selection_key_y_level,
                    '[ Song selection ]', big_text, background_color[0],
                    highlight_text_color)
 

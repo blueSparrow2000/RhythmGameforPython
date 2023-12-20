@@ -147,7 +147,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
 
     # custom press setting for HHM fan music!
     hhm_list = []
-    if song_name == 'Hmm Heu Ming':
+    if song_name == 'Hmm Heu Ming Remix (Rcol)':
         print("Now playing Hmm Heu Ming!")
         hmm = load_image('hmm')
         hu = load_image('hu')
@@ -295,6 +295,8 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
                         for T in tiles_off_screen + nodes_on_screen + holds_on_screen:
                             T.draw(screen,screen_freeze)
                         draw_frame(screen)
+                        write_text(screen, width // 2, (info_length // 2) // 2, 'Song: %s' % (song_name), small_text,
+                                   background_color[change_background_color], red_color)
                         pygame.display.flip()
                         ####### change background color! ########
                         #pygame.time.delay(wait_delay)

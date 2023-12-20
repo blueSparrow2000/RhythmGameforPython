@@ -87,6 +87,7 @@ not_holding_color = (140,140,140)
 holding_middle_color = (170,170,170)
 not_holding_middle_color = (120,120,120)
 
+red_color = (150,25,25)
 bad_apple_color = (240, 180, 180)
 bad_apple_toggled_color = (0,0,0)
 debug_color = (241, 196, 15)
