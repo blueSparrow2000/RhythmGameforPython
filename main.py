@@ -282,5 +282,5 @@ while meta_run:
 
 
         pygame.display.flip()
-        clock.tick(fps)
+        clock.tick(main_loop_render_fps)
 

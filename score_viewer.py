@@ -118,7 +118,7 @@ def view_score_menu(screen,clock,song_name,score_pointer,song_difficulty,total_p
 
 
         pygame.display.flip()
-        clock.tick(fps)
+        clock.tick(main_loop_render_fps)
         #clock.tick_busy_loop(fps)
 
 

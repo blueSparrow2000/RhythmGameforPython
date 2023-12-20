@@ -24,7 +24,9 @@ creater_mode = False# false
 
 
 # time settings
-fps = 120 #120 # 60
+fps = 60 #120 # 60
+main_loop_render_fps = 60
+
 max_speed = 100 # (float) pixels/100 milliseconds
 min_speed = 15
 max_offset = 1000

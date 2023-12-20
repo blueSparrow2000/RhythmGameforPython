@@ -122,32 +122,34 @@ class Verifier():
         if creater_mode:
             point=1
             result = "Tap"
+            self.append_verification_tile([node, (result, detail), self.judgement_frames])
+            self.score[0] += point
+            return
 
-        else:
-            if enforce_Lost:
-                self.append_verification_tile([node, ("Lost", ''), self.judgement_frames])
-                if self.judgement_shown:
-                    print("Enforced Lost")
-                return
-
+        if enforce_Lost:
+            self.append_verification_tile([node, ("Lost", ''), self.judgement_frames])
             if self.judgement_shown:
-                detail = 'Early' if ((human_error) <= 0) else 'Late'
+                print("Enforced Lost")
+            return
 
-            if abs(human_error) <= self.perfect_tolerance:
-                result = "Perfect"
+        if self.judgement_shown:
+            detail = 'Early' if ((human_error) <= 0) else 'Late'
 
-                if abs(human_error) <= self.pure_perfect_tolerance:
-                    detail = ''  # no detail for pure perfect!
-                    point = node.point
-                else:
-                    point = node.point*0.95
-            elif abs(human_error) <= self.hit_tolerance:
+        if abs(human_error) <= self.perfect_tolerance:
+            result = "Perfect"
 
-                result = "Hit"
-                point = node.point*0.8
+            if abs(human_error) <= self.pure_perfect_tolerance:
+                detail = ''  # no detail for pure perfect!
+                point = node.point
             else:
-                result = "Lost"
-                point = 0
+                point = node.point*0.95
+        elif abs(human_error) <= self.hit_tolerance:
+
+            result = "Hit"
+            point = node.point*0.8
+        else:
+            result = "Lost"
+            point = 0
 
 
         # print result of Lost/Hit/Perfect on the screen
@@ -281,6 +283,9 @@ class Verifier():
                     write_text(self.screen, line_axes[verification[0].line - 1],
                                judgement_line - judgement_text * 3,
                                "%s" % (verification[1][0]), judgement_text, background_color[0], highlight_text_color)
+                    write_text(self.screen, line_axes[verification[0].line - 1],
+                               judgement_line - judgement_text * 3 + judgement_text,
+                               "%s" % (verification[1][1]), detail_text, background_color[0], highlight_text_color)
 
 
 

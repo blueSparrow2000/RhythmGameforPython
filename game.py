@@ -105,7 +105,7 @@ def get_ready(screen,clock,song_name,total_points):
         draw_guide_key(screen)
 
         pygame.display.flip()
-        clock.tick(fps)
+        clock.tick(main_loop_render_fps)
 
     return exit_outer_game
 
