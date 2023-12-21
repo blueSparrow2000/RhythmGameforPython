@@ -22,7 +22,7 @@ Developement period:
 9/20/2021 ~ 9/24/2021 on holidays 
 
 
-12/16/2024 ~ 12/20/2024 on vacation
+12/16/2024 ~ 12/21/2024 on vacation
 
 
 ## How to Run
@@ -76,21 +76,26 @@ https://www.youtube.com/watch?v=IPAZ1w8-2PY
 2023.12.20 Added new music: 흠흐밍 Remix (Rcol) / option and song choosing screen are now separated!
 
 
+2023.12.20 Added score system! Now your scores are saved in score.txt
+
 
 Future updates:
 
-- score board
+- Update chart patterns (more fun)
+- Machine learning
+
 
 
 
 
 ## Copyrights for musics
-Following music should **not** be used commercially.
+Following musics should **not** be used commercially.
 - bad apple
 - Rollin
 - 흠흐밍 Remix (Rcol)
 
-Following music in the project is licensed as CREATIVE COMMONS license. 
+
+Following musics in the project are licensed as CREATIVE COMMONS license. 
 - Another Way
 - Crystal
 - Drops of H2O
@@ -101,7 +106,7 @@ Following music in the project is licensed as CREATIVE COMMONS license.
 Hence I added descriptions at the score viewer and here.
 
 
-The musics's copyrights are as follows:
+Musics's copyrights are as follows:
 
 
 #### Another way
