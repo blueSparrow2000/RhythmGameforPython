@@ -51,6 +51,8 @@ option_key_y_level = 350
 song_selection_key_x_level = width//2
 song_selection_key_y_level = 550
 
+button_y_offset = 25
+button_x_size, button_y_size = 310,50
 
 
 

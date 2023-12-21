@@ -105,10 +105,10 @@ def option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_
                        background_color[0],
                        debug_color)
 
-        write_text(screen, width // 2, height // 8 - big_text, '[ Options ]', big_text, background_color[0],
+        write_text(screen, width // 2, height // 8 - big_text, 'Options', big_text, background_color[0],
                    highlight_text_color)
-        # write_text(screen, width // 2, height // 8, 'Press Enter or ESC to go back', small_text, background_color[0],
-        #            highlight_text_color)
+        pygame.draw.rect(screen, highlight_text_color, [width//4 - big_text, height // 8 - big_text - button_y_offset, button_x_size, button_y_size], 4,8)
+
 
 
         # option settings

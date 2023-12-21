@@ -125,12 +125,14 @@ while meta_run:
         write_text(screen, width//2, height//8 , 'A rhythm game in pygame', big_text, background_color[0], highlight_text_color)
 
         write_text(screen, option_key_x_level, option_key_y_level,
-                   '[ Options ]', big_text, background_color[0],
+                   'Options', big_text, background_color[0],
                    highlight_text_color)
+        pygame.draw.rect(screen, highlight_text_color, [width//4 - big_text, option_key_y_level - button_y_offset, button_x_size, button_y_size], 4,8)
 
         write_text(screen, song_selection_key_x_level, song_selection_key_y_level,
-                   '[ Song selection ]', big_text, background_color[0],
+                   'Song selection', big_text, background_color[0],
                    highlight_text_color)
+        pygame.draw.rect(screen, highlight_text_color, [width//4 - big_text,  song_selection_key_y_level - button_y_offset, button_x_size, button_y_size], 4,8)
 
 
         write_text(screen, width // 2, height-small_text, 'How to play: press %s,%s,%s,%s in appropriate timing!'%(guide_keys[0],guide_keys[1],guide_keys[2],guide_keys[3]), small_text, background_color[0],
