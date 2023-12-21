@@ -93,16 +93,22 @@ def get_ready(screen,clock,song_name,total_points):
         write_text(screen, width//2, (info_length//2)//2, 'Song: %s'%(song_name), small_text, background_color[change_background_color], highlight_text_color)
         write_text(screen, width // 2, (info_length // 2) // 2 + (info_length // 2), f"Score: {'0':<6} / {total_points:>4}", small_text, background_color[change_background_color],
                    highlight_text_color)
+
+
         # draw basic frame with lines
         draw_frame(screen)
 
+        # get ready count
         write_text(screen, width // 2, height//2, '%d' % (count), giant_text,
                    background_color[change_background_color],
                    red_highlight_text_color)
 
+        # ESC
         write_text(screen, width // 2, 3*(height//4), 'Press ECS to return to the main menu', tiny_text,
                    background_color[change_background_color],
                    red_highlight_text_color)
+
+
 
         # guide key shown
         draw_guide_key(screen)

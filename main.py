@@ -103,6 +103,14 @@ while meta_run:
                     run, meta_run = exit()
                     break
 
+                elif event.key == pygame.K_RETURN:
+                    print('Going to song selection!')
+                    run = False
+                    music_list, music_pointer, song_name = song_selection_screen(screen, clock, stage_speed, offset,
+                                                                                 judgement_shown, guide_line_shown,
+                                                                                 high_quality_verifying_graphics)
+                    break
+
 
 
         if not run:

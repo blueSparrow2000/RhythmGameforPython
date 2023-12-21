@@ -37,12 +37,12 @@ def load_image(filename):
 
 def load_highlight():
     image = load_image('highlight')
-    image = pygame.transform.scale(image, (100,800))
+    image = pygame.transform.scale(image, (100,1600))
     return image
 
 
 def highlight_line(screen, image, line_no):
-    adjusting_factor = 600#50 #100
+    adjusting_factor = 400#50 #100
     highlight_height = 200
     above_judgement_line = judgement_line_depth
     screen.blit(image, (line_width*line_no, judgement_line- adjusting_factor-above_judgement_line), (0, -adjusting_factor + highlight_height , line_width, judgement_line_depth+adjusting_factor ))
