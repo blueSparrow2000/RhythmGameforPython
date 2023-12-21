@@ -76,7 +76,7 @@ https://www.youtube.com/watch?v=IPAZ1w8-2PY
 2023.12.20 Added new music: 흠흐밍 Remix (Rcol) / option and song choosing screen are now separated!
 
 
-2023.12.20 [Complete update] Added score system! Now your scores are saved in score.txt
+2023.12.20 [Complete update] Added scoring system! Now your scores are saved in scores.txt
 
 
 Future updates:
