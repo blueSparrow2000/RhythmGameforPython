@@ -78,7 +78,7 @@ def view_score_menu(screen,clock,song_name,score_pointer,song_difficulty,total_p
         write_text(screen, width // 2, height//20 , 'Press Enter to continue', small_text, background_color[0],
                    highlight_text_color)
 
-        write_text(screen, width // 2, height//4, '%s' % (song_name), big_text, background_color[0],
+        write_text(screen, width // 2, height//4 - big_text, '%s' % (song_name), big_text, background_color[0],
                    highlight_text_color)
         write_text(screen, width // 2, height//4 + big_text*2 - detail_text, 'Song difficulty: %s' % (song_difficulty), small_text, background_color[0],
                    highlight_text_color)
@@ -87,7 +87,7 @@ def view_score_menu(screen,clock,song_name,score_pointer,song_difficulty,total_p
         #            background_color[0],
         #            highlight_text_color)
 
-        write_text(screen, width // 2, score_percentage_loc, 'Score Percentage: %.1f %%' % (score_percentage), small_text,
+        write_text(screen, width // 2, score_percentage_loc, 'Score: %.1f %%' % (score_percentage), big_text,
                    background_color[0],
                    highlight_text_color)
 
