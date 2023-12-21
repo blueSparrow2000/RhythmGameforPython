@@ -134,8 +134,9 @@ while meta_run:
                    highlight_text_color)
         pygame.draw.rect(screen, highlight_text_color, [width//4 - big_text,  song_selection_key_y_level - button_y_offset, button_x_size, button_y_size], 4,8)
 
-
-        write_text(screen, width // 2, height-small_text, 'How to play: press %s,%s,%s,%s in appropriate timing!'%(guide_keys[0],guide_keys[1],guide_keys[2],guide_keys[3]), small_text, background_color[0],
+        write_text(screen, width // 2, height-small_text*4, 'How to play: ', small_text, background_color[0],
+                   highlight_text_color)
+        write_text(screen, width // 2, height-small_text*2, 'press %s,%s,%s,%s in appropriate timing!'%(guide_keys[0],guide_keys[1],guide_keys[2],guide_keys[3]), small_text, background_color[0],
                    highlight_text_color)
 
         if mouse_particle_list:  # if not empty
