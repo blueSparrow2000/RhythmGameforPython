@@ -35,11 +35,17 @@ def load_image(filename):
         return None
 
 
-def highlight_line(screen, line_no):
+def load_highlight():
     image = load_image('highlight')
-    adjusting_factor = 50 #100
+    image = pygame.transform.scale(image, (100,800))
+    return image
+
+
+def highlight_line(screen, image, line_no):
+    adjusting_factor = 600#50 #100
+    highlight_height = 200
     above_judgement_line = judgement_line_depth
-    screen.blit(image, (line_width*line_no, judgement_line- adjusting_factor-above_judgement_line), (0, -adjusting_factor, line_width, judgement_line_depth+adjusting_factor))
+    screen.blit(image, (line_width*line_no, judgement_line- adjusting_factor-above_judgement_line), (0, -adjusting_factor + highlight_height , line_width, judgement_line_depth+adjusting_factor ))
     # print("Pressed: %dth line"%line_no)
 
 

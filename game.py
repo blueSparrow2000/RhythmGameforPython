@@ -34,6 +34,9 @@ def get_ready(screen,clock,song_name,total_points):
     count = seconds_to_count
     start_time = pygame.time.get_ticks()
 
+    # load highlight
+    highlight = load_highlight()
+
     while game_run:
         time_passed_milli = pygame.time.get_ticks() - start_time
         count = seconds_to_count - time_passed_milli//1000
@@ -47,13 +50,13 @@ def get_ready(screen,clock,song_name,total_points):
         # Event handling
         keys = pygame.key.get_pressed()  # 꾹 누르고 있으면 계속 실행되는 것들
         if keys[pygame.K_f]:
-            highlight_line(screen, 1)
+            highlight_line(screen, highlight, 1)
         if keys[pygame.K_g]:
-            highlight_line(screen, 2)
+            highlight_line(screen, highlight, 2)
         if keys[pygame.K_h]:
-            highlight_line(screen, 3)
+            highlight_line(screen, highlight, 3)
         if keys[pygame.K_j]:
-            highlight_line(screen, 4)
+            highlight_line(screen, highlight, 4)
             #print(judgement_line)
 
         events = pygame.event.get()
@@ -78,13 +81,13 @@ def get_ready(screen,clock,song_name,total_points):
                     break
 
                 if event.key == pygame.K_f:
-                    highlight_line(screen, 1)
+                    highlight_line(screen, highlight, 1)
                 if event.key == pygame.K_g:
-                    highlight_line(screen, 2)
+                    highlight_line(screen, highlight, 2)
                 if event.key == pygame.K_h:
-                    highlight_line(screen, 3)
+                    highlight_line(screen, highlight, 3)
                 if event.key == pygame.K_j:
-                    highlight_line(screen, 4)
+                    highlight_line(screen, highlight, 4)
 
 
         write_text(screen, width//2, (info_length//2)//2, 'Song: %s'%(song_name), small_text, background_color[change_background_color], highlight_text_color)
@@ -144,6 +147,9 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
         view_score_menu(screen, clock, song_name, score, song_difficulty, total_points)
         return
 
+    # load highlight
+    highlight = load_highlight()
+
 
     # custom press setting for HHM fan music!
     hhm_list = []
@@ -187,19 +193,19 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
         # Event handling
         keys = pygame.key.get_pressed()  # 꾹 누르고 있으면 계속 실행되는 것들
         if keys[pygame.K_f]:
-            highlight_line(screen, 1)
+            highlight_line(screen, highlight, 1)
             if hhm_list:
                 draw_hhm_key(screen, hhm_list, 0)
         if keys[pygame.K_g]:
-            highlight_line(screen, 2)
+            highlight_line(screen, highlight, 2)
             if hhm_list:
                 draw_hhm_key(screen, hhm_list, 1)
         if keys[pygame.K_h]:
-            highlight_line(screen, 3)
+            highlight_line(screen, highlight, 3)
             if hhm_list:
                 draw_hhm_key(screen, hhm_list, 2)
         if keys[pygame.K_j]:
-            highlight_line(screen, 4)
+            highlight_line(screen, highlight, 4)
             if hhm_list:
                 draw_hhm_key(screen, hhm_list, 3)
 
@@ -225,19 +231,19 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
                     break
 
                 if event.key == pygame.K_f:
-                    highlight_line(screen, 1)
+                    highlight_line(screen, highlight, 1)
                     if hhm_list:
                         draw_hhm_key(screen, hhm_list, 0)
                 if event.key == pygame.K_g:
-                    highlight_line(screen, 2)
+                    highlight_line(screen, highlight, 2)
                     if hhm_list:
                         draw_hhm_key(screen, hhm_list, 1)
                 if event.key == pygame.K_h:
-                    highlight_line(screen, 3)
+                    highlight_line(screen, highlight, 3)
                     if hhm_list:
                         draw_hhm_key(screen, hhm_list, 2)
                 if event.key == pygame.K_j:
-                    highlight_line(screen, 4)
+                    highlight_line(screen, highlight, 4)
                     if hhm_list:
                         draw_hhm_key(screen, hhm_list, 3)
 
