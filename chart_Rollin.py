@@ -35,18 +35,18 @@ class Chart_Rollin():
             f.write('%d,%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, number_of_nodes,recommended_fps))
             ################################## fill in
             beats = 0
-            switch = True
-            while number_of_nodes > 0:
-                if beats % cycle == 1:
-                    pattern = ''
-                    if switch:
-                        pattern = basic_strike(beats*song_mpb, 2, 1)
-                        number_of_nodes -= 1
-                    else:
-                        pattern = basic_hold(beats*song_mpb, 4, 1, 500)
-                        number_of_nodes -= 1
-                    f.write(pattern)
-                    switch = not switch
-                beats += 1
+            # switch = True
+            # while number_of_nodes > 0:
+            #     if beats % cycle == 1:
+            #         pattern = ''
+            #         if switch:
+            #             pattern = basic_strike(beats*song_mpb, 2, 1)
+            #             number_of_nodes -= 1
+            #         else:
+            #             pattern = basic_hold(beats*song_mpb, 4, 1, 500)
+            #             number_of_nodes -= 1
+            #         f.write(pattern)
+            #         switch = not switch
+            #     beats += 1
             ##################################
 
