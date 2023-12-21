@@ -40,6 +40,11 @@ def load_highlight():
     image = pygame.transform.scale(image, (100,1600))
     return image
 
+def load_reverse_highlight():
+    image = load_image('reverse_highlight')
+    image = pygame.transform.scale(image, (100,1600))
+    return image
+
 
 def highlight_line(screen, image, line_no):
     adjusting_factor = 400#50 #100

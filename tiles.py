@@ -10,7 +10,7 @@ import math
 
 class Node():
     def __init__(self,line,point,given_fps, special = None):
-        global judgement_line, height, node_color ,bad_apple_toggled_color,bad_apple_color,debug_color
+        global judgement_line, height, node_color ,bad_apple_toggled_color,bad_apple_color,debug_color,change_background_color
         self.given_fps = given_fps
 
         self.judgement_line = judgement_line
@@ -19,7 +19,8 @@ class Node():
         self.name = 'node'
         self.y = node_spawning_y_pos
         self.line = line # 몇 번 line에 넣을지 결정
-        self.color = node_color
+
+        self.color = node_color[change_background_color[0]] #node_color
         self.bad_apple_toggled_color = bad_apple_toggled_color
         self.bad_apple_color = bad_apple_color
         self.debug_color = debug_color
@@ -78,10 +79,13 @@ class Node():
         if self.special=='BadApple':
             return 'wait'
 
+    def freeze(self):
+        self.color = self.color = node_color[change_background_color[0]]
+
 
 class Hold():
     def __init__(self,line,point,length,given_fps,special=None):
-        global judgement_line, height, hold_color, holding_middle_color , not_holding_color,not_holding_middle_color, debug_color
+        global judgement_line, height, hold_color, holding_middle_color , not_holding_color,not_holding_middle_color, debug_color,change_background_color
         self.given_fps = given_fps
 
         self.judgement_line = judgement_line
@@ -95,15 +99,12 @@ class Hold():
         self.holding = False  # 자신이 눌러지고 있는지 판단
 
         self.line = line # 몇 번 line에 넣을지 결정
-        self.not_holding_color = not_holding_color
+        self.debug_color = debug_color
         self.not_holding_middle_color = not_holding_middle_color
-        self.holding_color = hold_color
         self.holding_middle_color = holding_middle_color
 
-        self.color = self.not_holding_color
+        self.color = hold_color[change_background_color[0]] #self.not_holding_color
         self.middle_color = not_holding_middle_color
-
-        self.debug_color = debug_color
 
         self.point = point
 
@@ -121,10 +122,8 @@ class Hold():
 
     def update_color(self):
         if self.holding:
-            #self.color = self.holding_color
             self.middle_color = self.holding_middle_color
         else:
-            #self.color = self.not_holding_color
             self.middle_color = self.not_holding_middle_color
 
     def move(self,speed):
@@ -149,3 +148,6 @@ class Hold():
 
     def special_effect(self,screen):
         pass
+
+    def freeze(self):
+        self.color = hold_color[change_background_color[0]]

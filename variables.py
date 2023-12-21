@@ -82,16 +82,16 @@ guide_x_loc = line_width//2 + line_width
 background_color = [(40, 40, 30),(215, 215, 225)]
 line_color = (240,240,235)
 
-node_color = (180,180,180)
-hold_color =(210,210,210)
-not_holding_color = (140,140,140)
+node_color = [(180,180,180),(80, 80, 70)]
 
-holding_middle_color = (170,170,170)
+hold_color = [(190,190,190),(70,70,60)] # listify
+holding_middle_color = (160,160,160)
 not_holding_middle_color = (120,120,120)
 
-red_color = (150,25,25)
+
 bad_apple_color = (240, 180, 180)
 bad_apple_toggled_color = (0,0,0)
+red_color = (150,25,25)
 debug_color = (241, 196, 15)
 
 score_grades = ['Pure Perfect!!! (PP)','Perfect (P)','AA','A','B','C','D','E','Failed']
@@ -139,7 +139,7 @@ song_offsets = {'test': 0}
 
 # special effects
 freeze_delay = 400
-change_background_color = 0
+change_background_color = [0]
 hmm_x_loc, hmm_y_loc = line_width , judgement_line + 10
 
 

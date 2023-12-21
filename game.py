@@ -21,6 +21,8 @@ from utility_functions import *
 
 # exit할 때 해야 할 행동들을 모아놓은 함수
 def exit_game(screen, clock, song_name, score,song_difficulty,total_points):
+    global change_background_color
+    change_background_color[0] = 0  # set back to normal
     view_score_menu(screen, clock, song_name, score,song_difficulty,total_points)
 
 def get_ready(screen,clock,song_name,total_points):
@@ -36,6 +38,8 @@ def get_ready(screen,clock,song_name,total_points):
 
     # load highlight
     highlight = load_highlight()
+    reverse_highlight = load_reverse_highlight()
+
 
     while game_run:
         time_passed_milli = pygame.time.get_ticks() - start_time
@@ -45,7 +49,7 @@ def get_ready(screen,clock,song_name,total_points):
             exit_outer_game = False
             break
 
-        screen.fill(background_color[change_background_color])
+        screen.fill(background_color[change_background_color[0]])
 
         # Event handling
         keys = pygame.key.get_pressed()  # 꾹 누르고 있으면 계속 실행되는 것들
@@ -90,8 +94,8 @@ def get_ready(screen,clock,song_name,total_points):
                     highlight_line(screen, highlight, 4)
 
 
-        write_text(screen, width//2, (info_length//2)//2, 'Song: %s'%(song_name), small_text, background_color[change_background_color], highlight_text_color)
-        write_text(screen, width // 2, (info_length // 2) // 2 + (info_length // 2), f"Score: {'0':<6} / {total_points:>4}", small_text, background_color[change_background_color],
+        write_text(screen, width//2, (info_length//2)//2, 'Song: %s'%(song_name), small_text, background_color[change_background_color[0]], highlight_text_color)
+        write_text(screen, width // 2, (info_length // 2) // 2 + (info_length // 2), f"Score: {'0':<6} / {total_points:>4}", small_text, background_color[change_background_color[0]],
                    highlight_text_color)
 
 
@@ -100,12 +104,12 @@ def get_ready(screen,clock,song_name,total_points):
 
         # get ready count
         write_text(screen, width // 2, height//2, '%d' % (count), giant_text,
-                   background_color[change_background_color],
+                   background_color[change_background_color[0]],
                    red_highlight_text_color)
 
         # ESC
         write_text(screen, width // 2, 3*(height//4), 'Press ECS to return to the main menu', tiny_text,
-                   background_color[change_background_color],
+                   background_color[change_background_color[0]],
                    red_highlight_text_color)
 
 
@@ -141,7 +145,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
     # screen pause effect
     screen_freeze = False
     first_pause_time = song_length + 100 # no pause == pause after the end of the song
-
+    letter_color = highlight_text_color
 
     nodes_on_screen = []
     holds_on_screen = []
@@ -155,7 +159,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
 
     # load highlight
     highlight = load_highlight()
-
+    reverse_highlight = load_reverse_highlight()
 
     # custom press setting for HHM fan music!
     hhm_list = []
@@ -194,7 +198,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
             need_music = False
             song_start_time = pygame.time.get_ticks()
 
-        screen.fill(background_color[change_background_color])
+        screen.fill(background_color[change_background_color[0]])
 
         # Event handling
         keys = pygame.key.get_pressed()  # 꾹 누르고 있으면 계속 실행되는 것들
@@ -300,15 +304,19 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
                         screen_freeze = True
 
                         ####### change background color! ########
-                        change_background_color = 1
-                        screen.fill(background_color[change_background_color])
+                        change_background_color[0] = 1
+                        highlight = reverse_highlight
+                        letter_color = (0,0,0)
+
+                        screen.fill(background_color[change_background_color[0]])
                         tile.fix_loc()
                         verifier.draw_judgement()
                         for T in tiles_off_screen + nodes_on_screen + holds_on_screen:
+                            T.freeze()
                             T.draw(screen,screen_freeze)
                         draw_frame(screen)
                         write_text(screen, width // 2, (info_length // 2) // 2, 'Song: %s' % (song_name), small_text,
-                                   background_color[change_background_color], red_color)
+                                   background_color[change_background_color[0]], letter_color)
                         pygame.display.flip()
                         ####### change background color! ########
                         #pygame.time.delay(wait_delay)
@@ -323,10 +331,13 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
         song_progress = calc_song_progress_percent(song_length, song_start_time, current_time)
         draw_progress_bar(screen, song_progress, bar_pos[0], bar_pos[1])
 
-        write_text(screen, width//2, (info_length//2)//2, 'Song: %s'%(song_name), small_text, bar_color, highlight_text_color)
-        current_score = round(score[0],2)
-        write_text(screen, width // 2, (info_length // 2) // 2 + (info_length // 2), f"Score: {current_score:<6} / {total_points:>4}", small_text, background_color[change_background_color],
-                   highlight_text_color)
+        current_score = round(score[0], 2)
+
+        write_text(screen, width // 2, (info_length // 2) // 2, 'Song: %s' % (song_name), small_text,
+                   bar_color, letter_color)
+        write_text(screen, width // 2, (info_length // 2) // 2 + (info_length // 2), f"Score: {current_score:<6} / {total_points:>4}", small_text, background_color[change_background_color[0]],
+                   letter_color)
+
 
         # 5. 게임 틀을 그린다
         # draw basic frame with lines
@@ -338,7 +349,10 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
             screen_cur_time = pygame.time.get_ticks()
             if (screen_cur_time - first_pause_time) >= freeze_delay:
                 screen_freeze = False
-                change_background_color = 0  # set back to normal
+                if song_name == 'BadApple': # keep the inverted color
+                    pass
+                else:
+                    change_background_color[0] = 0  # set back to normal
 
         clock.tick_busy_loop(game_fps)
 
@@ -368,9 +382,9 @@ def draw_frame(screen):
                      [width, judgement_line], judgement_line_width)
 
     # fill in unsused lines
-    pygame.draw.rect(screen, background_color[change_background_color],
+    pygame.draw.rect(screen, background_color[change_background_color[0]],
                      [0-frame_line_half, info_length+frame_line_half, line_width, height-info_length])
-    pygame.draw.rect(screen, background_color[change_background_color],
+    pygame.draw.rect(screen, background_color[change_background_color[0]],
                      [width-line_width, info_length+frame_line_half, line_width, height-info_length])
 
     fill_color = (frame_grad_color,frame_grad_color,frame_grad_color)
@@ -398,7 +412,7 @@ def draw_frame(screen):
 def draw_guide_key(screen):
     global frame_grad_color,change_background_color
     for i in range((guide_key_size)):
-        write_text(screen,guide_x_loc+line_width*i, guide_y_loc , guide_keys[i], small_text, background_color[change_background_color],
+        write_text(screen,guide_x_loc+line_width*i, guide_y_loc , guide_keys[i], small_text, background_color[change_background_color[0]],
                    (color_safe(200-frame_grad_color),color_safe(200-frame_grad_color),color_safe(200-frame_grad_color)))
 
 
