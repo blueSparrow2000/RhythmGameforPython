@@ -145,3 +145,8 @@ hmm_x_loc, hmm_y_loc = line_width , judgement_line + 10
 # jacket options
 jacket_size = (300,300)
 jacket_loc = (width//2 - jacket_size[0]//2, 180)
+
+
+# back button
+back_button_x_loc = width - big_text
+back_button_y_loc = 0

@@ -34,6 +34,12 @@ def option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_
     speed_mode = {'10up':(-mode_location_offset['big'],10), '1up':(-mode_location_offset['small'],1),'10down':(mode_location_offset['big'],-10), '1down':(mode_location_offset['small'],-1)}
     speed_mode_keys = speed_mode.keys()
 
+    # back button
+    back = load_image('back')
+    back = resize_image(back, (big_text,big_text))
+    back_rect = move_image(back, (back_button_x_loc,back_button_y_loc))
+
+
 
     while option_screen_run:
         for event in pygame.event.get():
@@ -48,6 +54,12 @@ def option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_
             if event.type == pygame.MOUSEBUTTONUP:
                 (xp, yp) = pygame.mouse.get_pos()
                 mouse_particle_list.append((pygame.time.get_ticks(), (xp, yp)))
+
+                if abs(xp - back_button_x_loc - big_text) < big_text:  # press back button to quit song selection
+                    if abs(yp - back_button_y_loc) < big_text:
+                        option_screen_run = False
+                        return exit_option_screen(stage_speed, offset, judgement_shown, guide_line_shown, high_quality_verifying_graphics)
+
 
                 if abs(xp - offset_x_level) < big_text * 2:
                     for offset_ in offset_mode_keys:
@@ -95,8 +107,8 @@ def option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_
 
         write_text(screen, width // 2, height // 8 - big_text, '[ Options ]', big_text, background_color[0],
                    highlight_text_color)
-        write_text(screen, width // 2, height // 8, 'Press Enter or ESC to go back', small_text, background_color[0],
-                   highlight_text_color)
+        # write_text(screen, width // 2, height // 8, 'Press Enter or ESC to go back', small_text, background_color[0],
+        #            highlight_text_color)
 
 
         # option settings
@@ -147,6 +159,9 @@ def option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_
             write_text(screen, width // 2, toggle_y_level + mode_location_offset['Giant'] + big_text * 5,
                        'Graphics: Fast', small_text, background_color[0],
                        highlight_text_color)
+
+        # draw the back button
+        screen.blit(back, back_rect)
 
 
         if mouse_particle_list:  # if not empty

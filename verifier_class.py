@@ -157,7 +157,7 @@ class Verifier():
 
 
         self.score[0] += point
-        if self.judgement_shown:
+        if creater_mode:
             print(round(human_error))
 
     def check_pressed(self,node,events):  # 노드 동시에 눌러도 다 알 수 있게 함 (event만 쓰면 한번에 하나의 event만이 전달됨! 동시 클릭 불가)

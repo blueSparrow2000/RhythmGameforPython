@@ -69,6 +69,10 @@ def song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, gui
     song_info_big_step = 10
     song_info_small_step = 5
 
+    # back button
+    back = load_image('back')
+    back = resize_image(back, (big_text,big_text))
+    back_rect = move_image(back, (back_button_x_loc,back_button_y_loc))
 
 
     while song_selection_run:
@@ -84,6 +88,11 @@ def song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, gui
             if event.type == pygame.MOUSEBUTTONUP:
                 (xp, yp) = pygame.mouse.get_pos()
                 mouse_particle_list.append((pygame.time.get_ticks(), (xp, yp)))
+
+                if abs(xp - back_button_x_loc - big_text) < big_text:  # press back button to quit song selection
+                    if abs(yp - back_button_y_loc) < big_text:
+                        song_selection_run = False
+                        return exit_song_selection_screen(music_list, music_pointer, song_name)
 
 
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -173,7 +182,7 @@ def song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, gui
 
 
         write_text(screen, song_info_x_level, song_info_y_level - 2 * small_text,
-                   f"{'Length':<15}: {song_info_list[1]// 1000:>4}", tiny_text, background_color[0],
+                   f"{'Length (sec)':<15}: {song_info_list[1]// 1000:>4}", tiny_text, background_color[0],
                    highlight_text_color)
         write_text(screen, song_info_x_level, song_info_y_level - 1 * small_text, f"{'BPM':<15}: {song_info_list[0]:>4}" ,
                    tiny_text, background_color[0],
@@ -187,6 +196,14 @@ def song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, gui
         write_text(screen, song_info_x_level, song_info_y_level + 2 * small_text,
                    f"{'FPS':<15}: {song_info_list[4]:>4}", tiny_text, background_color[0],
                    highlight_text_color)
+
+
+        jacket_image, jacket_rect = update_jacket(song_name)
+        # draw the jacket
+        screen.blit(jacket_image, jacket_rect)
+
+        # draw the back button
+        screen.blit(back, back_rect)
 
 
         if mouse_particle_list:  # if not empty
@@ -203,9 +220,6 @@ def song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, gui
                 radi = calc_drop_radius(factor, mouse_particle_radius)
                 pygame.draw.circle(screen, effect_color, position, radi, particle_width_mouse)
 
-        jacket_image, jacket_rect = update_jacket(song_name)
-        # draw the jacket
-        screen.blit(jacket_image, jacket_rect)
 
         pygame.display.flip()
         clock.tick(main_loop_render_fps)
