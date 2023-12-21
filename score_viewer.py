@@ -5,6 +5,8 @@ from music_ import *
 from text_writer import *
 from image_processor import *
 from utility_functions import *
+from score_saver import *
+
 
 def view_score_menu(screen,clock,song_name,score_pointer,song_difficulty,total_points):
     score = score_pointer[0]
@@ -24,6 +26,14 @@ def view_score_menu(screen,clock,song_name,score_pointer,song_difficulty,total_p
     alpha_max = 100
     score_color = score_colors[grade]
     bar_pos = (width // 2, height//3 + title_text*3)
+
+    # fetch previous score before updating the score
+    prev_score = fetch_highest_score(song_name)
+    prev_score_loc = height//4 + big_text*2 + small_text
+
+    # update scores in score.txt!
+    update_score(song_name, score_percentage)
+
 
     # acknowledge credit
     credits = get_music_info(song_name)
@@ -70,14 +80,14 @@ def view_score_menu(screen,clock,song_name,score_pointer,song_difficulty,total_p
 
         write_text(screen, width // 2, height//4, '%s' % (song_name), big_text, background_color[0],
                    highlight_text_color)
-        write_text(screen, width // 2, height//4 + big_text*2, 'Song difficulty: %s' % (song_difficulty), small_text, background_color[0],
+        write_text(screen, width // 2, height//4 + big_text*2 - detail_text, 'Song difficulty: %s' % (song_difficulty), small_text, background_color[0],
                    highlight_text_color)
 
         # write_text(screen, width // 2, height//3 + title_text*2, 'Score: %.2f' % score, small_text,
         #            background_color[0],
         #            highlight_text_color)
 
-        write_text(screen, width // 2, score_percentage_loc, 'Score Percentage: %.1f%%' % (score_percentage), small_text,
+        write_text(screen, width // 2, score_percentage_loc, 'Score Percentage: %.1f %%' % (score_percentage), small_text,
                    background_color[0],
                    highlight_text_color)
 
@@ -90,6 +100,10 @@ def view_score_menu(screen,clock,song_name,score_pointer,song_difficulty,total_p
         write_text(screen, width // 2, grade_sticker_loc , '%s' % (grade), sticker_text,
                    background_color[0],
                    score_color )
+
+
+        write_text(screen, width//2, prev_score_loc, "Previous score: %.2f %%"%prev_score, tiny_text, background_color[0], highlight_text_color)
+
 
 
         #write_text(screen, width//2, credits_loc, "< Copyright Acknowledgement(CC) >", small_text, background_color[0], red_highlight_text_color)

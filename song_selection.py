@@ -6,7 +6,7 @@ from image_processor import *
 from utility_functions import *
 from chart import *
 from game import *
-
+from score_saver import *
 
 
 
@@ -27,7 +27,8 @@ def update_song_info():
     new_song_name = music_list[music_pointer]
     song_info_list = list(get_chart_info(new_song_name))
     play_current_music(new_song_name)
-    return new_song_name
+
+    return new_song_name, fetch_highest_score(new_song_name)
 
 
 def exit_song_selection_screen(music_list, music_pointer, song_name):
@@ -54,7 +55,7 @@ def song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, gui
     min_index = max(music_pointer - 2, 0)
     max_index = min(music_pointer + 2, number_of_musics - 1)
     song_name = music_list[music_pointer]
-    song_name = update_song_info()
+    song_name,song_highest_score = update_song_info()
 
     # load jacket
     global jacket_size, jacket_loc
@@ -102,7 +103,7 @@ def song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, gui
                     # 이 연산은 music pointer가 바뀌었을때만 하면 된다
                     min_index = max(music_pointer - 2, 0)
                     max_index = min(music_pointer + 2, number_of_musics - 1)
-                    song_name = update_song_info()
+                    song_name,song_highest_score = update_song_info()
 
                 if event.button == 5:
                     music_pointer += 1
@@ -110,7 +111,7 @@ def song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, gui
                     # 이 연산은 music pointer가 바뀌었을때만 하면 된다
                     min_index = max(music_pointer - 2, 0)
                     max_index = min(music_pointer + 2, number_of_musics - 1)
-                    song_name = update_song_info()
+                    song_name,song_highest_score = update_song_info()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
@@ -130,7 +131,7 @@ def song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, gui
                     # 이 연산은 music pointer가 바뀌었을때만 하면 된다
                     min_index = max(music_pointer - 2, 0)
                     max_index = min(music_pointer + 2, number_of_musics - 1)
-                    song_name = update_song_info()
+                    song_name,song_highest_score = update_song_info()
 
                 elif event.key == pygame.K_DOWN:
                     music_pointer += 1
@@ -138,7 +139,7 @@ def song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, gui
                     # 이 연산은 music pointer가 바뀌었을때만 하면 된다
                     min_index = max(music_pointer - 2, 0)
                     max_index = min(music_pointer + 2, number_of_musics - 1)
-                    song_name = update_song_info()
+                    song_name,song_highest_score = update_song_info()
 
         if not song_selection_run:
             return exit_song_selection_screen(music_list, music_pointer, song_name)
@@ -186,20 +187,24 @@ def song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, gui
 
 
         write_text(screen, song_info_x_level, song_info_y_level - 2 * small_text,
-                   f"{'Length (sec)':<15}: {song_info_list[1]// 1000:>4}", tiny_text, background_color[0],
+                   f"{'Length':<12}| {song_info_list[1]// 1000:>4} s", tiny_text, background_color[0],
                    highlight_text_color)
-        write_text(screen, song_info_x_level, song_info_y_level - 1 * small_text, f"{'BPM':<15}: {song_info_list[0]:>4}" ,
+        write_text(screen, song_info_x_level, song_info_y_level - 1 * small_text, f"{'BPM':<15}| {song_info_list[0]:>4}" ,
                    tiny_text, background_color[0],
                    highlight_text_color)
         write_text(screen, song_info_x_level, song_info_y_level - 0 * small_text,
-                   f"{'Difficulty':<15}: {song_info_list[2]:>4}" , tiny_text, background_color[0],
+                   f"{'Difficulty':<15}| {song_info_list[2]:>4}" , tiny_text, background_color[0],
                    highlight_text_color)
         write_text(screen, song_info_x_level, song_info_y_level + 1 * small_text,
-                   f"{'Total points':<15}: {song_info_list[3]:>4}" , tiny_text, background_color[0],
+                   f"{'Total points':<13}| {song_info_list[3]:>4}" , tiny_text, background_color[0],
                    highlight_text_color)
-        write_text(screen, song_info_x_level, song_info_y_level + 2 * small_text,
-                   f"{'FPS':<15}: {song_info_list[4]:>4}", tiny_text, background_color[0],
-                   highlight_text_color)
+        # write_text(screen, song_info_x_level, song_info_y_level + 2 * small_text,
+        #            f"{'FPS':<15}| {song_info_list[4]:>4}", tiny_text, background_color[0],
+        #            highlight_text_color)
+
+        write_text(screen, song_info_x_level, song_info_y_level + 3 * small_text,
+                   f"{'Score':<10}| {round(song_highest_score,2):>4} %", tiny_text, background_color[0],
+                   red_highlight_text_color)
 
 
         jacket_image, jacket_rect = update_jacket(song_name)
