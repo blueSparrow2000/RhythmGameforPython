@@ -2,14 +2,15 @@
 A Rhythm Game for Python made with pygame only. 
 
 
-This code plays music and generates patterns that user created. This program is for those who want to insert one's favorite song and design own chart patterns!
+This code plays music and generates patterns that user created. 
+This program is for those who want to insert one's favorite song and design own chart patterns!
 
 
 
 <br><br>
 
 
-You can go modify the files ('chart_[songname].py') to make them more playable!!!
+You can go modify the files ('chart_[songname].py') and make your own chart!!!
 
 <br><br>
 
@@ -22,7 +23,7 @@ Developement period:
 9/20/2021 ~ 9/24/2021 on holidays 
 
 
-12/16/2024 ~ 12/21/2024 on vacation
+12/16/2024 ~ 12/22/2024 on vacation
 
 
 ## How to Run
@@ -56,11 +57,22 @@ Youtube link:
 https://youtu.be/PANy0exBOq4
 
 
-- latest version
+Bad apple play through:
+
+
 https://www.youtube.com/watch?v=IPAZ1w8-2PY
+
+
+- latest version
+https://www.youtube.com/watch?v=ZSk3-HOd01E
 
 ## Flow chart
 ![interface](../main/run_images/flow_chart_new.png)
+
+
+
+## Handling multiple simultaneous nodes/holds
+![interface](../main/run_images/multi_tiles.png)
 
 
 ## Versions
@@ -76,7 +88,11 @@ https://www.youtube.com/watch?v=IPAZ1w8-2PY
 2023.12.20 Added new music: 흠흐밍 Remix (Rcol) / option and song choosing screen are now separated!
 
 
-2023.12.20 [Complete update] Added scoring system! Now your scores are saved in scores.txt
+2023.12.20 [V2.0 Complete update] Added scoring system! Now your scores are saved in scores.txt
+
+
+2023.12.22 Added simultaneous nodes into the game! Updated BadApple chart to have simultaneous node at the beggining. 
+
 
 
 Future updates:
@@ -91,7 +107,6 @@ Future updates:
 ## Copyrights for musics
 Following musics should **not** be used commercially.
 - bad apple
-- Rollin
 - 흠흐밍 Remix (Rcol)
 
 
