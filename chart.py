@@ -56,21 +56,9 @@ def get_chart(song_name):
         for line in lines:
             line.rstrip()
             data = line.split(',')
-            if data[0] == 'node':
-                node_request = [data[0] ,int(data[1]),int(data[2]),int(data[3])]
-                if len(data) == 5: # special
-                    node_request = [data[0], int(data[1]), int(data[2]), int(data[3]),data[4]]
-                request.append(node_request)
-            elif data[0] == 'hold':
-                hold_request = [data[0] ,int(data[1]),int(data[2]),int(data[3]),int(data[4])]
-                if len(data) == 6: #special
-                    hold_request = [data[0] ,int(data[1]),int(data[2]),int(data[3]),int(data[4]),data[5]]
-                request.append(hold_request)
-            else: # multi-tile
-                request.append(data) # I will not discriminate between node and holds
-                pass
-                # print("Error: Un-identified node type in the given file.")
-                # break
+
+            request.append(data) # just feed a raw information
+
 
     print("Current song: %s"%song_name)
     print("BPM: %d" %song_bpm)

@@ -73,10 +73,6 @@ class Verifier():
 
 
 
-
-
-
-
     def draw_guide_lines_node(self,nodes_on_screen,screen):
         for node in nodes_on_screen:
             for i in range(len(self.node_judgement_line_half_sizes)):

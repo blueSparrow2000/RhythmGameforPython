@@ -24,12 +24,12 @@ class Chart_Test():
         song_length = 8 * 1000
         song_bpm = 100
         song_mpb = ((1000 * 60 / song_bpm))
-        song_difficulty = 1
-        number_of_nodes = 7
+        song_difficulty = -1
+        number_of_nodes = 0
         total_points = 0
         recommended_fps = 60
 
-        song_offset = -500
+        song_offset = 500
         ####################################
 
         with open("%s" % full_path, "w") as f:
@@ -37,7 +37,42 @@ class Chart_Test():
 
             ################################## fill in
             beat_pos = song_offset
-            pattern = basic_hold(beat_pos , 1, total_points, 1000*(total_points))
-            total_points -= total_points
+
+            pattern = write_multi_tiles('NN__', beat_pos, ['1/','1/','',''])
+            beat_pos += 1000
+            f.write(pattern)
+
+            pattern = write_multi_tiles('H_NN', beat_pos, ['1/300','','1/','1/'])
+            beat_pos += 1000
+            f.write(pattern)
+
+            pattern = write_multi_tiles('HHHH', beat_pos, ['1/300','1/300','1/300','1/300'])
+            beat_pos += 1000
+            f.write(pattern)
+
+
+            pattern = write_multi_tiles('HNHN', beat_pos, ['1/300','1/','1/300','1/'])
+            beat_pos += 1000
+            f.write(pattern)
+
+
+
+            pattern = write_multi_tiles('NNNN', beat_pos, ['1/','1/','1/','1/'])
+            beat_pos += 1000
+            f.write(pattern)
+
+
+            # pattern = write_multi_tiles('N___', beat_pos, ['1/','','',''])
+            # beat_pos += 1000
+            # f.write(pattern)
+
+
+            pattern = write_multi_tiles('___N', beat_pos, ['','','','1/'])
+            beat_pos += 1000
+            f.write(pattern)
+
+
+            pattern = write_multi_tiles('H___', beat_pos, ['1/1000','','',''])
+            beat_pos += 1000
             f.write(pattern)
             ##################################

@@ -122,6 +122,17 @@ def option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_
                    background_color[0],
                    highlight_text_color)
 
+        if offset <0:
+            write_text(screen, offset_x_level, mode_y_level + mode_location_offset['huge'] + 50, '[WARNING]', small_text,
+                       background_color[0],
+                       red_highlight_text_color)
+            write_text(screen, offset_x_level, mode_y_level + mode_location_offset['huge'] + 50 + small_text, 'Negative offset (with low speed)', tiny_text,
+                       background_color[0],
+                       red_highlight_text_color)
+            write_text(screen, offset_x_level, mode_y_level + mode_location_offset['huge'] + 50 + small_text*2, 'may crash the game!', tiny_text,
+                       background_color[0],
+                       red_highlight_text_color)
+
         for speed_ in speed_mode_keys:
             draw_arrow(speed_, screen, speed_x_level, (mode_y_level + speed_mode[speed_][0]))
 

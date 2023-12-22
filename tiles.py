@@ -20,6 +20,7 @@ class Node():
         self.y = node_spawning_y_pos
         self.line = line # 몇 번 line에 넣을지 결정
 
+        self.node_color =  node_color
         self.color = node_color[change_background_color[0]] #node_color
         self.bad_apple_toggled_color = bad_apple_toggled_color
         self.bad_apple_color = bad_apple_color
@@ -27,7 +28,7 @@ class Node():
 
         self.point = point
 
-        if special == 'normal': # replace it to None object
+        if special == '': # replace it to None object
             special = None
 
         self.special = special # special node
@@ -47,7 +48,7 @@ class Node():
                              [line_axes[self.line - 1] - line_width // 2, self.y - node_height // 2, line_width,
                               node_height])
         else:
-            pygame.draw.rect(screen, self.color,
+            pygame.draw.rect(screen, self.node_color[change_background_color[0]],
                              [line_axes[self.line - 1] - line_width // 2, self.y - node_height // 2, line_width,
                               node_height])
 
@@ -83,7 +84,7 @@ class Node():
             return 'wait'
 
     def freeze(self):
-        self.color = self.color = node_color[change_background_color[0]]
+        self.color = self.node_color[change_background_color[0]]
 
 
 class Hold():
@@ -109,11 +110,13 @@ class Hold():
         self.color = hold_color[change_background_color[0]] #self.not_holding_color
         self.middle_color = not_holding_middle_color
 
+        self.hold_color = hold_color
+
         self.point = point
 
         self.this_judgement_pos = node_spawning_y_pos
 
-        if special == 'normal': # replace it to None object
+        if special == '': # replace it to None object
             special = None
 
         self.special = special # special node
@@ -122,7 +125,7 @@ class Hold():
         if self.special == 'Debug':
             pygame.draw.rect(screen,self.debug_color ,[line_axes[self.line-1]-line_width//2,max(self.y-self.length,info_length),line_width,min(self.length,self.y-info_length)])
         else:
-            pygame.draw.rect(screen,self.color,[line_axes[self.line-1]-line_width//2,max(self.y-self.length,info_length),line_width,min(self.length,self.y-info_length)])
+            pygame.draw.rect(screen,self.hold_color[change_background_color[0]],[line_axes[self.line-1]-line_width//2,max(self.y-self.length,info_length),line_width,min(self.length,self.y-info_length)])
             pygame.draw.rect(screen,self.middle_color ,[line_axes[self.line-1]-line_width//16,max(self.y-self.length,info_length),line_width//8,min(self.length,self.y-info_length)])
 
 
@@ -156,4 +159,4 @@ class Hold():
         pass
 
     def freeze(self):
-        self.color = hold_color[change_background_color[0]]
+        self.color = self.hold_color[change_background_color[0]]

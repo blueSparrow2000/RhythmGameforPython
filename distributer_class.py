@@ -32,7 +32,7 @@ def offset_corresponding_to_speed(input):
 
 
 class Distributer():
-    def __init__(self,stage_speed,offset,screen,request,song_name,song_bpm, given_fps, beat_line_request = False):
+    def __init__(self,stage_speed,offset,screen,request_list,song_name,song_bpm, given_fps, beat_line_request = False):
         global song_offsets
         self.screen = screen
         self.speed = stage_speed # pixel per 100 millisecond (node speed x == x*10 pixel/second)
@@ -48,7 +48,49 @@ class Distributer():
         self.given_fps = given_fps
         self.fps_error = (1000//self.given_fps) # in milliseconds
 
-        self.request =  request
+        ############### enhance distributer speed ##################
+        # modify request string in advance
+        tile_requests = []
+        '''
+        request[0] string: pattern (N___ etc.)
+        request[1] string: beat position (ms)
+        request[2,3,4,5] string: infos either '' or string separated by '/' 
+        '''
+        for request in request_list:
+            tile_pattern = request[0]
+            beat_pos_of_current_request = int(request[1])
+            nodes_to_to_append_at_current_request = []
+            holdes_to_to_append_at_current_request = []
+
+            if len(tile_pattern) != 4:
+                raise ValueError("Tile pattern not given as length-4 string!")
+
+            for i in range(4):  # there are 4 lines so go through 4 lines
+                if tile_pattern[i] == '_':
+                    continue
+                tile_info = request[2 + i].split('/')  # specific info are separated by '/'
+
+                # print(i+1,tile_info)
+
+                if tile_pattern[i] == 'N':
+                    # create node
+                    n = Node(i + 1, int(tile_info[0]), self.given_fps, tile_info[1].strip())
+                    # note that from now we have to write all nodes 'special' attribute (like normal)!
+
+                    # distribute the node on the screen
+                    nodes_to_to_append_at_current_request.append(n)
+                elif tile_pattern[i] == 'H':
+                    # create hold
+                    length = int(tile_info[1]) * self.speed // 100
+                    h = Hold(i + 1, int(tile_info[0]), length, self.given_fps, tile_info[2].strip())
+                    # distribute the hold on the screen
+                    holdes_to_to_append_at_current_request.append(h)
+
+            tile_requests.append( [beat_pos_of_current_request, nodes_to_to_append_at_current_request, holdes_to_to_append_at_current_request] )
+
+        ############################################################
+        #print(len(tile_requests))
+        self.tile_requests = tile_requests
         self.beat_line_request = beat_line_request
         self.song_mpb = ((1000 * 60 / song_bpm))
 
@@ -56,10 +98,10 @@ class Distributer():
 
         # variables related to music starting timing issue
         self.ready = False
-        first_node = self.request[0]
+        first_request = self.tile_requests[0]
 
-        self.very_first_node_deploy_time = - self.delta_t
-        self.first_node_time_respect_to_music_start = int(first_node[1])
+        self.very_first_request_deploy_time = - self.delta_t
+        self.first_request_time_respect_to_music_start = int(first_request[0])
 
         self.first_call = True
 
@@ -70,12 +112,13 @@ class Distributer():
         self.time_anomaly = 0
 
 
+
     def print_next_n_requests(self,num):
         # print first 10 nodes
         print('='*50)
         ind = 0
-        while ind<min(len(self.request),num):
-            print(self.request[ind])
+        while ind<min(len(self.tile_requests),num):
+            print(self.tile_requests[ind])
             ind+=1
 
     def get_time(self): # distributer가 만들어진 후 경과한 시간
@@ -99,84 +142,44 @@ class Distributer():
         # ready check
         if not self.ready:
             # check whether first node deploy time is negative ==> not ready (deployer가 만들어진 후
-            if not self.state_determined and cur_time > -self.very_first_node_deploy_time:  # ready하기 전에 한번이라도 이런 적이 있으면
+            if not self.state_determined and cur_time > -self.very_first_request_deploy_time:  # ready하기 전에 한번이라도 이런 적이 있으면
                 self.music_did_start_right_away = True
                 self.state_determined = True
-            if cur_time >= -self.very_first_node_deploy_time:
+            if cur_time >= -self.very_first_request_deploy_time:
                 self.ready = True
 
         cur_time = cur_time - (self.offset + self.time_anomaly)
 
-        if not self.request == []:  # if request is not empty, deploy nodes!
-            first_node = self.request[0]
-            first_node_deploy_time = int(first_node[1])
+
+        if not self.tile_requests == []:  # if request is not empty, deploy nodes!
+            current_request = self.tile_requests[0]
+            current_request_deploy_time = int(current_request[0])
             #print("music did start right away")
 
             # precise한 정도를 조절. 1이 미니멈
-            if not self.deploy_time(first_node_deploy_time,cur_time): #> self.fps_error//2:
-                # print(first_node_deploy_time)
+            if not self.deploy_time(current_request_deploy_time,cur_time): #> self.fps_error//2:
                 return
 
-            while self.deploy_time(first_node_deploy_time,cur_time): #<= self.fps_error//2: # 해당 노드가 소환되어야 할 시점을 지나면
-                if first_node[0] == 'node':
-                    n = Node(first_node[2], first_node[3],self.given_fps)
-                    if len(first_node) == 5: # special
-                        #print("Found special node!")
-                        n = Node(first_node[2],first_node[3],self.given_fps,first_node[4].strip())
-                    # print("cur time: ",cur_time)
-                    # print("deploy error: ",first_node_deploy_time-cur_time)
-                    # print("removed node at time: ", first_node_deploy_time)
-                    self.request.remove(first_node)
-                    nodes_on_screen.append(n)
+            while self.deploy_time(current_request_deploy_time,cur_time): #<= self.fps_error//2: # 해당 노드가 소환되어야 할 시점을 지나면
+                tile_pattern = current_request[0]
+                nodes_to_add = current_request[1]
+                holds_to_add = current_request[2]
+                for node in nodes_to_add:
+                    nodes_on_screen.append(node)
+                for hold in holds_to_add:
+                    holds_on_screen.append(hold)
 
-                elif first_node[0] == 'hold':
-                    length = first_node[4]*self.speed//100
-                    n = Hold(first_node[2], first_node[3], length,self.given_fps)
-                    if len(first_node) == 6: # special
-                        n = Hold(first_node[2], first_node[3], length,self.given_fps, first_node[5].strip())
-                    self.request.remove(first_node)
-                    holds_on_screen.append(n)
-                #self.time_anomaly += first_node_deploy_time-cur_time
-
-                else: # then requesting tile is a multi-tile type
-                    tile_pattern = first_node[0]
-
-                    #print('Given: ', tile_pattern)
-                    if len(tile_pattern) != 4:
-                        raise ValueError("Tile pattern not given as length-4 string!")
-
-                    for i in range(4): # there are 4 lines so go through 4 lines
-                        if tile_pattern[i] == '_':
-                            continue
-                        tile_info = first_node[2 + i].split('/') # specific info are separated by '/'
-                        print(i+1,tile_info)
-                        if tile_pattern[i] == 'N':
-                            # create node
-                            n = Node(i+1, int(tile_info[0]), self.given_fps, tile_info[1].strip()) # note that from now we have to write all nodes 'special' attribute (like normal)!
-                            # distribute the node on the screen
-                            nodes_on_screen.append(n)
-                        elif tile_pattern[i] == 'H':
-                            # create hold
-                            length = int(tile_info[1]) * self.speed // 100
-                            h = Hold(i+1, int(tile_info[0]), length, self.given_fps, tile_info[2].strip())
-                            # distribute the hold on the screen
-                            holds_on_screen.append(h)
-                        else:
-                            pass
-
-
-                    self.request.remove(first_node)
-
-
-
-
+                self.tile_requests.remove(current_request)
 
                 # next step
-                if self.request == []: # if empty
+                if self.tile_requests == []: # if empty
                     break
-                first_node = self.request[0]
-                first_node_deploy_time = int(first_node[1]) - self.delta_t
+                current_request = self.tile_requests[0]
+                current_request_deploy_time = int(current_request[0]) - self.delta_t
 
+                #print(nodes_on_screen)
+                #print(holds_on_screen)
+                #print("="*30)
 
     def multi_tile_translator(self,tile_pattern):
         # N is node, H is hold, _ is empty

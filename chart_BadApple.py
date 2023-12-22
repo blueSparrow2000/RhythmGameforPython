@@ -82,7 +82,7 @@ class Chart_BadApple():
                     f.write(pattern)
 
                 if j==3:
-                    pattern = special_strike(beat_pos-30, 1, 1, 'BadApple') # special node!
+                    pattern = basic_strike(beat_pos-30, 1, 1, 'BadApple') # special node!
                     beat_pos += s3 #- wait_delay # delay
                     f.write(pattern)
                     break
