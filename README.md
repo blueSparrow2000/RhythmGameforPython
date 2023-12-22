@@ -23,7 +23,7 @@ Developement period:
 9/20/2021 ~ 9/24/2021 on holidays 
 
 
-12/16/2024 ~ 12/22/2024 on vacation
+12/16/2023 ~ 12/22/2023 on vacation
 
 
 ## How to Run
