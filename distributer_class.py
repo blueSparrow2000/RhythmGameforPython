@@ -37,12 +37,12 @@ class Distributer():
         global song_offsets
         self.screen = screen
         self.speed = stage_speed # pixel per 100 millisecond (node speed x == x*10 pixel/second)
-        #self.speed_offsets = {10:180,20:600,50:790,80:850}
+
         if song_name in song_offsets.keys():
             song_offset = song_offsets[song_name]
         else:
             song_offset = 0
-        self.offset = offset + int(offset_corresponding_to_speed(self.speed)) + song_offset#self.speed_offsets[self.speed]  #180+(self.speed-10)*(720/70) #self.speed_offsets[self.speed] #770#+ (80 - self.speed)*11
+        self.offset = offset + int(offset_corresponding_to_speed(self.speed)) + song_offset
         print("Offset: ",self.offset)
         self.delta_t = ((line_length - node_spawning_y_pos)/self.speed)*100 # (millisecond)
 
@@ -53,14 +53,11 @@ class Distributer():
         self.beat_line_request = beat_line_request
         self.song_mpb = ((1000 * 60 / song_bpm))
 
-
-        #correction= 220 # distributer의 초기 시작값이 0이 아닌 220이 나와서 필요한 인자
         self.distributer_creation_time = pygame.time.get_ticks() #+ correction # distributer가 만들어진 이후 지나간 시간 (외부에서 '진짜'음악이 시작한 시각은 다름)
 
         # variables related to music starting timing issue
         self.ready = False
         first_node = self.request[0]
-        #print(self,request)
 
         self.very_first_node_deploy_time = - self.delta_t #first_node[1] - self.delta_t
         self.first_node_time_respect_to_music_start = first_node[1]
@@ -73,12 +70,6 @@ class Distributer():
         # 시간 보정
         self.time_anomaly = 0
 
-        # print first 10 nodes
-        # num = 10
-        # ind = 0
-        # while ind<min(len(self.request),num):
-        #     print(self.request[ind])
-        #     ind+=1
 
     def print_next_n_requests(self,num):
         # print first 10 nodes
@@ -92,18 +83,14 @@ class Distributer():
         time = pygame.time.get_ticks() - self.distributer_creation_time
         return time
 
-    # def deploy_beat_line(self, song_bpm, beat_lines):
-    #     pass
-
     def distribute(self,nodes_on_screen,holds_on_screen,beat_lines):
         cur_time = self.get_time()  # deployer 시작 후 경과한 시간
-        if self.first_call:
+
+        if self.first_call: # initialize distributer when called first time
             if cur_time != 0:
                 self.distributer_creation_time = pygame.time.get_ticks()
                 cur_time = 0
                 self.first_call = False
-        # distributer가 distribute()를 불렀을 때 직후의 시간!
-        #print(cur_time)
 
         if self.beat_line_request and self.deploy_time(int(cur_time%self.song_mpb),0):
             #print(cur_time%self.song_mpb)
@@ -118,41 +105,24 @@ class Distributer():
                 self.state_determined = True
             if cur_time >= -self.very_first_node_deploy_time:
                 self.ready = True
-                # print("music start time: ",cur_time)
-                # print('='*100)
-                # self.print_next_n_requests(3)
-                #print(self.very_first_node_deploy_time - cur_time)
-        # if self.ready:
-        #     print("Time after music start ",cur_time)
 
         cur_time = cur_time - (self.offset + self.time_anomaly)
 
         if not self.request == []:  # if request is not empty, deploy nodes!
             first_node = self.request[0]
-            # first_node_deploy_time = first_node[
-            #                              1] - self.first_node_time_respect_to_music_start # 노드가 소환되어야 하는 시각 (music이 틀어진 시점을 0로 볼때)
+            # first_node_deploy_time = first_node[1] - self.first_node_time_respect_to_music_start # 노드가 소환되어야 하는 시각 (music이 틀어진 시점을 0로 볼때)
             #first_node[1] 는 music이 시작되고 나서 노드가 내려오는 시각!
             first_node_deploy_time = first_node[1]#self.first_node_time_respect_to_music_start # 노드가 소환되어야 하는 시각 (music이 틀어진 시점을 0로 볼때)
             #print("music did start right away")
-
-            # if cur_time%16 == cur_time%(16*16):
-                #print("next node deploy time: ",first_node_deploy_time)
-                #self.print_next_n_requests(3)
-                # print(cur_time)
-            # if self.near_passed_deploy_time(first_node_deploy_time, cur_time):
-            #     print(cur_time)
-            #     print("Passed ", first_node_deploy_time)
 
             # precise한 정도를 조절. 1이 미니멈
             if not self.deploy_time(first_node_deploy_time,cur_time): #> self.fps_error//2:
                 # print(first_node_deploy_time)
                 return
-            #loop_cnt = 0
+
             while self.deploy_time(first_node_deploy_time,cur_time): #<= self.fps_error//2: # 해당 노드가 소환되어야 할 시점을 지나면
-                #print('Correct loop')
                 if first_node[0] == 'node':
                     n = Node(first_node[2], first_node[3],self.given_fps)
-                    #print(len(first_node))
                     if len(first_node) == 5: # special
                         #print("Found special node!")
                         n = Node(first_node[2],first_node[3],self.given_fps,first_node[4].strip())
@@ -162,22 +132,23 @@ class Distributer():
                     self.request.remove(first_node)
                     nodes_on_screen.append(n)
 
-                    #print(loop_cnt)
                 elif first_node[0] == 'hold':
                     length = first_node[4]*self.speed//100
                     n = Hold(first_node[2], first_node[3], length,self.given_fps)
                     if len(first_node) == 6: # special
                         n = Hold(first_node[2], first_node[3], length,self.given_fps, first_node[5].strip())
-
                     self.request.remove(first_node)
                     holds_on_screen.append(n)
                 #self.time_anomaly += first_node_deploy_time-cur_time
+
+
+
                 # next step
                 if self.request == []: # if empty
                     break
                 first_node = self.request[0]
                 first_node_deploy_time = first_node[1] - self.delta_t
-                #loop_cnt+=1
+
 
 
     def deploy_time(self,first_deploy_time,cur_time):

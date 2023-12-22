@@ -38,22 +38,6 @@ class Verifier():
         self.color_gradient = [(200, 40, 40), (190, 150, 20), (90, 190, 130), (255, 255, 255), (180, 180, 180),
                                (180, 180, 180), (180, 180, 180)]
 
-        # # tolerances for node
-        # node_judgement_interval = int(self.speed**(1.3)/50) +self.frame_error
-        # self.pure_perfect_tolerance = node_height // 10 + node_judgement_interval #10  #node_height // 2 + (1000 / given_fps) * (self.speed / 100)  # player의 반응속도를 고려한 판정 범위 pixel
-        # self.perfect_tolerance = node_height // 4 + node_judgement_interval*1.2
-        # self.hit_tolerance = node_height // 2 + node_judgement_interval*1.8 #50  #((node_height // 2)*(1 + self.speed/10))
-        # self.judgement_tolerance = self.hit_tolerance + self.frame_error #self.hit_tolerance*(1+(10 / given_fps)*10)  #100  #((node_height // 2) * (1 + self.speed / 10))*1.3 # hit의 1.3배 범위
-        #
-        #
-        #
-        # if 1: #self.judgement_tolerance >= self.half_bit_pixel_size:  # exceeds to next beat
-        #     self.pure_perfect_tolerance = self.half_bit_pixel_size*0.2 #20%
-        #     self.perfect_tolerance = self.half_bit_pixel_size*0.4      # 40%
-        #     self.hit_tolerance = self.half_bit_pixel_size*0.8          # 80 %
-        #     self.judgement_tolerance = self.half_bit_pixel_size        # Lost 판정범위
-        #     # self.color_gradient[0] = (0,0,0)
-
         self.node_judgement_line_half_sizes = [self.pure_perfect_tolerance,self.perfect_tolerance,self.hit_tolerance,self.judgement_tolerance]
 
         # tolerances for hold
@@ -112,7 +96,6 @@ class Verifier():
 
 
     def verify_judgement_node(self,node,enforce_Lost = False):
-
         point = 0
         result = ''
         detail = ''
@@ -123,6 +106,7 @@ class Verifier():
             result = "Tap"
             self.append_verification_tile([node, (result, detail), self.judgement_frames])
             self.score[0] += point
+            print(round(human_error))
             return
 
         if enforce_Lost:
@@ -149,16 +133,9 @@ class Verifier():
         else:
             result = "Lost"
             point = 0
-
-
-        # print result of Lost/Hit/Perfect on the screen
-        #print(result)
         self.append_verification_tile([node,(result,detail),self.judgement_frames])
-
-
         self.score[0] += point
-        if creater_mode:
-            print(round(human_error))
+
 
     def check_pressed(self,node,events):  # 노드 동시에 눌러도 다 알 수 있게 함 (event만 쓰면 한번에 하나의 event만이 전달됨! 동시 클릭 불가)
         if (events[pygame.K_f] and node.line == 1) or (events[pygame.K_g] and node.line == 2) or (
@@ -213,8 +190,6 @@ class Verifier():
                 else: # 아직은 누르지 않은 상태 ==> do nothing (이러다가 패스해버리면 위의 if에 걸림)
                     return
 
-        #print(result)
-        #print("sending %s to"%hold.this_judgement_pos)
         self.append_verification_tile([hold,(result,detail),self.judgement_frames])
         self.score[0] += point
         self.update_hold_judgement_pos(hold)
@@ -224,9 +199,7 @@ class Verifier():
         else:
             hold.holding = True
             hold.update_color()
-        #print("here: ",hold.this_judgement_pos)
-        # print result of Lost/Hit/Perfect on the screen
-        # print(result)
+
 
     def hold_in_judgement_range(self,hold): # 판정이 필요한 범위(널널하게 gap의 절반으로 잡음)에 들어왔을 때만 계산하도록 (너무 멀리 있는 노드 제외하기!)
         # hold.this_judgement_pos가 판정선과 가까운 경우
