@@ -18,7 +18,6 @@ from chart_Waikiki import *
 # add below
 from chart_Destructoid import *
 from chart_BadApple import *
-from chart_Rollin import *
 from chart_HHM import *
 ##########################################
 
@@ -34,7 +33,6 @@ chart_builder_list.extend([Chart_Test(), Chart_DropsOfH2O(), Chart_Waikiki(), Ch
 # add below!
 chart_builder_list.append(Chart_Destructoid())
 chart_builder_list.append(Chart_BadApple())
-chart_builder_list.append(Chart_Rollin())
 chart_builder_list.append(Chart_HHM())
 ################################################
 

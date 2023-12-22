@@ -10,7 +10,7 @@ lobbyMusic = 'Drops of H2O_FULL'
 scoreboardMusic = 'Another way_FULL'
 
 # chart update : If you want to update chart, you should change the flag to True
-update_chart_flag = False
+update_chart_flag = True
 
 
 # player settings
