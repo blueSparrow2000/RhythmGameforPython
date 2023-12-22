@@ -16,7 +16,6 @@ from tiles import *
 import math
 from frame_class import *
 
-
 def func1(input):
     return -0.3835*(input**2)+53.213*input-315.61
 
@@ -59,8 +58,8 @@ class Distributer():
         self.ready = False
         first_node = self.request[0]
 
-        self.very_first_node_deploy_time = - self.delta_t #first_node[1] - self.delta_t
-        self.first_node_time_respect_to_music_start = first_node[1]
+        self.very_first_node_deploy_time = - self.delta_t
+        self.first_node_time_respect_to_music_start = int(first_node[1])
 
         self.first_call = True
 
@@ -110,9 +109,7 @@ class Distributer():
 
         if not self.request == []:  # if request is not empty, deploy nodes!
             first_node = self.request[0]
-            # first_node_deploy_time = first_node[1] - self.first_node_time_respect_to_music_start # 노드가 소환되어야 하는 시각 (music이 틀어진 시점을 0로 볼때)
-            #first_node[1] 는 music이 시작되고 나서 노드가 내려오는 시각!
-            first_node_deploy_time = first_node[1]#self.first_node_time_respect_to_music_start # 노드가 소환되어야 하는 시각 (music이 틀어진 시점을 0로 볼때)
+            first_node_deploy_time = int(first_node[1])
             #print("music did start right away")
 
             # precise한 정도를 조절. 1이 미니멈
@@ -141,14 +138,49 @@ class Distributer():
                     holds_on_screen.append(n)
                 #self.time_anomaly += first_node_deploy_time-cur_time
 
+                else: # then requesting tile is a multi-tile type
+                    tile_pattern = first_node[0]
+
+                    #print('Given: ', tile_pattern)
+                    if len(tile_pattern) != 4:
+                        raise ValueError("Tile pattern not given as length-4 string!")
+
+                    for i in range(4): # there are 4 lines so go through 4 lines
+                        if tile_pattern[i] == '_':
+                            continue
+                        tile_info = first_node[2 + i].split('/') # specific info are separated by '/'
+                        print(i+1,tile_info)
+                        if tile_pattern[i] == 'N':
+                            # create node
+                            n = Node(i+1, int(tile_info[0]), self.given_fps, tile_info[1].strip()) # note that from now we have to write all nodes 'special' attribute (like normal)!
+                            # distribute the node on the screen
+                            nodes_on_screen.append(n)
+                        elif tile_pattern[i] == 'H':
+                            # create hold
+                            length = int(tile_info[1]) * self.speed // 100
+                            h = Hold(i+1, int(tile_info[0]), length, self.given_fps, tile_info[2].strip())
+                            # distribute the hold on the screen
+                            holds_on_screen.append(h)
+                        else:
+                            pass
+
+
+                    self.request.remove(first_node)
+
+
+
 
 
                 # next step
                 if self.request == []: # if empty
                     break
                 first_node = self.request[0]
-                first_node_deploy_time = first_node[1] - self.delta_t
+                first_node_deploy_time = int(first_node[1]) - self.delta_t
 
+
+    def multi_tile_translator(self,tile_pattern):
+        # N is node, H is hold, _ is empty
+        return
 
 
     def deploy_time(self,first_deploy_time,cur_time):

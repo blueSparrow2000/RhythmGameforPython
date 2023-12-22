@@ -10,7 +10,7 @@ lobbyMusic = 'Drops of H2O_FULL'
 scoreboardMusic = 'Another way_FULL'
 
 # chart update : If you want to update chart, you should change the flag to True
-update_chart_flag = True
+update_chart_flag = False
 
 
 # player settings
@@ -18,13 +18,13 @@ stage_speed = 80
 offset = 0
 judgement_shown = False
 guide_line_shown = False
-music_pointer = 4
+music_pointer = 0 # 4
 song_name = None # as a default
 song_info_list = []
 
 high_quality_verifying_graphics = False
 
-creater_mode = False# false
+creater_mode = True# false
 
 
 # time settings
@@ -152,3 +152,4 @@ jacket_loc = (width//2 - jacket_size[0]//2, 180)
 # back button
 back_button_x_loc = width - big_text
 back_button_y_loc = 0
+

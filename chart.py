@@ -66,9 +66,11 @@ def get_chart(song_name):
                 if len(data) == 6: #special
                     hold_request = [data[0] ,int(data[1]),int(data[2]),int(data[3]),int(data[4]),data[5]]
                 request.append(hold_request)
-            else:
-                print("Error: Un-identified node type in the given file.")
-                break
+            else: # multi-tile
+                request.append(data) # I will not discriminate between node and holds
+                pass
+                # print("Error: Un-identified node type in the given file.")
+                # break
 
     print("Current song: %s"%song_name)
     print("BPM: %d" %song_bpm)

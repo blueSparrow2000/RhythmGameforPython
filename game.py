@@ -26,13 +26,16 @@ def exit_game(screen, clock, song_name, score,song_difficulty,total_points):
     view_score_menu(screen, clock, song_name, score,song_difficulty,total_points)
 
 def get_ready(screen,clock,song_name,total_points):
-    global change_background_color
+    global change_background_color, creater_mode
     game_run = True
     exit_outer_game = False
     score = [0]
     pygame.mixer.music.stop()
 
-    seconds_to_count = 3 #3
+    seconds_to_count = 3  # 3
+    if creater_mode: # start right away
+        seconds_to_count = 0
+
     count = seconds_to_count
     start_time = pygame.time.get_ticks()
 
@@ -185,6 +188,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
     need_music = True
 
     if chart_info[5]==[]:
+        print(chart_info)
         print("Chart has no nodes. Finishing the game.")
         exit_game(screen, clock, song_name, score, song_difficulty, total_points)
         game_run = False

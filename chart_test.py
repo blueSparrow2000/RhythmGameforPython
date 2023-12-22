@@ -26,7 +26,7 @@ class Chart_Test():
         song_mpb = ((1000 * 60 / song_bpm))
         song_difficulty = 1
         number_of_nodes = 7
-        total_points = 7
+        total_points = 0
         recommended_fps = 60
 
         song_offset = -500

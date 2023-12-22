@@ -27,6 +27,9 @@ class Node():
 
         self.point = point
 
+        if special == 'normal': # replace it to None object
+            special = None
+
         self.special = special # special node
 
     def draw(self, screen, screen_freeze = False):
@@ -109,6 +112,9 @@ class Hold():
         self.point = point
 
         self.this_judgement_pos = node_spawning_y_pos
+
+        if special == 'normal': # replace it to None object
+            special = None
 
         self.special = special # special node
 

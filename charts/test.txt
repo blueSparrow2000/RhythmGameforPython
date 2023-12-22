@@ -1,2 +1,4 @@
-8000,100,1,7,60
-hold,-500,1,7,7000
+8000,100,1,0,60
+NN__,-600,1/normal,1/normal,,
+H_NN,400,1/300/normal,,1/normal,1/normal
+HHHH,1400,1/300/normal,1/300/normal,1/300/normal,1/300/normal
