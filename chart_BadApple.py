@@ -42,12 +42,19 @@ class Chart_BadApple():
             f.write('%d,%d,%d,%d,%d\n' % (song_length, song_bpm, song_difficulty, number_of_nodes,recommended_fps))
             ############## phase 1 ###########
             beat_pos = song_offset
+            very_first_node = True
 
             for j in range(4):
                 for i in range(3):
-                    pattern = basic_strike(beat_pos, 1, 1)
-                    beat_pos += s1
-                    f.write(pattern)
+                    if very_first_node:
+                        pattern = write_multi_tiles('N__H', beat_pos,['1/','','','1/300'])
+                        beat_pos += s1
+                        f.write(pattern)
+                        very_first_node = False
+                    else:
+                        pattern = basic_strike(beat_pos, 1, 1)
+                        beat_pos += s1
+                        f.write(pattern)
 
                 # using hold
                 pattern = basic_hold(beat_pos+50, 3, 1, hold_len)

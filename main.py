@@ -39,25 +39,12 @@ width, height = pygame.display.get_surface().get_size()  # window width, height
 screen.fill(background_color[0])  # background color
 
 # main screen ---------------------------------------------------
-# default settings - mode는 stage에서 바꾼다!
-mode = 'Play'
-
-character ='1'
-
 run = True
 meta_run = True
 
 def exit():
     pygame.quit()
     return False, False
-
-
-def update_song_info():
-    global song_info_list
-    new_song_name = music_list[music_pointer]
-    song_info_list = list(get_chart_info(new_song_name))
-    return new_song_name
-
 
 while meta_run:
     global stage_speed, offset, judgement_shown, guide_line_shown, high_quality_verifying_graphics, music_list, music_pointer, song_name

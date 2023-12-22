@@ -63,6 +63,9 @@ Valid info elements:
 
 '': No info. this is for '_' pattern. actually anything is fine since we ignore this place holder variable
 
+Example of full arguement:
+write_multi_tiles('N__H', beat_pos,['1/','','','1/300'])
+
 '''
 def write_multi_tiles(pattern, beat_pos,info):
     multi_tile_info = "%s,%d"%(pattern,beat_pos)
