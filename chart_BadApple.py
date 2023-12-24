@@ -27,7 +27,7 @@ class Chart_BadApple():
         cycle = 4
         song_mpb = ((1000 * 60 / song_bpm) / cycle)  # milli-seconds per beat
         song_difficulty = 2
-        number_of_nodes = 91 # 95
+        number_of_nodes = 92 # 95
         recommended_fps = 60
 
         song_offset = -230

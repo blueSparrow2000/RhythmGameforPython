@@ -10,6 +10,7 @@ from variables import *
 from text_writer import *
 import math
 from utility_functions import *
+from hit_effect import *
 
 class Verifier():
     def __init__(self,screen, score,speed,judgement_shown,bpm,high_quality_verifying_graphics, given_fps):
@@ -51,6 +52,13 @@ class Verifier():
         self.hold_this_line_color = (255,255,255)
 
 
+        self.effect_queue = [] # hit effects
+
+
+    def draw_hit_effects(self,screen):
+        hit_effect(screen, self.effect_queue)
+
+
     def draw_guide_lines(self,nodes_on_screen,holds_on_screen,screen):
         self.draw_guide_lines_node(nodes_on_screen,screen)
         self.draw_guide_lines_hold(holds_on_screen,screen)
@@ -89,6 +97,10 @@ class Verifier():
             tile_verification.append(pygame.time.get_ticks())
             #print(tile_verification)
             self.tiles_to_verify.append(tile_verification)
+        #print(tile_verification[0].line)
+        append_effect(self.effect_queue,  tile_verification[0].line)
+        #print(self.effect_queue)
+
 
 
     def verify_judgement_node(self,node,enforce_Lost = False):

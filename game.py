@@ -19,6 +19,7 @@ from score_viewer import *
 from chart import *
 from utility_functions import *
 
+
 # exit할 때 해야 할 행동들을 모아놓은 함수
 def exit_game(screen, clock, song_name, score,song_difficulty,total_points):
     global change_background_color
@@ -154,6 +155,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
     holds_on_screen = []
     beat_lines = []
     tiles_off_screen = []
+
 
     if get_ready(screen,clock,song_name,total_points): # if exit outer game is true
         game_run = False
@@ -350,6 +352,10 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
         # 5. 게임 틀을 그린다
         # draw basic frame with lines
         draw_frame(screen)
+
+        # 6. hit effect를 그린다
+        verifier.draw_hit_effects(screen)
+
 
         if not screen_freeze:
             pygame.display.flip()

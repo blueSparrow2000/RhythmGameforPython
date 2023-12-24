@@ -28,6 +28,8 @@ creater_mode = False# false
 
 sound_effect = [True]
 
+particle_effect = [True]
+
 
 # time settings
 fps = 60 #120 # 60
