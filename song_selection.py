@@ -121,6 +121,9 @@ def song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, gui
 
                 # after choosing music
                 elif event.key == pygame.K_RETURN:
+                    if song_info_list[4]==0:
+                        continue
+
                     pygame.mixer.music.stop()
                     game_start_sound()
                     transition_time = pygame.time.get_ticks()

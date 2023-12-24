@@ -23,7 +23,7 @@ Developement period:
 9/20/2021 ~ 9/24/2021 on holidays 
 
 
-12/16/2023 ~ 12/22/2023 on vacation
+12/16/2023 ~ 12/24/2023 on vacation
 
 
 ## How to Run
@@ -92,6 +92,9 @@ https://www.youtube.com/watch?v=ZSk3-HOd01E
 
 
 2023.12.22 Added simultaneous nodes into the game! Updated BadApple chart to have simultaneous node at the beggining. 
+
+
+2023.12.24 Added particle effects and sound effects when node is successfuly hit
 
 
 

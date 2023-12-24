@@ -17,9 +17,19 @@ import pygame
 import os, sys
 from chart_builder import *
 
+def check_chart_exists(path):
+    if os.path.isfile(path):
+        return True
+    else:
+        return False
+
+
 def get_chart_info(song_name):
     APP_FOLDER = os.path.dirname(os.path.realpath(sys.argv[0]))+'/charts/'
     full_path = os.path.join(APP_FOLDER, '%s.txt'%song_name)
+
+    if not check_chart_exists(full_path):
+        return 0,0,0,0,0
 
     with open("%s"%full_path, "r") as f:
         lines = f.readlines()
@@ -37,6 +47,9 @@ def get_chart_info(song_name):
 def get_chart(song_name):
     APP_FOLDER = os.path.dirname(os.path.realpath(sys.argv[0]))+'/charts/'
     full_path = os.path.join(APP_FOLDER, '%s.txt'%song_name)
+
+    if not check_chart_exists(full_path):
+        return 0,0,0,0,0,[]
 
     request = []
 

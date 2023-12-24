@@ -347,7 +347,7 @@ class Chart_HHM():
                 f.write(pattern)
 
             ### interlude
-            beat_pos -= e1//2 + 100
+            beat_pos -= e1//2 - 100
 
             pattern = basic_strike(beat_pos, 4, 1)
             beat_pos += ee
@@ -397,7 +397,7 @@ class Chart_HHM():
             #     beat_pos += ee4
             #     f.write(pattern)
 
-            pattern = basic_hold(beat_pos, 4, 1, ee)
+            pattern = basic_hold(beat_pos, 4, 1, ee - 100)
             beat_pos += ee - ee4//2
             f.write(pattern)
 
@@ -414,7 +414,7 @@ class Chart_HHM():
             #     beat_pos += ee4//4
             #     f.write(pattern)
 
-            beat_pos += ee//4 - 200 # adjustment
+            beat_pos += ee//4 - 200# adjustment
 
 
             ######### Type B

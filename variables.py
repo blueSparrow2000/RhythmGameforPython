@@ -23,12 +23,11 @@ song_name = None # as a default
 song_info_list = []
 
 high_quality_verifying_graphics = False
-
-creater_mode = True# false
-
 sound_effect = [True]
-
 particle_effect = [True]
+
+creater_mode = False# false
+
 
 
 # time settings
