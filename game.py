@@ -245,18 +245,22 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
                     break
 
                 if event.key == pygame.K_f:
+                    hit_sound()
                     highlight_line(screen, highlight, 1)
                     if hhm_list:
                         draw_hhm_key(screen, hhm_list, 0)
                 if event.key == pygame.K_g:
+                    hit_sound()
                     highlight_line(screen, highlight, 2)
                     if hhm_list:
                         draw_hhm_key(screen, hhm_list, 1)
                 if event.key == pygame.K_h:
+                    hit_sound()
                     highlight_line(screen, highlight, 3)
                     if hhm_list:
                         draw_hhm_key(screen, hhm_list, 2)
                 if event.key == pygame.K_j:
+                    hit_sound()
                     highlight_line(screen, highlight, 4)
                     if hhm_list:
                         draw_hhm_key(screen, hhm_list, 3)

@@ -26,6 +26,8 @@ high_quality_verifying_graphics = False
 
 creater_mode = False# false
 
+sound_effect = [True]
+
 
 # time settings
 fps = 60 #120 # 60
@@ -147,6 +149,8 @@ hmm_x_loc, hmm_y_loc = line_width , judgement_line + 10
 # jacket options
 jacket_size = (300,300)
 jacket_loc = (width//2 - jacket_size[0]//2, 180)
+jacket_transition_size = (400,400)
+jacket_transition_loc = (width//2 - jacket_size[0]//2, 300)
 
 
 # back button

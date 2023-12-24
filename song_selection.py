@@ -89,6 +89,7 @@ def song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, gui
             if event.type == pygame.MOUSEBUTTONUP:
                 (xp, yp) = pygame.mouse.get_pos()
                 mouse_particle_list.append((pygame.time.get_ticks(), (xp, yp)))
+                mouse_click_sound()
 
                 if abs(xp - back_button_x_loc - big_text) < big_text:  # press back button to quit song selection
                     if abs(yp - back_button_y_loc) < big_text:
@@ -120,6 +121,31 @@ def song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, gui
 
                 # after choosing music
                 elif event.key == pygame.K_RETURN:
+                    pygame.mixer.music.stop()
+                    game_start_sound()
+                    transition_time = pygame.time.get_ticks()
+                    delay_time = 1200
+                    ######################################## transition screen
+                    droplet = True
+                    while 1:
+                        current_run_time = pygame.time.get_ticks()
+                        if current_run_time - transition_time > delay_time:
+                            break
+
+                        screen.fill(background_color[0])
+                        screen.blit(jacket_image, jacket_rect)
+                        if droplet == True:
+                            deploy_time = transition_time
+                            position = (jacket_loc[0]+jacket_size[0]//2 ,jacket_loc[1]+jacket_size[1]//2)
+                            delta = (current_run_time - (deploy_time)) / 1000
+                            if delta >= water_draw_time:
+                                droplet = False
+                            factor = delta / water_draw_time
+                            radi = calc_drop_radius(factor, 40)
+                            pygame.draw.circle(screen, highlight_text_color, position, radi, particle_width)
+                        pygame.display.flip()
+                        clock.tick(main_loop_render_fps)
+                    ######################################## transition screen
                     run_FGHJ(screen, clock, song_name, stage_speed, offset, judgement_shown, guide_line_shown,
                              high_quality_verifying_graphics)
                     song_selection_run = False

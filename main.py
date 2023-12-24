@@ -66,6 +66,7 @@ while meta_run:
             if event.type == pygame.MOUSEBUTTONUP:
                 (xp, yp) = pygame.mouse.get_pos()
                 mouse_particle_list.append((pygame.time.get_ticks(),(xp, yp)))
+                mouse_click_sound()
 
                 if abs(xp - option_key_x_level) < big_text*6:
                     if abs(yp - (option_key_y_level)) < big_text:

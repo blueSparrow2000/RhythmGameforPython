@@ -54,6 +54,7 @@ def option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_
             if event.type == pygame.MOUSEBUTTONUP:
                 (xp, yp) = pygame.mouse.get_pos()
                 mouse_particle_list.append((pygame.time.get_ticks(), (xp, yp)))
+                mouse_click_sound()
 
                 if abs(xp - back_button_x_loc - big_text) < big_text:  # press back button to quit song selection
                     if abs(yp - back_button_y_loc) < big_text:
@@ -87,6 +88,11 @@ def option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_
                     if abs(yp - (toggle_y_level + mode_location_offset[
                         'huge'] + big_text * 5 + big_text // 2)) < big_text // 2:
                         high_quality_verifying_graphics = not high_quality_verifying_graphics
+
+                if abs(xp - width // 2) < big_text * 3:  # toggle sound effect
+                    if abs(yp - (toggle_y_level + mode_location_offset[
+                        'huge'] + big_text * 7 + big_text // 2)) < big_text // 2:
+                        sound_effect[0] = not sound_effect[0]
 
 
             if event.type == pygame.KEYDOWN:
@@ -169,6 +175,16 @@ def option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_
         else:
             write_text(screen, width // 2, toggle_y_level + mode_location_offset['Giant'] + big_text * 5,
                        'Graphics: Fast', small_text, background_color[0],
+                       highlight_text_color)
+
+
+        if sound_effect[0]:
+            write_text(screen, width // 2, toggle_y_level + mode_location_offset['Giant'] + big_text * 7,
+                       'Sound effects: On', small_text, background_color[0],
+                       highlight_text_color)
+        else:
+            write_text(screen, width // 2, toggle_y_level + mode_location_offset['Giant'] + big_text * 7,
+                       'Sound effects: Off', small_text, background_color[0],
                        highlight_text_color)
 
         # draw the back button
