@@ -51,3 +51,7 @@ if update_chart_flag:
     for cb in chart_builder_list:
         write_chart(cb.song_name,cb)
 
+def update_chart():
+    for cb in chart_builder_list:
+        write_chart(cb.song_name,cb)
+

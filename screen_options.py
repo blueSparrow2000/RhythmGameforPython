@@ -6,7 +6,7 @@ from image_processor import *
 from utility_functions import *
 from chart import *
 from game import *
-
+from chart_builder import update_chart
 
 
 def exit_option_screen(stage_speed, offset, judgement_shown, guide_line_shown, high_quality_verifying_graphics):
@@ -73,6 +73,12 @@ def option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_
                         if abs(yp - (mode_y_level + speed_mode[speed_][0])) < big_text // 2:
                             stage_speed += speed_mode[speed_][1]
                             stage_speed = boundary_checker(min_speed, max_speed, stage_speed)
+
+
+                if abs(xp - width // 2) < big_text * 3:  # update chart
+                    if abs(yp - (toggle_y_level + mode_location_offset[
+                        'huge'] - big_text + big_text // 2)) < big_text // 2:
+                        update_chart()
 
                 if abs(xp - width // 2) < big_text * 3:  # toggle judgement
                     if abs(yp - (toggle_y_level + mode_location_offset[
@@ -155,6 +161,12 @@ def option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_
         write_text(screen, speed_x_level, mode_y_level, 'Speed: %d' % (stage_speed), small_text,
                    background_color[0],
                    highlight_text_color)
+
+
+        write_text(screen, width // 2, toggle_y_level + mode_location_offset['Giant'] - big_text,
+                   '<Update chart>', small_text, background_color[0],
+                   highlight_text_color)
+
 
         if judgement_shown:
             write_text(screen, width // 2, toggle_y_level + mode_location_offset['Giant'] + big_text,

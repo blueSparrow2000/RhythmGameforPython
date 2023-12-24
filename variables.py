@@ -18,13 +18,13 @@ stage_speed = 80
 offset = 0
 judgement_shown = False
 guide_line_shown = False
-music_pointer = 1 # 4
+music_pointer = 4 # 4
 song_name = None # as a default
 song_info_list = []
 
 high_quality_verifying_graphics = False
 
-creater_mode = False# false
+creater_mode = True# false
 
 sound_effect = [True]
 
