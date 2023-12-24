@@ -94,6 +94,12 @@ def option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_
                         'huge'] + big_text * 7 + big_text // 2)) < big_text // 2:
                         sound_effect[0] = not sound_effect[0]
 
+                if abs(xp - width // 2) < big_text * 3:  # toggle particle effect
+                    if abs(yp - (toggle_y_level + mode_location_offset[
+                        'huge'] + big_text * 8 + big_text // 2)) < big_text // 2:
+                        particle_effect[0] = not particle_effect[0]
+
+
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE or event.key == pygame.K_RETURN:
@@ -186,6 +192,16 @@ def option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_
             write_text(screen, width // 2, toggle_y_level + mode_location_offset['Giant'] + big_text * 7,
                        'Sound effects: Off', small_text, background_color[0],
                        highlight_text_color)
+
+        if particle_effect[0]:
+            write_text(screen, width // 2, toggle_y_level + mode_location_offset['Giant'] + big_text * 8,
+                       'Particle effects: On', small_text, background_color[0],
+                       highlight_text_color)
+        else:
+            write_text(screen, width // 2, toggle_y_level + mode_location_offset['Giant'] + big_text * 8,
+                       'Particle effects: Off', small_text, background_color[0],
+                       highlight_text_color)
+
 
         # draw the back button
         screen.blit(back, back_rect)

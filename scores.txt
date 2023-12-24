@@ -1,5 +1,5 @@
-Hmm Heu Ming Remix (Rcol),97.86
 test,0.00
-Crystal,82.80
 BadApple,93.79
 Another Way,93.05
+Hmm Heu Ming Remix (Rcol),98.09
+Crystal,96.61

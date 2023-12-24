@@ -11,6 +11,7 @@ from text_writer import *
 import math
 from utility_functions import *
 from hit_effect import *
+from music_ import hit_sound
 
 class Verifier():
     def __init__(self,screen, score,speed,judgement_shown,bpm,high_quality_verifying_graphics, given_fps):
@@ -56,7 +57,8 @@ class Verifier():
 
 
     def draw_hit_effects(self,screen):
-        hit_effect(screen, self.effect_queue)
+        if self.effect_queue:
+            hit_effect(screen, self.effect_queue)
 
 
     def draw_guide_lines(self,nodes_on_screen,holds_on_screen,screen):
@@ -98,8 +100,12 @@ class Verifier():
             #print(tile_verification)
             self.tiles_to_verify.append(tile_verification)
         #print(tile_verification[0].line)
-        append_effect(self.effect_queue,  tile_verification[0].line)
-        #print(self.effect_queue)
+
+        if particle_effect[0]: # add particle only if this is true
+            if tile_verification[1][0] !='Lost': # not lost
+                hit_sound()
+                append_effect(self.effect_queue,  tile_verification[0].line)
+                #print(self.effect_queue)
 
 
 
