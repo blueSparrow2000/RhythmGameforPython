@@ -40,9 +40,13 @@ def mouse_click_sound():
 # music은 stage와 main에서만 튼다
 def music_Q(music_file,repeat = False): #현재 재생되고 있는 음악을 확인하고 음악을 틀거나 말거나 결정해야 할때 check_playing_sound = True 로 줘야 함
     global MUSIC_FOLDER
-    full_path = os.path.join(MUSIC_FOLDER, '%s.mp3'%music_file)
+    try:
+        full_path = os.path.join(MUSIC_FOLDER, '%s.mp3'%music_file)
+        pygame.mixer.music.load(full_path)
+    except:
+        full_path = os.path.join(MUSIC_FOLDER, '%s.wav'%music_file)
+        pygame.mixer.music.load(full_path)
 
-    pygame.mixer.music.load(full_path)
     song_start_time = 0 # adjust start times of the songs if needed...
     pygame.mixer.music.set_volume(1) # 0.5
 
