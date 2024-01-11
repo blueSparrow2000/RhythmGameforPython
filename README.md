@@ -34,7 +34,7 @@ This is a game made with pygame.
 
 1. Download \* & unzip file(if you used 'tag' for downloading) in your interpreter. (If you use pyCharm, then put the file in PycharmProjects folder)
 2. Go to interpreter setting and install pygame (version over 2.0.1; 2.5.2 works fine) in your interpreter (python version over 3.7)
-3. If you want to use ai-generated chart features, install music21 (latest version). You can also do this using "pip install music21".
+3. Install moviepy 
 4. Go to interpreter -> open the project (RhythmGame) -> run main.py **
 
 

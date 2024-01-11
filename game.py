@@ -18,6 +18,12 @@ from image_processor import *
 from score_viewer import *
 from chart import *
 from utility_functions import *
+import moviepy.editor
+
+video = moviepy.editor.VideoFileClip("hhmvid.mp4")
+#clip = video.fx(moviepy.editor.vfx.resize, width=width) # resize (keep aspect ratio)
+#clipresized = video.resize(width = width)
+clip = video.subclip(0,10)
 
 
 # exit할 때 해야 할 행동들을 모아놓은 함수
@@ -197,7 +203,8 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
     else:
         distributer = Distributer(stage_speed,offset,screen,chart_info[5],song_name,song_bpm,game_fps, beat_line_request=guide_line_shown)
 
-
+    clip.preview()
+    pygame.display.set_mode((width, height))
     while game_run:
         if need_music and distributer.ready:
             music_Q(song_name)

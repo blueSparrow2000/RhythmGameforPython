@@ -6,7 +6,7 @@ This file makes ai charts given a music!
 3. Translate script to chart pattern
 
 I made a code which does part 3.
-'''
+
 import os, sys
 import numpy as np
 import matplotlib.pyplot as plt
@@ -312,4 +312,4 @@ with open("%s" % full_path, "w") as f:
 
 
 
-
+'''

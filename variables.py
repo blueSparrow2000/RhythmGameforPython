@@ -18,7 +18,7 @@ stage_speed = 80
 offset = 0
 judgement_shown = False
 guide_line_shown = False
-music_pointer = 5 # 4
+music_pointer = 4 # 4
 song_name = None # as a default
 song_info_list = []
 
