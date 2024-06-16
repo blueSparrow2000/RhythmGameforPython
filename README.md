@@ -99,6 +99,10 @@ https://www.youtube.com/watch?v=ZSk3-HOd01E
 
 
 
+2024.06.16 Fixed simultaneous keys: now working properly / Minor bug fix
+
+
+
 Future updates:
 
 - Update chart patterns (more fun)
