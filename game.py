@@ -20,10 +20,10 @@ from chart import *
 from utility_functions import *
 import moviepy.editor
 
-video = moviepy.editor.VideoFileClip("hhmvid.mp4")
+# video = moviepy.editor.VideoFileClip("hhmvid.mp4")
 #clip = video.fx(moviepy.editor.vfx.resize, width=width) # resize (keep aspect ratio)
 #clipresized = video.resize(width = width)
-clip = video.subclip(0,10)
+# clip = video.subclip(0,10)
 
 
 # exit할 때 해야 할 행동들을 모아놓은 함수
@@ -203,7 +203,7 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
     else:
         distributer = Distributer(stage_speed,offset,screen,chart_info[5],song_name,song_bpm,game_fps, beat_line_request=guide_line_shown)
 
-    clip.preview()
+    # clip.preview()
     pygame.display.set_mode((width, height))
     while game_run:
         if need_music and distributer.ready:
@@ -213,8 +213,11 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
 
         screen.fill(background_color[change_background_color[0]])
 
+
+        events = pygame.event.get()
         # Event handling
-        keys = pygame.key.get_pressed()  # 꾹 누르고 있으면 계속 실행되는 것들
+        keys = pygame.key.get_pressed()  # 꾹 누르고 있으면 계속 실행되는 것들 # SHOULD BE CALLED AFTER pygame.event.get()!
+
         if keys[pygame.K_f]:
             highlight_line(screen, highlight, 1)
             if hhm_list:
@@ -232,7 +235,6 @@ def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_lin
             if hhm_list:
                 draw_hhm_key(screen, hhm_list, 3)
 
-        events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:  # 윈도우를 닫으면 종료
                 exit_game(screen, clock, song_name, score,song_difficulty,total_points)
