@@ -27,7 +27,7 @@ class Chart_Crystal():
         song_length = 101000
         song_bpm = 140 #210 #140*2 #70
         song_mpb = ((1000 * 60 / song_bpm))  # 85.7
-        song_difficulty = 4
+        song_difficulty = 3
         number_of_nodes = 211
         recommended_fps = 60
 

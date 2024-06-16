@@ -25,7 +25,7 @@ class Chart_AnotherWay():
         song_bpm = 126 #83
         cycle = 4
         song_mpb = ((1000 * 60 / song_bpm) / cycle)  # 215  # milli-seconds per beat
-        song_difficulty = 3
+        song_difficulty = 5
         number_of_nodes = 95 # 84 + 3 + 8
         recommended_fps = 60
 
