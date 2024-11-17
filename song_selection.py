@@ -59,6 +59,8 @@ def song_selection_screen(screen,clock,stage_speed, offset, judgement_shown, gui
 
     # load jacket
     global jacket_size, jacket_loc
+    height = screen.get_height()
+
     jacket_image, jacket_rect = update_jacket(song_name)
     screen.blit(jacket_image, jacket_rect)
 

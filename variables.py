@@ -63,8 +63,11 @@ button_x_size, button_y_size = 310,50
 node_height = 20
 # note that node width is equal to line_width
 
-line_length = 800
 info_length = 200
+line_lengths = [700,800]
+line_length_idx = 0 # unchanged
+line_length = line_lengths[line_length_idx]
+
 #######
 height = line_length + info_length # this is equal to 'border line' position
 #######
@@ -72,7 +75,6 @@ node_spawning_y_pos = info_length + node_height//2
 
 judgement_line_depth = node_height//2 + int(5 * (1000/60))  #node_height//2 + int(5 * (1000/fps)) # node_height//2 + ((max_speed//2) * (1000/fps))
 judgement_line = height - judgement_line_depth  # max_speed 로 (1000/fps)*10 밀리초간 이동한 거리까지 화면에 보여줌
-
 
 # frame settings
 guide_keys = ['F','G','H','J']

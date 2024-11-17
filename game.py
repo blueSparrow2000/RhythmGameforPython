@@ -25,7 +25,6 @@ import moviepy.editor
 #clipresized = video.resize(width = width)
 # clip = video.subclip(0,10)
 
-
 # exit할 때 해야 할 행동들을 모아놓은 함수
 def exit_game(screen, clock, song_name, score,song_difficulty,total_points):
     global change_background_color
@@ -143,6 +142,7 @@ def calc_song_progress_percent(song_length,song_start_time,current_time):  # ret
 
 def run_FGHJ(screen,clock,song_name,stage_speed,offset,judgement_shown,guide_line_shown,high_quality_verifying_graphics):
     global bar_color, wait_delay, change_background_color
+
     game_run = True
     score = [0]
     chart_info = get_chart(song_name)
@@ -391,7 +391,7 @@ def draw_progress_bar(screen, song_progress, x,y):
 
 
 def draw_frame(screen):
-    global frame_alpha,frame_alpha_max,frame_phase,frame_grad_color,change_background_color
+    global height, frame_alpha,frame_alpha_max,frame_phase,frame_grad_color,change_background_color
     frame_line_width = 4
     frame_line_half = frame_line_width//2
 

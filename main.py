@@ -34,7 +34,7 @@ clock = pygame.time.Clock()
 
 screen = pygame.display.set_mode((width, height))  # window 생성
 pygame.display.set_caption('Rythm Game')  # window title
-width, height = pygame.display.get_surface().get_size()  # window width, height
+# width, height = pygame.display.get_surface().get_size()  # window width, height
 
 screen.fill(background_color[0])  # background color
 
@@ -45,6 +45,8 @@ meta_run = True
 def exit():
     pygame.quit()
     return False, False
+
+
 
 while meta_run:
     global stage_speed, offset, judgement_shown, guide_line_shown, high_quality_verifying_graphics, music_list, music_pointer, song_name
@@ -84,6 +86,21 @@ while meta_run:
                         #print(music_list, music_pointer, song_name)
                         break
 
+                # if abs(xp - width // 2) < big_text * 3:  # toggle screen size: bugged
+                #     if abs(yp - 700) < big_text // 2:
+                #
+                #         old_screen_saved = screen
+                #         line_length_idx = (line_length_idx+1)%len(line_lengths)
+                #         line_length = line_lengths[line_length_idx]
+                #
+                #         height = line_length + info_length  # this is equal to 'border line' position
+                #         print(line_length_idx, height)
+                #         screen = pygame.display.set_mode((width, height),
+                #                                           pygame.RESIZABLE)
+                #         # On the next line, if only part of the window
+                #         # needs to be copied, there's some other options.
+                #         screen.blit(old_screen_saved, (0, 0))
+                #         del old_screen_saved
 
 
             if event.type == pygame.KEYDOWN:
@@ -121,6 +138,11 @@ while meta_run:
                    'Song selection', big_text, background_color[0],
                    highlight_text_color)
         pygame.draw.rect(screen, highlight_text_color, [width//4 - big_text,  song_selection_key_y_level - button_y_offset, button_x_size, button_y_size], 4,8)
+
+        # write_text(screen, width // 2, 700,
+        #            'toggle screen size', small_text, background_color[0],
+        #            highlight_text_color)
+
 
         write_text(screen, width // 2, height-small_text*4, 'How to play: ', small_text, background_color[0],
                    highlight_text_color)

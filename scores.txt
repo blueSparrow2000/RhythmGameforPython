@@ -1,4 +1,9 @@
 NyanCat (Neuro)_A,0.00
 Drops of H2O,0.00
-Destructoid,0.00
-Hmm Heu Ming Remix (Rcol),98.59
+test,0.00
+Hmm Heu Ming Remix (Rcol),98.94
+Waikiki,10.53
+Destructoid,66.67
+BadApple,97.12
+Crystal,98.77
+Another Way,58.37

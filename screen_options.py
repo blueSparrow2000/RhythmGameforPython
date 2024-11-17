@@ -106,7 +106,6 @@ def option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_
                         particle_effect[0] = not particle_effect[0]
 
 
-
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE or event.key == pygame.K_RETURN:
                     option_screen_run = False
@@ -166,6 +165,7 @@ def option_screen(screen,clock,stage_speed, offset, judgement_shown, guide_line_
         write_text(screen, width // 2, toggle_y_level + mode_location_offset['Giant'] - big_text,
                    '<Update chart>', small_text, background_color[0],
                    highlight_text_color)
+
 
 
         if judgement_shown:
